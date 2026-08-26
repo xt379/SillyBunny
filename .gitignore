@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+bun.lockb
+bun.lock
+
+# User data (kept on server volumes, not in git)
+data/
+backups/
+uploads/
+secrets/
+secrets.json
+*.secret
+
+# User config (generated from default/config.yaml on first run)
+/config.yaml
+/config/
+
+# Third-party extensions (installed at runtime)
+public/scripts/extensions/third-party/
+
+# Logs
+*.log
+logs/
+
+# Runtime / OS
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+
+# IDE
+.vscode/
+.idea/
+
+# Local PWA cache (regenerated)
+public/sw.js

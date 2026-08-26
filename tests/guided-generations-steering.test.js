@@ -1,0 +1,177 @@
+/* global globalThis */
+import { describe, test, expect, jest, beforeEach } from '@jest/globals';
+
+function createEventSource() {
+    const handlers = new Map();
+
+    return {
+        once: jest.fn((event, handler) => {
+            const eventHandlers = handlers.get(event) ?? [];
+            eventHandlers.push(handler);
+            handlers.set(event, eventHandlers);
+        }),
+        removeListener: jest.fn((event, handler) => {
+            const eventHandlers = handlers.get(event) ?? [];
+            handlers.set(event, eventHandlers.filter(item => item !== handler));
+        }),
+        emit: jest.fn(async (event, ...args) => {
+            const eventHandlers = [...(handlers.get(event) ?? [])];
+            handlers.set(event, []);
+            for (const handler of eventHandlers) {
+                await handler(...args);
+            }
+        }),
+    };
+}
+
+describe('Guided Generations steering commands', () => {
+    let textarea;
+    let context;
+    let eventSource;
+    let eventTypes;
+    let extensionSettings;
+
+    beforeEach(async () => {
+        jest.resetModules();
+        jest.useRealTimers();
+
+        class TestTextAreaElement {}
+        globalThis.HTMLTextAreaElement = TestTextAreaElement;
+        globalThis.Event = class Event {
+            constructor(type, options = {}) {
+                this.type = type;
+                this.options = options;
+            }
+        };
+
+        textarea = new TestTextAreaElement();
+        textarea.value = 'aim for a colder, suspicious reply';
+        textarea.dispatchEvent = jest.fn();
+
+        eventTypes = {
+            GENERATION_ENDED: 'generation_ended',
+            GENERATION_STOPPED: 'generation_stopped',
+            MESSAGE_SWIPED: 'message_swiped',
+        };
+        eventSource = createEventSource();
+
+        context = {
+            chat: [{ name: 'Bot', mes: 'Previous reply', swipes: ['Previous reply'], swipe_id: 0 }],
+            chatMetadata: { script_injects: {} },
+            executeSlashCommandsWithOptions: jest.fn(async (command) => {
+                const injectMatch = String(command).match(/\/inject id=([^\s|]+)/);
+                if (injectMatch) {
+                    context.chatMetadata.script_injects[injectMatch[1]] = { value: command };
+                }
+
+                const flushMatch = String(command).match(/\/flushinject ([^\s|]+)/);
+                if (flushMatch) {
+                    delete context.chatMetadata.script_injects[flushMatch[1]];
+                }
+            }),
+            groupId: null,
+            groups: [],
+            messageFormatting: jest.fn(value => value),
+            swipe: {
+                right: jest.fn(() => {
+                    setTimeout(() => eventSource.emit(eventTypes.GENERATION_ENDED), 0);
+                }),
+            },
+        };
+        extensionSettings = {
+            'guided-generations': {
+                injectionEndRole: 'assistant',
+                depthPromptGuidedResponse: 2,
+                depthPromptGuidedSwipe: 3,
+                promptGuidedResponse: 'GUIDE: {{input}}',
+                promptGuidedSwipe: 'SWIPE GUIDE: {{input}}',
+            },
+        };
+
+        globalThis.document = {
+            getElementById: jest.fn(id => id === 'send_textarea' ? textarea : null),
+            querySelector: jest.fn(() => null),
+        };
+        globalThis.alert = jest.fn();
+
+        await jest.unstable_mockModule('../public/script.js', () => ({
+            eventSource,
+            event_types: eventTypes,
+        }));
+        await jest.unstable_mockModule('../public/scripts/extensions.js', () => ({
+            extension_settings: extensionSettings,
+            getContext: jest.fn(() => context),
+        }));
+        await jest.unstable_mockModule('../public/scripts/extensions/guided-generations/scripts/presetUtils.js', () => ({
+            getCurrentProfile: jest.fn(async () => ''),
+            getCurrentProfileId: jest.fn(async () => ''),
+            getPresetsForApiType: jest.fn(async () => []),
+            getProfileApiType: jest.fn(async () => ''),
+            getProfileById: jest.fn(() => null),
+            getProfileList: jest.fn(async () => []),
+            handleSwitching: jest.fn(async () => ({ switch: jest.fn(), restore: jest.fn() })),
+            resolveStoredProfile: jest.fn(() => null),
+        }));
+    });
+
+    test('guided response injects guidance only for the awaited generation', async () => {
+        const { guidedResponse } = await import('../public/scripts/extensions/guided-generations/scripts/guidedResponse.js');
+
+        await guidedResponse();
+
+        expect(context.executeSlashCommandsWithOptions).toHaveBeenCalledTimes(2);
+        const command = context.executeSlashCommandsWithOptions.mock.calls[0][0];
+        expect(command).toContain('/inject id=gg-guided-response position=chat ephemeral=true scan=true depth=2 role=assistant GUIDE: aim for a colder, suspicious reply|');
+        expect(command).toContain('/trigger await=true|');
+        expect(context.executeSlashCommandsWithOptions).toHaveBeenLastCalledWith('/flushinject gg-guided-response');
+        expect(context.chatMetadata.script_injects['gg-guided-response']).toBeUndefined();
+        expect(textarea.value).toBe('aim for a colder, suspicious reply');
+        expect(textarea.dispatchEvent).toHaveBeenCalledWith(expect.objectContaining({ type: 'input' }));
+    });
+
+    test('guided swipe keeps guidance injected until the swipe generation starts', async () => {
+        const { guidedSwipe } = await import('../public/scripts/extensions/guided-generations/scripts/guidedSwipe.js');
+
+        await guidedSwipe();
+
+        expect(context.executeSlashCommandsWithOptions).toHaveBeenCalledWith('/inject id=gg-guided-swipe position=chat ephemeral=true scan=true depth=3 role=assistant SWIPE GUIDE: aim for a colder, suspicious reply |');
+        expect(context.swipe.right).toHaveBeenCalledTimes(1);
+        expect(context.executeSlashCommandsWithOptions).toHaveBeenLastCalledWith('/flushinject gg-guided-swipe');
+        expect(context.chatMetadata.script_injects['gg-guided-swipe']).toBeUndefined();
+        expect(textarea.value).toBe('aim for a colder, suspicious reply');
+        expect(textarea.dispatchEvent).toHaveBeenCalledWith(expect.objectContaining({ type: 'input' }));
+    });
+
+    test.each([
+        ['first', 'FIRST PERSON: {{input}}'],
+        ['second', 'SECOND PERSON: {{input}}'],
+        ['third', 'THIRD PERSON: {{input}}'],
+    ])('guided impersonate lets the prompt control %s-person perspective', async (_, promptTemplate) => {
+        extensionSettings['guided-generations'].promptImpersonate1st = promptTemplate;
+        extensionSettings['guided-generations'].helperPrefillMessages = `[system]
+Stay terse.
+
+[assistant]
+I | begin`;
+
+        const { guidedImpersonate } = await import('../public/scripts/extensions/guided-generations/scripts/guidedImpersonate.js');
+
+        await guidedImpersonate();
+
+        expect(context.executeSlashCommandsWithOptions).toHaveBeenCalledTimes(1);
+        const command = context.executeSlashCommandsWithOptions.mock.calls[0][0];
+        expect(command).toContain('/inject id=gg-impersonate-voice position=chat ephemeral=true scan=true depth=0 role=system Guided Impersonate: generate only the next text-box message for {{user}}.');
+        expect(command).toContain('The guided impersonation prompt is authoritative for grammatical person, narration style, length, and exclusions.');
+        expect(command).toContain('If it asks for first, second, or third person, follow that requested perspective exactly.');
+        expect(command).not.toContain('write only as {{user}} in first person');
+        expect(command).toContain('/impersonate await=true Follow the guided impersonation prompt exactly when generating {{user}}\'s next text-box message.');
+        expect(command).toContain('<guided_impersonation_prompt>');
+        expect(command).toContain(promptTemplate.replace('{{input}}', 'aim for a colder, suspicious reply'));
+        expect(command).toContain('</guided_impersonation_prompt>');
+        expect(command).toContain('<helper_prefill_context>');
+        expect(command).toContain('SYSTEM:\nStay terse.');
+        expect(command).toContain('ASSISTANT:\nI \\| begin');
+        expect(command).toContain('</helper_prefill_context>');
+        expect(command).toContain('/flushinject gg-impersonate-voice |');
+    });
+});
