@@ -37,6 +37,11 @@ start_sillybunny() {
         SERVER_ARGS="$SERVER_ARGS --port ${APP_PORT}"
     fi
 
+    # Skip webpack rebuild at startup if dist exists (Docker build already compiled)
+    if [ -d "dist/_webpack" ]; then
+        echo "[SillyBunny] Precompiled webpack output found in dist/_webpack, skipping rebuild"
+    fi
+
     # Pass through any additional arguments
     if [ -n "$*" ]; then
         SERVER_ARGS="$SERVER_ARGS $*"
