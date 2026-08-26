@@ -30,10 +30,11 @@ start_sillybunny() {
     # Build server arguments
     local SERVER_ARGS="--listen"
 
-    # If Railway provides a port, use it
-    if [ -n "${RAILWAY_PORT:-}" ]; then
-        echo "[SillyBunny] Railway port detected: ${RAILWAY_PORT}"
-        SERVER_ARGS="$SERVER_ARGS --port ${RAILWAY_PORT}"
+    # Railway provides PORT env var; also check RAILWAY_PORT as fallback
+    local APP_PORT="${PORT:-${RAILWAY_PORT:-}}"
+    if [ -n "${APP_PORT}" ]; then
+        echo "[SillyBunny] Cloud port detected: ${APP_PORT}"
+        SERVER_ARGS="$SERVER_ARGS --port ${APP_PORT}"
     fi
 
     # Pass through any additional arguments
