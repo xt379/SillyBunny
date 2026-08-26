@@ -27,16 +27,30 @@ start_sillybunny() {
     # Execute init script to auto-populate config.yaml with missing values
     $PREFIX bun run init
 
+    # Build server arguments
+    local SERVER_ARGS="--listen"
+
+    # If Railway provides a port, use it
+    if [ -n "${RAILWAY_PORT:-}" ]; then
+        echo "[SillyBunny] Railway port detected: ${RAILWAY_PORT}"
+        SERVER_ARGS="$SERVER_ARGS --port ${RAILWAY_PORT}"
+    fi
+
+    # Pass through any additional arguments
+    if [ -n "$*" ]; then
+        SERVER_ARGS="$SERVER_ARGS $*"
+    fi
+
     # Start the server
     if is_truthy "${SILLYBUNNY_BUN_SMOL:-}"; then
         # Bun grows the JSC heap freely while RAM looks plentiful, which reads as
         # a leak under a container memory cap. --smol trades throughput for much
         # more aggressive GC.
         echo "[SillyBunny] SILLYBUNNY_BUN_SMOL set — starting Bun in low-memory mode (--smol)."
-        exec $PREFIX bun --smol server.js --listen "$@"
+        exec $PREFIX bun --smol server.js $SERVER_ARGS
     fi
 
-    exec $PREFIX bun server.js --listen "$@"
+    exec $PREFIX bun server.js $SERVER_ARGS
 }
 
 # Dirs that MUST be present at this point (e.g for volumeless docker runs).
