@@ -44,12 +44,12 @@ export {
     parseCommandArgs,
 } from './generation-utils.js';
 
-// SillyBunny: Conversation Mode diverges from the global connection-profile
+// Fairy: Conversation Mode diverges from the global connection-profile
 // switch pattern. Instead of flipping the active profile via /profile around
 // each generation, we issue a scoped request through ConnectionManagerRequestService
 // so the global selectedProfile (and the visible dropdown) never changes.
 /**
- * SillyBunny: generate Conversation Mode text using the configured connection
+ * Fairy: generate Conversation Mode text using the configured connection
  * profile WITHOUT switching the global selected profile. Resolves the profile
  * by name and routes through ConnectionManagerRequestService.sendRequest so no
  * global state is mutated. Falls back to generateRaw (the active profile) when

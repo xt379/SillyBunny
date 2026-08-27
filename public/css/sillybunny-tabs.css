@@ -1,5 +1,5 @@
 /* =============================================================================
-   SillyBunny Navigation Shell
+   Fairy Navigation Shell
    ============================================================================= */
 
 :root {
@@ -195,7 +195,7 @@
 }
 
 /* Pre-hide old ST drawer toggles before shell JS runs. */
-/* SillyBunny: scope to native drawer IDs only; allow third-party extension buttons to remain visible. */
+/* Fairy: scope to native drawer IDs only; allow third-party extension buttons to remain visible. */
 #top-settings-holder > #ai-config-button > .drawer-toggle,
 #top-settings-holder > #sys-settings-button > .drawer-toggle,
 #top-settings-holder > #advanced-formatting-button > .drawer-toggle,
@@ -211,7 +211,7 @@
  * Keep closed top-bar drawers fully inert from first paint onward.
  * This prevents invisible shells from stealing clicks over the top bar.
  */
-/* SillyBunny: scope to native drawer IDs only; allow third-party extension drawers to function. */
+/* Fairy: scope to native drawer IDs only; allow third-party extension drawers to function. */
 #top-settings-holder > #ai-config-button > .drawer-content.closedDrawer:not(.openDrawer),
 #top-settings-holder > #sys-settings-button > .drawer-content.closedDrawer:not(.openDrawer),
 #top-settings-holder > #advanced-formatting-button > .drawer-content.closedDrawer:not(.openDrawer),
@@ -226,7 +226,7 @@
 }
 
 /*
- * SillyBunny: ghost-toggle for the native Characters drawer toggle.
+ * Fairy: ghost-toggle for the native Characters drawer toggle.
  * Extensions like CharacterLibrary anchor dropdowns to the native toggle's (or its icon child's) bounding rect.
  * Critical hiding properties (visibility, pointer-events) are applied via inline styles in hideHostToggles()
  * to stay within the CSS ratchet budget; this class serves as a semantic marker and default.
@@ -252,7 +252,7 @@
 }
 
 /*
- * SillyBunny: allow extension drawers (non-native) to be clickable despite parent pointer-events: none.
+ * Fairy: allow extension drawers (non-native) to be clickable despite parent pointer-events: none.
  * The box normalization matters as much as the pointer-events: upstream's bare `.drawer { width: 100% }`
  * makes an injected drawer the only non-zero flex child of this fixed full-width strip, which then paints
  * over the whole top bar and swallows every click. adoptTopbarExtensionNodes() moves these into the bar
@@ -1502,7 +1502,7 @@ body:not(.movingUI) .drawer-content.maximized {
 }
 
 /*
- * SillyBunny: third-party top-bar buttons are adopted into this slot by
+ * Fairy: third-party top-bar buttons are adopted into this slot by
  * adoptTopbarExtensionNodes() so they become real members of the bar rather than overlays
  * floating above it. Every selector here carries the slot id, which outranks upstream's bare
  * `.drawer` / `.drawer-icon` / `.menu_button` rules on specificity alone.
@@ -1561,7 +1561,7 @@ body:not(.movingUI) .drawer-content.maximized {
 }
 
 /*
- * SillyBunny: CharacterLibrary anchors its embedded panel to --topBarBlockSize, which only
+ * Fairy: CharacterLibrary anchors its embedded panel to --topBarBlockSize, which only
  * covers the primary row; when the chat bar row is showing, the panel painted over the bottom
  * of the bar. Scoping the variable to the container re-anchors both its inline top and height.
  * The max() is needed because neither input alone clears the bar in every state: on phones the
@@ -6207,7 +6207,7 @@ body #right-nav-panel #HotSwapWrapper .hotswap > :is(.avatar, .character_select,
     margin: 0;
 }
 
-/* SillyBunny: WebKit keeps flex children at min-width:auto in this sticky header; keep the token text shrinkable and every action icon in a fixed touch target. */
+/* Fairy: WebKit keeps flex children at min-width:auto in this sticky header; keep the token text shrinkable and every action icon in a fixed touch target. */
 #right-nav-panel:is([data-menu-type="character_edit"], [data-menu-type="create"]) #rm_button_selected_ch,
 #right-nav-panel:is([data-menu-type="character_edit"], [data-menu-type="create"]) #result_info,
 #right-nav-panel:is([data-menu-type="character_edit"], [data-menu-type="create"]) #result_info_text {
@@ -8015,7 +8015,7 @@ body #right-nav-panel #HotSwapWrapper .hotswap > :is(.avatar, .character_select,
         z-index: var(--sb-z-popout) !important;
     }
 
-    /* SillyBunny: scope to native drawer IDs; allow third-party extension drawers to render on iOS. */
+    /* Fairy: scope to native drawer IDs; allow third-party extension drawers to render on iOS. */
     #top-settings-holder > #ai-config-button:not(.sb-embedded-drawer),
     #top-settings-holder > #sys-settings-button:not(.sb-embedded-drawer),
     #top-settings-holder > #advanced-formatting-button:not(.sb-embedded-drawer),

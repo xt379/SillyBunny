@@ -1044,7 +1044,7 @@ const TEMPLATE_BROWSER_CATEGORY_LABELS = {
 };
 
 function getTemplateBrowserCategoryOrder(templateList = templates) {
-    // SillyBunny: 'custom' stays in AGENT_CATEGORIES as a fallback for user/saved
+    // Fairy: 'custom' stays in AGENT_CATEGORIES as a fallback for user/saved
     // agents even though no bundled templates ship in that category anymore.
     // Former custom-category templates (HTML Toggle, Friction Mode, NPC Profile
     // Cards, etc.) have been reclassified into content and tracker.
@@ -1860,7 +1860,7 @@ async function purgeRemovedBundledAgents() {
         const agentName = String(agent?.name ?? '').trim().toLowerCase();
         const agentAuthor = String(agent?.author ?? '').trim().toLowerCase();
         const isRemovedBundledAgent = REMOVED_BUNDLED_TEMPLATE_IDS.has(sourceTemplateId)
-            || (REMOVED_BUNDLED_AGENT_NAMES.has(agentName) && agentAuthor === 'sillybunny');
+            || (REMOVED_BUNDLED_AGENT_NAMES.has(agentName) && agentAuthor === 'Fairy');
 
         if (!isRemovedBundledAgent) {
             continue;
@@ -4722,7 +4722,7 @@ function normalizeCompanionKitResponse(rawResult, fallbackKit) {
 
 async function generateCompanionKitWithAI({ agentName, description, currentPrompt, goalText, connectionProfile = '' }) {
     const fallbackKit = buildCompanionFallbackKit({ agentName, description, currentPrompt, goalText });
-    const systemPrompt = `You build companion agents for SillyBunny's in-chat agents extension. Return strict JSON only, with no markdown fences and no explanation.
+    const systemPrompt = `You build companion agents for Fairy's in-chat agents extension. Return strict JSON only, with no markdown fences and no explanation.
 
 The JSON shape must be:
 {
@@ -5430,7 +5430,7 @@ async function generateTrackerKitWithAI({
         throw new Error('Tracker format example is missing a valid opening tag.');
     }
 
-    const systemPrompt = `You build custom tracker agent kits for SillyBunny's in-chat agents extension. Return strict JSON only, with no markdown fences and no explanation.
+    const systemPrompt = `You build custom tracker agent kits for Fairy's in-chat agents extension. Return strict JSON only, with no markdown fences and no explanation.
 
 The JSON shape must be:
 {
@@ -5466,7 +5466,7 @@ Requirements:
 - regexScripts must be valid ST-style regex scripts for AI output rendering.
 - Use inline HTML/CSS only in replaceString. No script tags.
 - Preserve the tracker's body text in the rendered output; do not drop note/detail lines.
-- Keep the rendered output compact, readable, and visually consistent with SillyBunny's existing tracker cards.
+- Keep the rendered output compact, readable, and visually consistent with Fairy's existing tracker cards.
 - Prefer one regex script unless multiple variants are genuinely needed.
 - Escape backslashes correctly for JSON.`;
 

@@ -222,7 +222,7 @@ function getShortcutConfig(target) {
 }
 
 function migrateLegacyWorldInfoRoute(target) {
-    // SillyBunny: migrate saved pre-relocation World Info shortcuts to the
+    // Fairy: migrate saved pre-relocation World Info shortcuts to the
     // Characters panel tab instead of reviving the old left-shell route.
     return target === 'left:world-info' ? 'characters:world-info' : target;
 }
@@ -372,7 +372,7 @@ function safeRemoveItem(key) {
 
 bindSbStorageFlushEvents();
 
-const SB_IDLE_BRAND_LABEL = 'SillyBunny';
+const SB_IDLE_BRAND_LABEL = 'Fairy';
 const SB_MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 const SB_SURFACE_TRANSPARENCY = Object.freeze({
     min: 0,
@@ -616,7 +616,7 @@ const SB_SHELLS = Object.freeze({
             id: 'settings',
             label: 'Settings',
             icon: 'fa-screwdriver-wrench',
-            description: 'Modify and customise SillyBunny\'s general appearance and configuration here.',
+            description: 'Modify and customise Fairy\'s general appearance and configuration here.',
             searchPlaceholder: 'Search Appearance, top bar, chat style, blur, or update notices',
             searchExamples: ['theme', 'top bar', 'Appearance', 'notify extension updates'],
         },
@@ -626,7 +626,7 @@ const SB_SHELLS = Object.freeze({
                 drawerId: 'extensions-settings-button',
                 label: 'Extensions',
                 icon: 'fa-cubes',
-                description: 'Install, manage, and configure SillyTavern extensions here. Backwards compatibility isn\'t guaranteed, but should be applicable.',
+                description: 'Install, manage, and configure Fairy extensions here. Backwards compatibility isn\'t guaranteed, but should be applicable.',
                 searchPlaceholder: 'Search themes, Quick Reply, Dialogue Colors, or Image Gen',
                 searchExamples: ['themes', 'Quick Reply', 'Dialogue Colors', 'Image Gen'],
             },
@@ -645,7 +645,7 @@ const SB_SHELLS = Object.freeze({
                 id: 'server',
                 label: 'Server',
                 icon: 'fa-server',
-                description: 'Edit SillyBunny backend settings and configuration here.',
+                description: 'Edit Fairy backend settings and configuration here.',
                 searchPlaceholder: 'Search update, restart, config.yaml, or branch',
                 searchExamples: ['update', 'restart', 'config.yaml', 'branch'],
             },
@@ -653,7 +653,7 @@ const SB_SHELLS = Object.freeze({
                 id: 'console-logs',
                 label: 'Console Logs',
                 icon: 'fa-terminal',
-                description: 'View all SillyBunny logs for easy troubleshooting here.',
+                description: 'View all Fairy logs for easy troubleshooting here.',
                 searchPlaceholder: 'Search error, warning, npm, bun, or extension logs',
                 searchExamples: ['error', 'warning', 'npm', 'bun'],
             },
@@ -744,7 +744,7 @@ const SB_MOBILE_NAV_PAGE_TARGETS = Object.freeze([
     { value: 'right:console-logs', shellKey: 'right', tabId: 'console-logs', label: 'Console Logs', icon: 'fa-terminal' },
 ]);
 
-// SillyBunny: the optional icons-only top bar does not pool every page into one strip. It expands
+// Fairy: the optional icons-only top bar does not pool every page into one strip. It expands
 // each section in place into that section's own pages, so the bar keeps the skeleton PRODUCT.md
 // prescribes and each cluster stays readable as its own zone. Labels and icons resolve from
 // SB_SHELLS / SB_CHARACTER_PANEL_TABS at build time so a cluster cannot drift when a page is
@@ -790,7 +790,7 @@ const SB_TOPBAR_CLUSTERS = Object.freeze([
 ]);
 const SB_TOPBAR_PAGE_TARGETS = Object.freeze(SB_TOPBAR_CLUSTERS.flatMap(cluster => cluster.pages));
 
-// SillyBunny: Home and Characters remain as Layer 2 anchors. Workspace and Customize are redundant
+// Fairy: Home and Characters remain as Layer 2 anchors. Workspace and Customize are redundant
 // once all of their pages are shown, so CSS hides those two only while icons-only mode is active.
 const SB_TOPBAR_ANCHOR_IDS = Object.freeze([
     'sb-home-toggle',
@@ -1292,7 +1292,7 @@ function migrateLegacyMobileQuickAction(action) {
         return action;
     }
 
-    // SillyBunny: account storage may still contain the pre-relocation mobile
+    // Fairy: account storage may still contain the pre-relocation mobile
     // World Info route; normalize it to the Characters tab on read.
     const legacyShellKey = normalizeText(action.shellKey || action.shell);
     const legacyTabId = normalizeText(action.tabId || action.tab);
@@ -2010,7 +2010,7 @@ function setCompactMode(enabled, { persist = true } = {}) {
     updateThemePickerUi();
 }
 
-// SillyBunny: the icons-only top bar is stored per device -- the Desktop Navigation copy governs
+// Fairy: the icons-only top bar is stored per device -- the Desktop Navigation copy governs
 // desktop viewports and the Mobile Navigation copy governs phones -- so turning the dense bar on
 // for a phone does not also restyle the desktop, and vice versa. Only the viewport's own setting
 // is ever in force.
@@ -2121,7 +2121,7 @@ function setCharacterDrawerRightLock(enabled, { persist = true } = {}) {
 /*
  * Identity-based ownership for the top-bar adoption pass. An id prefix is spoofable and absent
  * on id-less nodes, so registering what our own factory built is the only reliable test. Any
- * future SillyBunny element that becomes a direct child of #top-bar or #top-settings-holder
+ * future Fairy element that becomes a direct child of #top-bar or #top-settings-holder
  * must come from createElement() or it will be adopted as if it were third-party markup.
  */
 const sbOwnedElements = new WeakSet();
@@ -2420,7 +2420,7 @@ function getShellProxyButton(shellKey) {
         return proxyButton;
     }
 
-    // SillyBunny: Workspace and Customize are hidden in icons-only mode, and Workspace is also
+    // Fairy: Workspace and Customize are hidden in icons-only mode, and Workspace is also
     // hidden on phones. Fall back to the cluster icon so focus does not silently drop to <body>.
     const activeTabId = getShellState(shellKey)?.activeTabId;
     const pageButton = activeTabId
@@ -2709,7 +2709,7 @@ function isVisualViewportKeyboardOpen(layoutViewport = getLayoutViewportSize(), 
 }
 
 /**
- * SillyBunny: old iOS versions can force-scroll the document to reveal the
+ * Fairy: old iOS versions can force-scroll the document to reveal the
  * composer caret. Shrink the stable shell by the keyboard height before that
  * reveal while preserving the modern viewport behavior on iOS 26 and newer.
  */
@@ -2782,7 +2782,7 @@ function syncIOSKeyboardBottomInset() {
         root.style.setProperty('--sb-ios-keyboard-bottom-inset', value);
     }
 
-    // SillyBunny: the <=768px shell CSS consumes the inset var directly; wide
+    // Fairy: the <=768px shell CSS consumes the inset var directly; wide
     // viewports (iPadOS desktop-mode Safari) gate the padding on this class so
     // desktop layouts only pick it up while the software keyboard is open.
     root.classList.toggle('sb-ios-keyboard-inset-active', bottomInset > 0);
@@ -2798,7 +2798,7 @@ function getShellViewportSize() {
         return { ...layoutViewport, height, bottom: height };
     }
 
-    // SillyBunny: iOS keyboard edits inside shell panels or the chat composer
+    // Fairy: iOS keyboard edits inside shell panels or the chat composer
     // should not feed Safari visualViewport jitter back into shell geometry.
     // Keep layout stable while focused panel scrolling still uses visualViewport.
     if (shouldUseStableIOSPanelViewport(layoutViewport, visualViewportSize)) {
@@ -2825,11 +2825,11 @@ function syncShellViewportBounds() {
     setRootViewportProperty('--sb-shell-viewport-height', `${viewportSize.height}px`);
     setRootViewportProperty('--sb-shell-measured-top-offset', `${topOffset}px`);
     setRootViewportProperty('--sb-shell-available-height', `${Math.max(0, viewportSize.height - topOffset)}px`);
-    // SillyBunny: iOS Safari shifts the visual viewport while the keyboard opens;
+    // Fairy: iOS Safari shifts the visual viewport while the keyboard opens;
     // keyboard edit paths intentionally keep the stable layout top.
     setRootViewportProperty('--sb-shell-viewport-top', `${viewportSize.top}px`);
 
-    // SillyBunny: browser-fixes.js may reset document scroll mid-edit once the
+    // Fairy: browser-fixes.js may reset document scroll mid-edit once the
     // legacy shell has moved the focused composer above the keyboard.
     const composerKeyboardInset = getComposerKeyboardInset(getLayoutViewportSize(), getVisualViewportSize());
     root.classList.toggle('sb-ios-composer-keyboard-inset-active', composerKeyboardInset > 0);
@@ -2882,7 +2882,7 @@ function syncMobileFocusedInputScroll(target = document.activeElement) {
 let sbMobileFocusedInputScrollTimer = null;
 
 /**
- * SillyBunny: on mobile the body is fixed/clip, so the browser cannot scroll a
+ * Fairy: on mobile the body is fixed/clip, so the browser cannot scroll a
  * focused input above the virtual keyboard the way a normal page would. Follow
  * the keyboard's visual viewport updates until Safari finishes its animation.
  */
@@ -2959,7 +2959,7 @@ function clearAllMobilePopupKeyboardShifts(except = null) {
 }
 
 /**
- * SillyBunny: popup dialogs are centered against the layout viewport, which
+ * Fairy: popup dialogs are centered against the layout viewport, which
  * does not shrink with the virtual keyboard (interactive-widget=resizes-visual).
  * When a focused popup input sits behind the keyboard, the browser pans the
  * visual viewport to reveal it, pushing the top bar off screen (e.g. the
@@ -3237,7 +3237,7 @@ function getResolvedShellTopbarOffset() {
         ? Math.max(0, Math.round(readFiniteViewportNumber(docEl.getBoundingClientRect().top, 0)))
         : 0;
 
-    // SillyBunny: on mobile the shell's own rect.top is driven by the very
+    // Fairy: on mobile the shell's own rect.top is driven by the very
     // CSS var this function feeds back into (--sb-shell-measured-top-offset),
     // so reading it creates a feedback loop. If an overscroll momentarily
     // displaces the shell (e.g. iOS rubber-band), the displaced value is
@@ -3390,7 +3390,7 @@ function getDesktopShellDimensions(shellKey = '') {
         };
     }
 
-    // SillyBunny: cap shell width to the active chat width (--sheldWidth) so settings
+    // Fairy: cap shell width to the active chat width (--sheldWidth) so settings
     // panels narrow when the user reduces the chat width, matching standard ST behaviour.
     const sheldWidthStr = window.getComputedStyle(document.documentElement).getPropertyValue('--sheldWidth').trim();
     const sheldWidthVw = parseFloat(sheldWidthStr);
@@ -4343,7 +4343,7 @@ function getCookieClearNames(cookieName) {
     return [...names];
 }
 
-// SillyBunny: iOS WebKit keeps cookies outside cache/storage APIs, so expire them explicitly.
+// Fairy: iOS WebKit keeps cookies outside cache/storage APIs, so expire them explicitly.
 function clearAllBrowserCookies() {
     if (!document.cookie) {
         return 0;
@@ -4379,12 +4379,12 @@ function clearAllBrowserCookies() {
 async function confirmClearCookiesAndCache() {
     const context = getSillyTavernContext();
     if (!context?.Popup?.show?.confirm) {
-        return window.confirm('Clear cookies & cache? This removes browser-accessible SillyBunny cookies and cached UI data, then reloads the page.');
+        return window.confirm('Clear cookies & cache? This removes browser-accessible Fairy cookies and cached UI data, then reloads the page.');
     }
 
     const result = await context?.Popup?.show?.confirm?.(
         'Clear cookies & cache?',
-        'This removes browser-accessible SillyBunny cookies, browser cache, temporary session data, and IndexedDB cache stores, then reloads the page. Saved settings and account data stay intact, but you may need to sign in again if your setup uses browser cookies.',
+        'This removes browser-accessible Fairy cookies, browser cache, temporary session data, and IndexedDB cache stores, then reloads the page. Saved settings and account data stay intact, but you may need to sign in again if your setup uses browser cookies.',
         {
             okButton: 'Clear cookies & cache',
             cancelButton: 'Cancel',
@@ -4452,7 +4452,7 @@ async function handleClearCookiesAndCacheClick(event) {
 
         const serverCookieResult = await clearServerCookies();
         const clearedCookieCount = clearAllBrowserCookies();
-        globalThis.toastr?.success?.('Cookies and cache cleared. Reloading SillyBunny...', 'Cookies cleared');
+        globalThis.toastr?.success?.('Cookies and cache cleared. Reloading Fairy...', 'Cookies cleared');
         console.info(`[Cache] Expired ${clearedCookieCount} browser cookies and queued ${serverCookieResult?.expirationAttempts ?? 0} server cookie expirations before reload`);
         window.setTimeout(() => window.location.reload(), 1000);
     } catch (error) {
@@ -4843,7 +4843,7 @@ function bindTopBarBrand() {
         resetTopBarLabelCycle({ refresh: false });
         refreshWithContext();
     };
-    // SillyBunny: top-bar taps only preview alternate labels; chat/context moves restore configured text.
+    // Fairy: top-bar taps only preview alternate labels; chat/context moves restore configured text.
     const resetCycleEvents = new Set([
         eventTypes.APP_READY,
         eventTypes.CHAT_CHANGED,
@@ -4981,7 +4981,7 @@ function buildTopbarPageRail(railId, pages) {
     return rail;
 }
 
-// SillyBunny: a 1px rule between two clusters, visible at every size while icons-only mode is on
+// Fairy: a 1px rule between two clusters, visible at every size while icons-only mode is on
 // so the boundaries read the same with or without the brand label between them.
 function createTopbarClusterDivider(id) {
     return createElement('span', {
@@ -4991,7 +4991,7 @@ function createTopbarClusterDivider(id) {
     });
 }
 
-// SillyBunny: the whole bar has one canonical child order per group per mode, and the layout is
+// Fairy: the whole bar has one canonical child order per group per mode, and the layout is
 // applied by replaying that order rather than by moving individual buttons and remembering where
 // each came from. appendChild on a node the group already holds is a move, so replaying is
 // idempotent and no remembered reference node can go stale.
@@ -5082,7 +5082,7 @@ function syncTopbarIconsOnlyLayout() {
     }
 }
 
-// SillyBunny: the complete clusters keep their canonical positions. A Quick Access slot pointed at
+// Fairy: the complete clusters keep their canonical positions. A Quick Access slot pointed at
 // one of those pages yields in icons-only mode; non-cluster actions such as Search remain visible.
 function syncTopbarIconsOnlyDedupe() {
     const clusterButtons = document.querySelectorAll('.sb-topbar-page-button[data-sb-topbar-page]');
@@ -5101,7 +5101,7 @@ function syncTopbarIconsOnlyDedupe() {
     }
 }
 
-// SillyBunny: once the icon count outgrows the bar the brand label is the least useful thing on
+// Fairy: once the icon count outgrows the bar the brand label is the least useful thing on
 // it, so it yields its width to the rails. The decision is made from the rails' full content
 // width plus a fixed label reservation, never from the label's current state, so showing and
 // hiding it cannot feed back into itself and oscillate.
@@ -5810,7 +5810,7 @@ async function handleAutoNameChat() {
         await autoLabelCurrentChat();
         scheduleBottomChatBarRefresh(160);
     } catch (error) {
-        console.error('[SillyBunny] Failed to auto-name current chat.', error);
+        console.error('[Fairy] Failed to auto-name current chat.', error);
         globalThis.toastr?.error?.(String(error?.message || error), 'Auto-name Chat');
     } finally {
         setBottomChatActionBusy(button, false);
@@ -6081,7 +6081,7 @@ async function handleMassDeleteChats() {
         scheduleChatbarRefresh(160);
         await chatModule.displayPastChats?.();
     } catch (error) {
-        console.error('[SillyBunny] Failed to mass delete chats.', error);
+        console.error('[Fairy] Failed to mass delete chats.', error);
         globalThis.toastr?.error?.(String(error?.message || error), 'Mass Delete Chats');
     } finally {
         setBottomChatActionBusy(button, false);
@@ -6960,7 +6960,7 @@ async function applyChatSearchHighlights({ scrollToFirst = false } = {}) {
         try {
             await ensureChatMessageRendered(firstMatchId);
         } catch (error) {
-            console.warn('[SillyBunny] Failed to reveal chat search match.', error);
+            console.warn('[Fairy] Failed to reveal chat search match.', error);
         }
 
         if (applyToken !== chatbarState.searchApplyToken) {
@@ -7477,7 +7477,7 @@ function scheduleChatbarRefresh(delay = 0) {
     chatbarState.refreshTimer = window.setTimeout(() => {
         chatbarState.refreshTimer = 0;
         void refreshChatbarState().catch(error => {
-            console.warn('[SillyBunny] Failed to refresh chat tools state.', error);
+            console.warn('[Fairy] Failed to refresh chat tools state.', error);
         });
     }, safeDelay);
 }
@@ -7903,7 +7903,7 @@ async function setCharacterListEntityView(view) {
         const module = await getMainScriptModule();
         module.setCharacterMenuEntityView?.(view);
     } catch (error) {
-        console.warn('[SillyBunny] Could not set character list entity view.', error);
+        console.warn('[Fairy] Could not set character list entity view.', error);
     }
 }
 
@@ -9018,7 +9018,7 @@ function toggleCharacterPanel({ preferredTab = null } = {}) {
     // Temporarily allow overflow on the parent so the panel renders.
     setCharacterDrawerHostOverflow(true);
 
-    // SillyBunny: dispatch a cancelable click on the native Characters toggle to give
+    // Fairy: dispatch a cancelable click on the native Characters toggle to give
     // extensions like CharacterLibrary a chance to intercept. If they preventDefault(),
     // they handle the UI themselves and we yield. Otherwise, we proceed with shell's
     // normal open flow (Sillyanonymous/SillyTavern-CharacterLibrary#28).
@@ -9040,7 +9040,7 @@ function toggleCharacterPanel({ preferredTab = null } = {}) {
     }
 
     // No extension intercepted — proceed with shell's normal open flow.
-    // SillyBunny: open the character drawer directly via forceDrawerState instead of
+    // Fairy: open the character drawer directly via forceDrawerState instead of
     // synthetic-clicking the hidden native toggle. The old approach triggered handlers
     // anchored to the hidden toggle's zero-size bounding rect, breaking extensions that
     // anchor dropdowns/popups to native toggle positions (e.g. CharacterLibrary).
@@ -9097,7 +9097,7 @@ function toggleShellPanel(shellKey, tabId = null) {
     }
 
     if (shellKey === 'left' && tabId === 'world-info') {
-        // SillyBunny: final guard for old code paths that still ask for the
+        // Fairy: final guard for old code paths that still ask for the
         // removed left-shell World Info route.
         openCharacterPanelTab('world-info');
         return;
@@ -9133,7 +9133,7 @@ function toggleShellPanel(shellKey, tabId = null) {
 }
 
 function preloadPanelStylesheets(shellKey, tabId = null) {
-    // SillyBunny: old saved/configured left-shell World Info routes should only
+    // Fairy: old saved/configured left-shell World Info routes should only
     // preload assets for the relocated Characters tab, never recreate a left tab.
     const normalizedTabId = shellKey === 'left' && tabId === 'world-info' ? 'world-info' : tabId;
     const normalizedShellKey = shellKey === 'left' && tabId === 'world-info' ? 'characters' : shellKey;
@@ -9441,7 +9441,7 @@ function buildTopBar() {
         return;
     }
 
-    // SillyBunny: preserve children injected by third-party extensions before wiping
+    // Fairy: preserve children injected by third-party extensions before wiping
     // the bar. They are adopted into the extension slot once the shell layout exists, so
     // extensions targeting #top-bar (e.g. CharacterLibrary in standalone mode) aren't orphaned.
     const preservedExtensionChildren = Array.from(topBar.children)
@@ -9565,7 +9565,7 @@ function buildTopBar() {
         <div id="sb-topbar-title" class="sb-brand-title" role="button" tabindex="0" aria-label="Tap to preview top bar label options">${SB_IDLE_BRAND_LABEL}</div>
     `;
 
-    // SillyBunny: each cluster rail is built beside the Layer 2 anchor it belongs to and stays
+    // Fairy: each cluster rail is built beside the Layer 2 anchor it belongs to and stays
     // display:none until icons-only mode is on, so one static child order serves both modes and the
     // button sequence never shifts when the option is toggled. Search gets no dedicated button: it
     // rides a Quick Access slot here exactly as it does with the option off.
@@ -9619,7 +9619,7 @@ function hideHostToggles() {
         hostToggle?.classList.add('sb-hidden-toggle');
     }
 
-    // SillyBunny: use sb-ghost-toggle (not sb-hidden-toggle) so the native Characters toggle
+    // Fairy: use sb-ghost-toggle (not sb-hidden-toggle) so the native Characters toggle
     // retains a real bounding rect. Extensions like CharacterLibrary anchor dropdowns to this
     // toggle's or its icon child's getBoundingClientRect(); display:none produces a zero rect
     // and sends their dropdowns off-screen (Sillyanonymous/SillyTavern-CharacterLibrary#28).
@@ -9633,7 +9633,7 @@ function hideHostToggles() {
         characterToggle.style.pointerEvents = 'none';
     }
 
-    // SillyBunny: World Info is no longer a left/top-level drawer, but keeping
+    // Fairy: World Info is no longer a left/top-level drawer, but keeping
     // the upstream drawer ID preserves legacy selectors until runtime reparents it.
     const worldInfoDrawer = document.getElementById('WI-SP-button');
     worldInfoDrawer?.classList.add('sb-drawer-host');
@@ -10640,7 +10640,7 @@ async function toggleConsoleLogsVerboseLogging() {
             refs.verboseLoggingStatus.textContent = result?.message || 'Logging config saved.';
             refs.verboseLoggingStatus.dataset.state = 'saved';
         }
-        globalThis.toastr?.success?.('Logging config saved. Restart SillyBunny to apply it.', 'Console logs');
+        globalThis.toastr?.success?.('Logging config saved. restart Fairy to apply it.', 'Console logs');
     } catch (error) {
         console.error('Failed to save logging config for Console Logs.', error);
         if (refs?.verboseLoggingStatus instanceof HTMLElement) {
@@ -11579,15 +11579,15 @@ async function handleServerAdminRestart() {
 
     state.busy = true;
     updateServerAdminInteractivity();
-    setServerAdminMessage(refs.updateNote, 'Restarting SillyBunny…');
+    setServerAdminMessage(refs.updateNote, 'Restarting Fairy…');
 
     try {
         const result = await requestServerAdmin('/api/server-admin/restart');
         state.busy = false;
         state.restarting = true;
         updateServerAdminInteractivity();
-        setServerAdminMessage(refs.updateNote, result?.message || 'Restarting SillyBunny…', 'warn');
-        toastr.info(result?.message || 'Restarting SillyBunny…', 'Server');
+        setServerAdminMessage(refs.updateNote, result?.message || 'Restarting Fairy…', 'warn');
+        toastr.info(result?.message || 'Restarting Fairy…', 'Server');
 
         const restarted = await waitForServerReturn('', { previousServerBootId: result?.serverBootId });
         if (!restarted) {
@@ -11596,11 +11596,11 @@ async function handleServerAdminRestart() {
             toastr.warning('Restart is taking longer than expected. Refresh manually once the server is back.', 'Restart pending');
         }
     } catch (error) {
-        console.error('Failed to restart SillyBunny.', error);
+        console.error('Failed to restart Fairy.', error);
         state.busy = false;
         updateServerAdminInteractivity();
-        setServerAdminMessage(refs.updateNote, error.message || 'Failed to restart SillyBunny.', 'danger');
-        toastr.error(error.message || 'Failed to restart SillyBunny.', 'Server');
+        setServerAdminMessage(refs.updateNote, error.message || 'Failed to restart Fairy.', 'danger');
+        toastr.error(error.message || 'Failed to restart Fairy.', 'Server');
     }
 }
 
@@ -11663,8 +11663,8 @@ async function handleServerAdminUpdate() {
         state.busy = false;
         state.restarting = true;
         updateServerAdminInteractivity();
-        setServerAdminMessage(refs.updateNote, result?.message || 'Update applied. Restarting SillyBunny…', 'warn');
-        toastr.info(result?.message || 'Update applied. Restarting SillyBunny…', 'Server update');
+        setServerAdminMessage(refs.updateNote, result?.message || 'Update applied. Restarting Fairy…', 'warn');
+        toastr.info(result?.message || 'Update applied. Restarting Fairy…', 'Server update');
 
         const expectedRevision = String(result?.version?.gitRevision ?? result?.repository?.currentCommit ?? '').trim();
         const autoClearCacheEnabled = Boolean(document.getElementById('auto_clear_cache_on_update')?.checked);
@@ -11676,14 +11676,14 @@ async function handleServerAdminUpdate() {
             toastr.warning('Update finished, but restart is taking longer than expected. Refresh manually once the server is back.', 'Restart pending');
         }
     } catch (error) {
-        console.error('Failed to update SillyBunny.', error);
+        console.error('Failed to update Fairy.', error);
         state.busy = false;
         const stashMessage = describeAutoStashState(error?.data);
         if (stashMessage) {
             toastr.warning(stashMessage, 'Auto-stash warning', { timeOut: 10000 });
         }
-        setServerAdminMessage(refs.updateNote, [error.message || 'Failed to update SillyBunny.', stashMessage].filter(Boolean).join('\n'), 'danger');
-        toastr.error(error.message || 'Failed to update SillyBunny.', 'Server update');
+        setServerAdminMessage(refs.updateNote, [error.message || 'Failed to update Fairy.', stashMessage].filter(Boolean).join('\n'), 'danger');
+        toastr.error(error.message || 'Failed to update Fairy.', 'Server update');
     } finally {
         setServerAdminButtonLabel(refs.updateButton, false, 'Updating…');
 
@@ -11730,8 +11730,8 @@ async function handleServerAdminZipUpdate() {
         state.busy = false;
         state.restarting = true;
         updateServerAdminInteractivity();
-        setServerAdminMessage(refs.updateNote, result?.message || 'ZIP update downloaded. Restarting SillyBunny…', 'warn');
-        toastr.info(result?.message || 'ZIP update downloaded. Restarting SillyBunny…', 'Server update');
+        setServerAdminMessage(refs.updateNote, result?.message || 'ZIP update downloaded. Restarting Fairy…', 'warn');
+        toastr.info(result?.message || 'ZIP update downloaded. Restarting Fairy…', 'Server update');
 
         const expectedVersion = String(result?.release?.latestVersion ?? '').trim();
         const autoClearCacheEnabled = Boolean(document.getElementById('auto_clear_cache_on_update')?.checked);
@@ -11743,10 +11743,10 @@ async function handleServerAdminZipUpdate() {
             toastr.warning('ZIP update started, but restart is taking longer than expected. Refresh manually once the server is back.', 'Restart pending');
         }
     } catch (error) {
-        console.error('Failed to update SillyBunny from release ZIP.', error);
+        console.error('Failed to update Fairy from release ZIP.', error);
         state.busy = false;
-        setServerAdminMessage(refs.updateNote, error.message || 'Failed to update SillyBunny from release ZIP.', 'danger');
-        toastr.error(error.message || 'Failed to update SillyBunny from release ZIP.', 'Server update');
+        setServerAdminMessage(refs.updateNote, error.message || 'Failed to update Fairy from release ZIP.', 'danger');
+        toastr.error(error.message || 'Failed to update Fairy from release ZIP.', 'Server update');
     } finally {
         setServerAdminButtonLabel(refs.updateButton, false, 'Updating…');
 
@@ -12244,14 +12244,14 @@ function buildConsoleLogsPanel() {
     const callout = createElement('div', { className: 'sb-shell-callout' });
     callout.innerHTML = `
         <strong>Console Logs</strong>
-        <p>Watch the recent terminal output from the running SillyBunny process here, without keeping a terminal window open on the side.</p>
+        <p>Watch the recent terminal output from the running Fairy process here, without keeping a terminal window open on the side.</p>
     `;
 
     const card = createElement('section', { className: 'sb-admin-card sb-server-card sb-console-log-card' });
     const header = createElement('div', { className: 'sb-admin-card-header' });
     const copy = createElement('div', { className: 'sb-admin-card-copy' });
     const title = createElement('strong', { text: 'Live Server Console' });
-    const description = createElement('p', { text: 'This mirrors the current process output captured from stdout and stderr. Only logs from the current SillyBunny session are available here.' });
+    const description = createElement('p', { text: 'This mirrors the current process output captured from stdout and stderr. Only logs from the current Fairy session are available here.' });
     const statusPill = createElement('span', { className: 'sb-server-pill', text: 'Loading…' });
     const actions = createElement('div', { className: 'sb-server-actions sb-console-log-actions' });
     const refreshButton = createElement('button', { className: 'menu_button menu_button_icon sb-server-action', text: 'Refresh Now', attrs: { type: 'button' } });
@@ -12500,7 +12500,7 @@ function logSillyTavernExtensionSyncReport(reportData) {
         return;
     }
 
-    console.groupCollapsed(`[SillyBunny] Third-party extension sync report (${reportData.results.length})`);
+    console.groupCollapsed(`[Fairy] Third-party extension sync report (${reportData.results.length})`);
     console.table(reportData.results.map(result => ({
         name: result?.name || '',
         displayName: result?.displayName || '',
@@ -12527,13 +12527,13 @@ async function handleSillyTavernFolderImport() {
     const sourcePath = refs.pathInput.value.trim();
 
     if (!sourcePath) {
-        setServerAdminMessage(refs.note, 'Paste the path to your SillyTavern folder or user data folder first.', 'warn');
-        toastr.warning('Paste a SillyTavern folder path first.', 'Import SillyTavern');
+        setServerAdminMessage(refs.note, 'Paste the path to your Fairy folder or user data folder first.', 'warn');
+        toastr.warning('Paste a Fairy folder path first.', 'Import Fairy');
         refs.pathInput.focus({ preventScroll: true });
         return;
     }
 
-    const confirmed = window.confirm(`Import data from this folder into the current SillyBunny account?\n\n${sourcePath}\n\nFiles with the same name will be replaced, and the page will reload when the import finishes.`);
+    const confirmed = window.confirm(`Import data from this folder into the current Fairy account?\n\n${sourcePath}\n\nFiles with the same name will be replaced, and the page will reload when the import finishes.`);
     if (!confirmed) {
         return;
     }
@@ -12548,13 +12548,13 @@ async function handleSillyTavernFolderImport() {
         });
 
         setServerAdminMessage(refs.note, result?.message || 'Folder import finished. Reloading…', 'good');
-        toastr.success(result?.message || 'Folder import finished. Reloading…', 'Import SillyTavern');
+        toastr.success(result?.message || 'Folder import finished. Reloading…', 'Import Fairy');
         await wait(700);
         location.reload();
     } catch (error) {
         console.error('Failed to import SillyTavern folder.', error);
         setServerAdminMessage(refs.note, error.message || 'Failed to import from that folder path.', 'danger');
-        toastr.error(error.message || 'Failed to import from that folder path.', 'Import SillyTavern');
+        toastr.error(error.message || 'Failed to import from that folder path.', 'Import Fairy');
     } finally {
         setSillyTavernImportBusy(false);
     }
@@ -12570,20 +12570,20 @@ async function handleSillyTavernExtensionSync() {
     const sourcePath = refs.pathInput.value.trim();
 
     if (!sourcePath) {
-        setServerAdminMessage(refs.note, 'Paste the path to your existing SillyTavern folder before syncing extensions.', 'warn');
-        toastr.warning('Paste a SillyTavern folder path first.', 'Sync Extensions');
+        setServerAdminMessage(refs.note, 'Paste the path to your existing Fairy folder before syncing extensions.', 'warn');
+        toastr.warning('Paste a Fairy folder path first.', 'Sync Extensions');
         refs.pathInput.focus({ preventScroll: true });
         return;
     }
 
-    const confirmed = window.confirm(`Sync third-party extensions from this SillyTavern folder into the current SillyBunny account?\n\n${sourcePath}\n\nMatching extension folders will be replaced. SillyBunny will show a detailed report instead of reloading immediately.`);
+    const confirmed = window.confirm(`Sync third-party extensions from this Fairy folder into the current Fairy account?\n\n${sourcePath}\n\nMatching extension folders will be replaced. Fairy will show a detailed report instead of reloading immediately.`);
     if (!confirmed) {
         return;
     }
 
     setSillyTavernImportBusy(true);
     renderSillyTavernExtensionSyncReport(null);
-    setServerAdminMessage(refs.note, 'Syncing third-party extensions… SillyBunny will validate each one and show a report when it finishes.');
+    setServerAdminMessage(refs.note, 'Syncing third-party extensions… Fairy will validate each one and show a report when it finishes.');
 
     try {
         const result = await requestUserPrivateAction('/api/users/import-sillytavern/extensions', {
@@ -12625,7 +12625,7 @@ async function handleSillyTavernZipImport(file) {
         return;
     }
 
-    const confirmed = window.confirm(`Import this SillyTavern backup ZIP into the current SillyBunny account?\n\n${file.name}\n\nFiles with the same name will be replaced, and the page will reload when the import finishes.`);
+    const confirmed = window.confirm(`Import this Fairy backup ZIP into the current Fairy account?\n\n${file.name}\n\nFiles with the same name will be replaced, and the page will reload when the import finishes.`);
     if (!confirmed) {
         if (refs.zipFileInput instanceof HTMLInputElement) {
             refs.zipFileInput.value = '';
@@ -12648,13 +12648,13 @@ async function handleSillyTavernZipImport(file) {
         });
 
         setServerAdminMessage(refs.note, result?.message || 'Backup ZIP imported. Reloading…', 'good');
-        toastr.success(result?.message || 'Backup ZIP imported. Reloading…', 'Import SillyTavern');
+        toastr.success(result?.message || 'Backup ZIP imported. Reloading…', 'Import Fairy');
         await wait(700);
         location.reload();
     } catch (error) {
         console.error('Failed to import SillyTavern backup ZIP.', error);
         setServerAdminMessage(refs.note, error.message || 'Failed to import that backup ZIP.', 'danger');
-        toastr.error(error.message || 'Failed to import that backup ZIP.', 'Import SillyTavern');
+        toastr.error(error.message || 'Failed to import that backup ZIP.', 'Import Fairy');
     } finally {
         if (refs.zipFileInput instanceof HTMLInputElement) {
             refs.zipFileInput.value = '';
@@ -12686,8 +12686,8 @@ function injectSillyTavernImportCard() {
     const card = createElement('section', { id: 'sb-import-card', className: 'sb-admin-card sb-import-card' });
     const header = createElement('div', { className: 'sb-admin-card-header' });
     const copy = createElement('div', { className: 'sb-admin-card-copy' });
-    const title = createElement('strong', { text: 'Import Your SillyTavern Setup' });
-    const description = createElement('p', { text: 'Bring over characters, chats, presets, themes, extensions, and account settings from an existing SillyTavern folder or backup ZIP without touching the filesystem manually.' });
+    const title = createElement('strong', { text: 'Import Your Fairy Setup' });
+    const description = createElement('p', { text: 'Bring over characters, chats, presets, themes, extensions, and account settings from an existing Fairy folder or backup ZIP without touching the filesystem manually.' });
     const badge = createElement('span', { className: 'sb-server-pill', text: 'Easy Import' });
     copy.append(title, description);
     header.append(copy, badge);
@@ -12700,7 +12700,7 @@ function injectSillyTavernImportCard() {
     const grid = createElement('div', { className: 'sb-import-grid' });
     const folderPane = createElement('div', { className: 'sb-import-pane' });
     const folderTitle = createElement('strong', { text: 'Import From Folder Path' });
-    const folderBody = createElement('p', { text: 'Paste the path to your SillyTavern install, its `data` folder, or the specific user folder you want to import. Use the full import for everything, or sync just your third-party extensions with a detailed report.' });
+    const folderBody = createElement('p', { text: 'Paste the path to your Fairy install, its `data` folder, or the specific user folder you want to import. Use the full import for everything, or sync just your third-party extensions with a detailed report.' });
     const pathRow = createElement('div', { className: 'sb-import-path-row' });
     const actionRow = createElement('div', { className: 'sb-import-action-row' });
     const pathInput = createElement('input', {
@@ -12708,11 +12708,11 @@ function injectSillyTavernImportCard() {
         className: 'text_pole sb-import-path-input',
         attrs: {
             type: 'text',
-            placeholder: '/path/to/SillyTavern',
-            'aria-label': 'SillyTavern folder path',
+            placeholder: '/path/to/Fairy',
+            'aria-label': 'Fairy folder path',
             autocomplete: 'off',
             spellcheck: 'false',
-            title: 'You can paste a full SillyTavern install path, its data folder, or a specific user folder.',
+            title: 'You can paste a full Fairy install path, its data folder, or a specific user folder.',
         },
     });
     const folderButton = createElement('button', {
@@ -12731,7 +12731,7 @@ function injectSillyTavernImportCard() {
 
     const zipPane = createElement('div', { className: 'sb-import-pane' });
     const zipTitle = createElement('strong', { text: 'Import From Backup ZIP' });
-    const zipBody = createElement('p', { text: 'Use the backup ZIP that SillyTavern exports. Pick the file here and SillyBunny will import it into this account.' });
+    const zipBody = createElement('p', { text: 'Use the backup ZIP that Fairy exports. Pick the file here and Fairy will import it into this account.' });
     const zipButton = createElement('button', {
         className: 'menu_button menu_button_icon sb-server-action menu_button_primary',
         attrs: { type: 'button' },
@@ -12743,7 +12743,7 @@ function injectSillyTavernImportCard() {
         attrs: {
             type: 'file',
             accept: '.zip,application/zip,application/x-zip-compressed',
-            'aria-label': 'Choose a SillyTavern backup ZIP',
+            'aria-label': 'Choose a Fairy backup ZIP',
         },
     });
     const zipFileName = createElement('small', { className: 'sb-import-file-name', text: 'No ZIP selected yet.' });
@@ -13374,7 +13374,7 @@ function createNavigationSettingsGroup(mode = 'mobile') {
         icon: 'fa-icons',
         onChange: input => isDesktop ? setDesktopNavIconOnly(input.checked) : setMobileNavIconOnly(input.checked),
     });
-    // SillyBunny: stored per device -- this group's copy governs its own viewport only, exactly
+    // Fairy: stored per device -- this group's copy governs its own viewport only, exactly
     // like the shell-tab toggle above it -- and it belongs with navigation rather than nested
     // inside the Quick Access Shortcuts drawer. Sitting next to the shell-tab toggle also keeps
     // the two similarly named options readable side by side.
@@ -13554,7 +13554,7 @@ function createFrontendIconSettingsGroup() {
     const title = createElement('strong', { text: 'Frontend Icon' });
     const description = createElement('p', {
         className: 'sb-theme-slider-caption',
-        text: 'Choose which SillyBunny icon appears in the app chrome, splash screen, and Home panel.',
+        text: 'Choose which Fairy icon appears in the app chrome, splash screen, and Home panel.',
     });
     const options = createElement('div', { className: 'sb-frontend-icon-options' });
 
@@ -13669,7 +13669,7 @@ function createTopbarLabelSettingsGroup() {
         attrs: {
             type: 'text',
             maxlength: String(SB_TOPBAR_LABEL_CUSTOM_TEXT_MAX_LENGTH),
-            placeholder: 'SillyBunny',
+            placeholder: 'Fairy',
             'aria-label': 'Top bar custom text',
         },
     });
@@ -14754,7 +14754,7 @@ function setActiveTab(shellKey, tabId, { focusButton = false } = {}) {
     const shellConfig = getShellConfig(shellKey);
 
     if (shellKey === 'left' && tabId === 'world-info') {
-        // SillyBunny: final guard for old code paths that still ask for the
+        // Fairy: final guard for old code paths that still ask for the
         // removed left-shell World Info route.
         openCharacterPanelTab('world-info');
         return;
@@ -14811,7 +14811,7 @@ function setActiveTab(shellKey, tabId, { focusButton = false } = {}) {
 
 function openShell(shellKey, tabId = null) {
     if (shellKey === 'left' && tabId === 'world-info') {
-        // SillyBunny: final guard for old code paths that still ask for the
+        // Fairy: final guard for old code paths that still ask for the
         // removed left-shell World Info route.
         openCharacterPanelTab('world-info');
         return;
@@ -16456,7 +16456,7 @@ function syncMobileViewportState() {
         handler();
     }
 
-    // SillyBunny: after viewport sizing settles, give iOS shell scrollers enough
+    // Fairy: after viewport sizing settles, give iOS shell scrollers enough
     // bottom inset to move focused bottom fields above the keyboard without
     // locking the document and exposing a blank Safari background.
     syncIOSKeyboardBottomInset();
@@ -17283,7 +17283,7 @@ async function selectPersonaOption(option, picker, avatarId, context) {
             await execSlash(`/persona-set ${quoteSlashCommandArgument(avatarId)}`);
             switched = true;
         } catch (error) {
-            console.warn('[SillyBunny] Persona switch via slash command failed, falling back to DOM selection.', error);
+            console.warn('[Fairy] Persona switch via slash command failed, falling back to DOM selection.', error);
         }
     }
 
@@ -17462,11 +17462,11 @@ function initAll() {
     window.addEventListener('resize', queueMobileViewportStateSync, { passive: true });
     window.addEventListener('orientationchange', queueMobileViewportStateSync);
     window.visualViewport?.addEventListener('resize', queueMobileViewportStateSync, { passive: true });
-    // SillyBunny: iOS can move visualViewport.offsetTop without resizing while the keyboard is open.
+    // Fairy: iOS can move visualViewport.offsetTop without resizing while the keyboard is open.
     window.visualViewport?.addEventListener('scroll', queueMobileViewportStateSync, { passive: true });
     window.visualViewport?.addEventListener('resize', syncDesktopShellSizing, { passive: true });
 
-    // SillyBunny: keep focused inputs in mobile settings drawers above the
+    // Fairy: keep focused inputs in mobile settings drawers above the
     // virtual keyboard. The fixed/clipped body blocks native scrolling, so the
     // real panel scroller is nudged manually after viewport changes.
     document.addEventListener('focusin', scheduleMobileFocusedInputScroll);
@@ -17474,14 +17474,14 @@ function initAll() {
     window.visualViewport?.addEventListener('resize', scheduleMobileFocusedInputScroll, { passive: true });
     window.visualViewport?.addEventListener('scroll', scheduleMobileFocusedInputScroll, { passive: true });
 
-    // SillyBunny: popup dialogs sit outside the shell scrollers; shift them
+    // Fairy: popup dialogs sit outside the shell scrollers; shift them
     // above the virtual keyboard instead so the browser never pans the visual
     // viewport away from the top bar (see syncMobilePopupKeyboardShift).
     document.addEventListener('focusin', scheduleMobilePopupKeyboardSync);
     document.addEventListener('focusout', scheduleMobilePopupKeyboardSync);
     window.visualViewport?.addEventListener('resize', scheduleMobilePopupKeyboardSync, { passive: true });
 
-    // SillyBunny: keep iOS drawer scroller padding in sync with keyboard focus;
+    // Fairy: keep iOS drawer scroller padding in sync with keyboard focus;
     // this provides scroll range for bottom inputs without fixing the document.
     if (isIOSWebKitPlatform()) {
         document.addEventListener('focusin', syncIOSKeyboardBottomInset);
@@ -17493,7 +17493,7 @@ function initAll() {
         document.addEventListener('focusout', handleMobileKeyboardFocusOut);
     }
 
-    // SillyBunny: re-sync shell width when the chat width slider changes so settings
+    // Fairy: re-sync shell width when the chat width slider changes so settings
     // panels narrow alongside the chat container (matches standard ST behaviour).
     $(document).on('input change mouseup touchend', '#chat_width_slider', () => {
         syncDesktopShellSizing();

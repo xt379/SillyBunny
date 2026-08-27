@@ -137,7 +137,7 @@ export function getBadgeLabel(count) {
 export function getDocumentTitleBase() {
     const currentTitle = String(document.title || '').replace(/^\(\d+\+?\)\s+/, '').trim();
     if (!conversationState.originalDocumentTitle || /^\(\d+\+?\)\s+/.test(conversationState.originalDocumentTitle)) {
-        conversationState.originalDocumentTitle = currentTitle || 'SillyBunny';
+        conversationState.originalDocumentTitle = currentTitle || 'Fairy';
     }
     return conversationState.originalDocumentTitle;
 }

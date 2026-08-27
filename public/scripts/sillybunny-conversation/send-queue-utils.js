@@ -1,5 +1,5 @@
 /**
- * SillyBunny: pure, dependency-free helpers for the conversation-mode send queue.
+ * Fairy: pure, dependency-free helpers for the conversation-mode send queue.
  * Extracted from attachments.js so the coalescing/merging logic can be unit-tested
  * without the heavy DOM + jQuery imports that attachments.js pulls in.
  *
@@ -210,7 +210,7 @@ export function drainSameThreadItems(firstItem, queue) {
 }
 
 /**
- * SillyBunny: debounce-from-last-arrival coalescing for the conversation send queue.
+ * Fairy: debounce-from-last-arrival coalescing for the conversation send queue.
  *
  * Before this fix the window was a single 600ms `setTimeout` measured from when an
  * item was *shifted off* the queue. That left two gaps: (1) 600ms is too short for a

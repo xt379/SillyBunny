@@ -232,7 +232,7 @@ export const chat_styles = Object.freeze({
     DEFAULT: 0,
     BUBBLES: 1,
     DOCUMENT: 2,
-    // SillyBunny: native fork-only chat display styles kept compatible with Moonlit Echoes body classes.
+    // Fairy: native fork-only chat display styles kept compatible with Moonlit Echoes body classes.
     ECHO: 3,
     WHISPER: 4,
     HUSH: 5,
@@ -319,7 +319,7 @@ export const power_user = {
     ...ANDROID_STREAMING_SETTING_DEFAULTS,
     [ANDROID_STREAMING_SETTINGS_INITIALIZED_KEY]: true,
 
-    // SillyBunny: aggressive DOM unloading for low-memory devices
+    // Fairy: aggressive DOM unloading for low-memory devices
     aggressive_dom_unload: false,
     aggressive_dom_window_size: 5,
 
@@ -339,8 +339,8 @@ export const power_user = {
     sort_order: 'asc',
     sort_rule: null,
     font_scale: 1,
-    line_spacing: 1.2, // SillyBunny: chat message line-spacing slider.
-    message_margin_size: 1, // SillyBunny: chat message margin-size slider.
+    line_spacing: 1.2, // Fairy: chat message line-spacing slider.
+    message_margin_size: 1, // Fairy: chat message margin-size slider.
     blur_strength: 10,
     shadow_width: 2,
     'customCSS-bg-blur': 0,
@@ -1820,13 +1820,13 @@ function applySillyBunnyPalettePreset(presetId) {
     applyBlurStrength();
     applyShadowWidth();
     saveSettingsDebounced();
-    toastr.success(`${preset.label} applied.`, 'SillyBunny palette');
+    toastr.success(`${preset.label} applied.`, 'Fairy palette');
 
     if (power_user.fast_ui_mode && preset.values.blur_strength !== undefined) {
-        toastr.warning('Blur effects are disabled while Fast UI Mode is on.', 'SillyBunny palette', { timeOut: 4000 });
+        toastr.warning('Blur effects are disabled while Fast UI Mode is on.', 'Fairy palette', { timeOut: 4000 });
     }
     if (power_user.noShadows && preset.values.shadow_width !== undefined) {
-        toastr.warning('Text shadows are disabled while No Shadows mode is on.', 'SillyBunny palette', { timeOut: 4000 });
+        toastr.warning('Text shadows are disabled while No Shadows mode is on.', 'Fairy palette', { timeOut: 4000 });
     }
 }
 
@@ -1856,7 +1856,7 @@ function buildCustomCssAiPopup(currentCss) {
                 <label class="checkbox_label"><input type="radio" name="custom_css_ai_apply_mode" value="replace" checked><span>Replace current CSS</span></label>
                 <label class="checkbox_label"><input type="radio" name="custom_css_ai_apply_mode" value="append"><span>Append below current CSS</span></label>
             </div>
-            <small>The AI sees your current Custom CSS and the active SillyBunny theme variables. It should return raw CSS only.</small>
+            <small>The AI sees your current Custom CSS and the active Fairy theme variables. It should return raw CSS only.</small>
             <small>Current Custom CSS length: ${String(currentCss ?? '').length.toLocaleString()} characters.</small>
         </div>
     `);
@@ -4257,7 +4257,7 @@ jQuery(async () => {
         applyCustomCSS();
     });
 
-    // SillyBunny: Custom CSS AI wand uses the active Connection Manager profile without swapping global state.
+    // Fairy: Custom CSS AI wand uses the active Connection Manager profile without swapping global state.
     $('#custom_css_ai_wand').on('click', () => { void handleCustomCssAiWandClick(); });
     $('#custom_css_ai_wand').on('keydown', event => {
         if (event.key !== 'Enter' && event.key !== ' ') {
@@ -4419,7 +4419,7 @@ jQuery(async () => {
         saveSettingsDebounced();
     });
 
-    // SillyBunny: aggressive DOM unloading for low-memory devices
+    // Fairy: aggressive DOM unloading for low-memory devices
     $('#aggressive_dom_unload').on('input', function () {
         power_user.aggressive_dom_unload = !!$(this).prop('checked');
         saveSettingsDebounced();
@@ -5120,7 +5120,7 @@ jQuery(async () => {
     $(document).on('click', '.sb-theme-preset-reset', function () {
         applyTheme('Dark V 1.0');
         saveSettingsDebounced();
-        toastr.info('Theme colors reset to Dark V 1.0.', 'SillyBunny palette');
+        toastr.info('Theme colors reset to Dark V 1.0.', 'Fairy palette');
     });
 
     // Accent color presets
@@ -5169,7 +5169,7 @@ jQuery(async () => {
 
         if (quoteColor && underlineColor) {
             applyAccentColors(quoteColor, underlineColor);
-            toastr.info('Accent colors applied.', 'SillyBunny palette');
+            toastr.info('Accent colors applied.', 'Fairy palette');
         }
     });
 

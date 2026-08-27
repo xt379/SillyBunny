@@ -1,6 +1,6 @@
 # Conversation Mode REST API
 
-The Conversation Mode REST API provides JSON endpoints for reading and modifying Conversation Mode stores, groups, threads, and messages. It can also generate and save a character reply through SillyBunny’s existing chat-completion or text-completion backends.
+The Conversation Mode REST API provides JSON endpoints for reading and modifying Conversation Mode stores, groups, threads, and messages. It can also generate and save a character reply through Fairy’s existing chat-completion or text-completion backends.
 
 The browser interface does not use this router as its primary Conversation Mode driver. Features such as proactive messages, schedules, reminders, notifications, image generation, and text-to-speech remain browser-side behavior.
 
@@ -405,7 +405,7 @@ Chat generation requires:
 * `generation.payload.model`
 * `generation.payload.chat_completion_source`
 
-The remaining fields use SillyBunny’s existing chat-completion payload format.
+The remaining fields use Fairy’s existing chat-completion payload format.
 
 ### Text Completion
 

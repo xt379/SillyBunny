@@ -1,5 +1,5 @@
 <!---
-Thank you for contributing to SillyBunny!
+Thank you for contributing to Fairy!
 
 Please [read the Contributor's Guide](https://github.com/SillyBunnyTeam/SillyBunny/blob/main/CONTRIBUTING.md) before submitting a pull request. **All PR descriptions must be human-written.**
 

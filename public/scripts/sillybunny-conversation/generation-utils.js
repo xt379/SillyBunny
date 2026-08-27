@@ -67,7 +67,7 @@ export function extractCharacterReplyCommandParts(rawText, settings = {}) {
     text = text.replace(/[ \t]{2,}/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
     text = normalizeConversationOutputText(text);
 
-    // SillyBunny: bracket-command stripping must never blank a real reply. If the strip
+    // Fairy: bracket-command stripping must never blank a real reply. If the strip
     // pass consumed everything (e.g. the model echoed bracket labels it saw in the persona),
     // fall back to the original text so the user always sees a response.
     if (!text && originalText.trim()) {

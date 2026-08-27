@@ -3004,7 +3004,7 @@
                                 <h4 data-i18n="Available Models">Available Models</h4>
                                 <div id="openai_model_picker">
                                     <select id="model_openai_select">
-                                        <!-- SillyBunny: static provider catalogs track current IDs; API-discovered models remain available through dynamic groups. -->
+                                        <!-- Fairy: static provider catalogs track current IDs; API-discovered models remain available through dynamic groups. -->
                                         <optgroup label="GPT-5.6">
                                             <option value="gpt-5.6-sol">gpt-5.6-sol</option>
                                             <option value="gpt-5.6-terra">gpt-5.6-terra</option>
@@ -3136,7 +3136,7 @@
                                     <optgroup label="Versions">
                                         <option value="claude-opus-5">claude-opus-5</option>
                                         <option value="claude-sonnet-5">claude-sonnet-5</option>
-                                        <option value="claude-fable-5">claude-fable-5</option><!-- SillyBunny: claude-fable-5 support -->
+                                        <option value="claude-fable-5">claude-fable-5</option><!-- Fairy: claude-fable-5 support -->
                                         <option value="claude-opus-4-8">claude-opus-4-8</option>
                                         <option value="claude-opus-4-7">claude-opus-4-7</option>
                                         <option value="claude-opus-4-6">claude-opus-4-6</option>
@@ -3298,7 +3298,7 @@
                                         <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
                                         <option value="gemini-2.5-flash-image">gemini-2.5-flash-image</option>
                                     </optgroup>
-                                    <!-- SillyBunny: Gemma 4 remains available after the older Gemini API Gemma catalog retired. -->
+                                    <!-- Fairy: Gemma 4 remains available after the older Gemini API Gemma catalog retired. -->
                                     <optgroup label="Gemma 4">
                                         <option value="gemma-4-31b-it">gemma-4-31b-it</option>
                                         <option value="gemma-4-26b-a4b-it">gemma-4-26b-a4b-it</option>
@@ -4716,7 +4716,7 @@
                 </div>
             </div>
         </div>
-        <!-- SillyBunny: World Info is now presented as a Characters-panel tab; keep this drawer shell as the upstream-compatible source node that runtime moves into that tab. -->
+        <!-- Fairy: World Info is now presented as a Characters-panel tab; keep this drawer shell as the upstream-compatible source node that runtime moves into that tab. -->
         <div id="WI-SP-button" class="drawer">
             <div class="drawer-toggle drawer-header">
                 <div id="WIDrawerIcon" class="drawer-icon fa-solid fa-book-atlas fa-fw closedIcon " title="World Info" data-i18n="[title]World Info"></div>
@@ -5016,7 +5016,7 @@
                 <div id="user-settings-utility-actions" class="flex-container">
                     <div class="sb-settings-utility-note">
                         <small>Clear browser cache and temporary UI data without resetting your saved settings.</small>
-                        <label for="auto_clear_cache_on_update" class="checkbox_label widthFreeExpand" title="Automatically clear browser cache and temporary UI data after SillyBunny updates, then reload.">
+                        <label for="auto_clear_cache_on_update" class="checkbox_label widthFreeExpand" title="Automatically clear browser cache and temporary UI data after Fairy updates, then reload.">
                             <input id="auto_clear_cache_on_update" type="checkbox" />
                             <span>Auto-clear cache after updates</span>
                         </label>
@@ -5033,13 +5033,13 @@
                 <div id="user-settings-block-content" class="flex-container spaceEvenly">
                     <div name="UserSettingsFirstColumn" id="UI-Theme-Block" class="flex-container flexFlowColumn wide100p flex1">
                         <div id="SillyTavernImportSection" class="inline-drawer wide100p flexFlowColumn sb-settings-subdrawer">
-                            <div class="inline-drawer-toggle inline-drawer-header settings-section-header" title="Import characters, chats, themes, and other SillyTavern data from a folder path or backup ZIP.">
+                            <div class="inline-drawer-toggle inline-drawer-header settings-section-header" title="Import characters, chats, themes, and other Fairy data from a folder path or backup ZIP.">
                                 <b><i class="fa-solid fa-file-import"></i> <span>Import &amp; Restore</span></b>
                                 <div class="fa-solid fa-circle-chevron-down inline-drawer-icon down"></div>
                             </div>
                             <div class="inline-drawer-content flex-container flexFlowColumn sb-settings-subdrawer-body" style="display:none">
                                 <div class="sb-settings-subdrawer-toolbar">
-                                    <small>Bring over a full SillyTavern setup from a folder path or backup ZIP without manually moving files.</small>
+                                    <small>Bring over a full Fairy setup from a folder path or backup ZIP without manually moving files.</small>
                                 </div>
                                 <div id="sb-import-tools-outlet" class="flex-container flexFlowColumn"></div>
                             </div>
@@ -5077,7 +5077,7 @@
                                 </div>
                             </div>
                             <div class="sb-theme-presets">
-                                <small class="sb-theme-presets-label">SillyBunny palettes</small>
+                                <small class="sb-theme-presets-label">Fairy palettes</small>
                                 <div class="sb-theme-preset-buttons">
                                     <button type="button" class="menu_button menu_button_icon sb-theme-preset-reset" title="Reset colors to Dark V 1.0">
                                         <i class="fa-solid fa-rotate-left"></i>
@@ -5113,7 +5113,7 @@
                                             <span class="sb-accent-picker-label">Secondary Accent</span>
                                         </div>
                                     </div>
-                                    <!-- SillyBunny: keep reusable accent pairs compact without hiding the Save Current action. -->
+                                    <!-- Fairy: keep reusable accent pairs compact without hiding the Save Current action. -->
                                     <div id="sb-accent-profiles-panel" class="inline-drawer sb-accent-profiles-panel" data-settings-tab="appearance">
                                         <div class="inline-drawer-header sb-accent-profiles-header">
                                             <div class="inline-drawer-toggle sb-accent-profiles-toggle" aria-expanded="false">
@@ -5575,7 +5575,7 @@
                                 </label>
                             </div>
 
-                            <!-- SillyBunny: aggressive DOM unloading for low-memory devices -->
+                            <!-- Fairy: aggressive DOM unloading for low-memory devices -->
                             <div name="AggressiveDomUnloadToggles">
                                 <h4><span data-i18n="Aggressive DOM Unloading">Aggressive DOM Unloading</span></h4>
                                 <small data-i18n="Aggressive DOM Unloading_desc">Drastically reduces rendered messages to prevent crashes on low-memory devices during long streams.</small>
@@ -5640,7 +5640,7 @@
                                     <span data-i18n="mui_reset">Reset</span>
                                 </div>
                             </div>
-                            <!-- SillyBunny: surface recovery when restored MovingUI geometry puts panels outside the viewport. -->
+                            <!-- Fairy: surface recovery when restored MovingUI geometry puts panels outside the viewport. -->
                             <div id="movingUIOffscreenWarning" class="info-block warning displayNone">
                                 <i class="fa-solid fa-triangle-exclamation margin-r5"></i>
                                 <span data-i18n="A saved MovingUI panel position appears to be off-screen.">A saved MovingUI panel position appears to be off-screen.</span>
@@ -5905,15 +5905,15 @@
                                 </div>
                             </div>
                             <div id="CustomCSS-block" class="inline-drawer wide100p flexFlowColumn sb-settings-subdrawer sb-settings-topdrawer-centered">
-                                <div class="inline-drawer-toggle inline-drawer-header userSettingsInnerExpandable" title="Apply a custom CSS style to the whole SillyBunny interface." data-i18n="[title]Apply a custom CSS style to the whole SillyBunny interface.">
+                                <div class="inline-drawer-toggle inline-drawer-header userSettingsInnerExpandable" title="Apply a custom CSS style to the whole Fairy interface." data-i18n="[title]Apply a custom CSS style to the whole SillyBunny interface.">
                                     <b><span data-i18n="Custom CSS">Custom CSS</span></b>
                                     <div class="fa-solid fa-circle-chevron-down inline-drawer-icon down"></div>
                                 </div>
                                 <div class="inline-drawer-content sb-settings-subdrawer-body" style="display:none">
                                     <div class="sb-settings-subdrawer-toolbar">
-                                        <small>Layer your own polish on top of the active SillyBunny palette.</small>
+                                        <small>Layer your own polish on top of the active Fairy palette.</small>
                                         <div class="flex-container flexnowrap alignitemscenter flexGap5">
-                                            <!-- SillyBunny: AI shortcut for Custom CSS generation. -->
+                                            <!-- Fairy: AI shortcut for Custom CSS generation. -->
                                             <div id="custom_css_ai_wand" class="menu_button menu_button_icon margin0" role="button" tabindex="0" title="Generate CSS with AI" aria-label="Generate CSS with AI" data-i18n="[title]Generate CSS with AI">
                                                 <i class="fa-solid fa-wand-magic-sparkles"></i>
                                             </div>
@@ -6547,7 +6547,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- SillyBunny: keep upstream character fields compatible, but arrange them as inline editor sub-tabs instead of the legacy ADV modal. This differs from upstream so the editor stays single-surface and modal-free. -->
+                <!-- Fairy: keep upstream character fields compatible, but arrange them as inline editor sub-tabs instead of the legacy ADV modal. This differs from upstream so the editor stays single-surface and modal-free. -->
                 <div class="sb-character-editor-subtabs-wrapper">
                     <div id="sb_character_editor_subtabs" class="sb-character-editor-subtabs sb-shell-nav" role="tablist" aria-label="Character editor sections">
                         <button id="sb_character_editor_tab_char_info" class="sb-character-editor-subtab sb-shell-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="sb_character_editor_panel_char_info" tabindex="0" data-sb-character-editor-tab="char-info">
@@ -6626,7 +6626,7 @@
                     <div id="sb_character_import_panel" class="sb-character-import-panel" hidden>
                         <div class="sb-character-import-intro">
                             <h3 data-i18n="Import a character card">Import a character card</h3>
-                            <p data-i18n="Upload a character card to SillyBunny using your method of choice.">Upload a character card to SillyBunny using your method of choice.</p>
+                            <p data-i18n="Upload a character card to SillyBunny using your method of choice.">Upload a character card to Fairy using your method of choice.</p>
                         </div>
                         <div class="sb-character-import-actions">
                             <button id="sb_character_import_file_action" class="sb-character-import-action" type="button">
@@ -6645,7 +6645,7 @@
                             </button>
                         </div>
                     </div>
-                    <!-- SillyBunny: runtime reparents the upstream #WI-SP-button/#WorldInfo node here so World Info behaves as a right Characters tab without duplicating IDs. This differs from upstream so the route stays compatible with saved shortcuts and existing selectors. -->
+                    <!-- Fairy: runtime reparents the upstream #WI-SP-button/#WorldInfo node here so World Info behaves as a right Characters tab without duplicating IDs. This differs from upstream so the route stays compatible with saved shortcuts and existing selectors. -->
                     <div id="sb_character_world_info_panel" class="sb-character-world-info-panel" role="tabpanel" aria-labelledby="sb_character_tab_world_info" aria-hidden="true" hidden></div>
                     <div name="Solo Char Create/Edit Panel" id="rm_ch_create_block" class="right_menu flex-container flexFlowColumn" style="display: none;">
                         <form id="form_create" action="javascript:void(null);" method="post" enctype="multipart/form-data">
@@ -7284,7 +7284,7 @@
                 </div>
             </div>
         </div>
-        <!-- SillyBunny: Legacy Advanced Definitions modal was replaced by inline editor sub-tabs; this hidden compatibility stub remains only so old selectors read closed. This differs from upstream to preserve compatibility for stale selectors. -->
+        <!-- Fairy: Legacy Advanced Definitions modal was replaced by inline editor sub-tabs; this hidden compatibility stub remains only so old selectors read closed. This differs from upstream to preserve compatibility for stale selectors. -->
         <div id="character_popup" class="sb-character-popup-compat-stub" hidden aria-hidden="true"></div>
         <div id="shadow_select_chat_popup">
             <div id="select_chat_popup">
@@ -8145,7 +8145,7 @@
                             </div>
                             <div data-tooltip="Click to open checkpoint chat&#10;Shift+Click to replace the existing checkpoint with a new one" class="mes_button mes_bookmark fa-solid fa-flag" data-i18n="[data-tooltip]Open checkpoint chat&#10;Shift+Click to replace the existing checkpoint with a new one"></div>
                             <div title="Edit" class="mes_button mes_edit fa-solid fa-pencil " data-i18n="[title]Edit"></div>
-                            <!-- SillyBunny: one-click replacement for failed swipes. -->
+                            <!-- Fairy: one-click replacement for failed swipes. -->
                             <div title="Delete + Add Swipe" class="mes_button mes_delete_add_swipe fa-solid fa-rotate-right" data-i18n="[title]Delete + Add Swipe" style="display: none;"></div>
                             <div title="Delete" class="mes_button mes_delete fa-solid fa-trash-can" data-i18n="[title]Delete"></div>
                         </div>
@@ -8223,7 +8223,7 @@
                     Fairy is flexible and works best once your API, character library, and persona setup are in place.
                 </b>
                 <div class="welcomeForkNotice">
-                    <strong>Important:</strong> Fairy is a fork of SillyTavern. Please direct Fairy issues and bug reports to <a href="https://github.com/xt379/SillyBunny" target="_blank">our GitHub page</a>.
+                    <strong>Important:</strong> Fairy is a fork of Fairy. Please direct Fairy issues and bug reports to <a href="https://github.com/xt379/SillyBunny" target="_blank">our GitHub page</a>.
                 </div>
                 <ul class="justifyLeft marginTopBot5">
                     <li><span data-i18n="welcome_message_part_1">Read the</span> <a href="https://docs.sillytavern.app/" target="_blank" data-i18n="welcome_message_part_2">Official Documentation</a><span data-i18n="welcome_message_part_3">.</span></li>

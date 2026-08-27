@@ -119,7 +119,7 @@ function isMobileShellPanelEditable(element) {
 function addDocumentViewportAnchorPatch({ suspendWhileEditing = false } = {}) {
     let resetScheduled = false;
 
-    // SillyBunny: the legacy shell inset keeps the caret visible, so old iOS
+    // Fairy: the legacy shell inset keeps the caret visible, so old iOS
     // force-scroll can be anchored immediately instead of waiting for blur.
     const isComposerHeldAboveKeyboard = () => isLegacyIOSWebKitPlatform()
         && document.documentElement.classList.contains('sb-ios-composer-keyboard-inset-active');
@@ -270,7 +270,7 @@ function applyBrowserFixes() {
                 return;
             }
 
-            // SillyBunny: do not force the viewport fix while the mobile shell is
+            // Fairy: do not force the viewport fix while the mobile shell is
             // actively editing an input; that can disrupt IME composition and text fixes.
             // Avoid force-pinning the root while Android IMEs are actively
             // editing text. That can break replacement/correction targets and
@@ -313,7 +313,7 @@ function applyBrowserFixes() {
             lastOffsetLeft = currentOffsetLeft;
             lastScale = currentScale;
 
-            // SillyBunny: detect visual-viewport scale change from pinch-zoom
+            // Fairy: detect visual-viewport scale change from pinch-zoom
             // or double-tap-zoom (Firefox mobile ignores user-scalable=no and
             // touch-action). Reset scroll and transient position fixes so the
             // app re-anchors to the layout viewport.
@@ -322,7 +322,7 @@ function applyBrowserFixes() {
                 return;
             }
 
-            // SillyBunny: detect horizontal visual-viewport drift from pinch-zoom
+            // Fairy: detect horizontal visual-viewport drift from pinch-zoom
             // panning (Android Firefox ignores user-scalable=no). Reset scroll and
             // transient position fixes so the app re-anchors to the layout viewport.
             if (offsetLeftDelta > 4) {
@@ -378,7 +378,7 @@ function applyBrowserFixes() {
         }, true);
         window.addEventListener('sb-mobile-viewport-reset', handleMobileViewportReset);
 
-        // SillyBunny: Firefox mobile ignores touch-action CSS and user-scalable=no
+        // Fairy: Firefox mobile ignores touch-action CSS and user-scalable=no
         // in the viewport meta for pinch-zoom. Intercept multi-touch events at the
         // touch level and preventDefault to block the browser's zoom gesture before
         // it can change visualViewport.scale and drift the app layout.

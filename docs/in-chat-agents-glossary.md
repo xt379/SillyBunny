@@ -76,7 +76,7 @@ The **Prompt** field contains the agent’s main instructions. A clear prompt sh
 
 **Connection Profile** overrides the extension default for this agent’s AI refinement, intercepts, prompt-based post-generation processing, and Companion requests. **Model Override** specifies a model name instead of the profile’s configured model. Leave Model Override empty to use the model selected by the profile.
 
-The **Preview** button shows the prompt after supported macros have been replaced. A macro is a placeholder such as `{{char}}`, `{{user}}`, or `{{random::first::second}}` that SillyBunny resolves using current chat information. Some generation stages provide additional macros for the current or original message. Preview is the best way to confirm what the LLM will parse from the agent.
+The **Preview** button shows the prompt after supported macros have been replaced. A macro is a placeholder such as `{{char}}`, `{{user}}`, or `{{random::first::second}}` that Fairy resolves using current chat information. Some generation stages provide additional macros for the current or original message. Preview is the best way to confirm what the LLM will parse from the agent.
 
 **Refine** asks an AI model to rewrite or improve the prompt. Review the result before saving, especially when the prompt requires an exact tracker format. **Fullscreen** expands the prompt editor.
 
@@ -122,7 +122,7 @@ For example, Context Messages 10 and Min Context Tokens 12000 means the Companio
 
 ### Companion Context Sources
 
-The Companion can receive several optional context sections. **Include character card** supplies descriptive card fields such as description, personality, scenario, system instructions, and creator notes. The character greeting and example dialogue are not included in this Companion section. **Include persona** supplies the active user persona. **Include World Info** performs a World Info scan and includes activated lore. **Include Author’s Note** includes the active chat or default Author’s Note. **Include System Prompt** includes the active main system prompt. (I.e. the default System Prompt field in SillyBunny.)
+The Companion can receive several optional context sections. **Include character card** supplies descriptive card fields such as description, personality, scenario, system instructions, and creator notes. The character greeting and example dialogue are not included in this Companion section. **Include persona** supplies the active user persona. **Include World Info** performs a World Info scan and includes activated lore. **Include Author’s Note** includes the active chat or default Author’s Note. **Include System Prompt** includes the active main system prompt. (I.e. the default System Prompt field in Fairy.)
 
 > [!NOTE]
 > Enabling every source increases the input token size and can also expose the Companion to instructions that are irrelevant to its task. A simple state tracker may only need recent messages and its prior note. A lore analysis tool may only need the character card and World Info.
@@ -186,7 +186,7 @@ Pre-generation settings control how an Inline prompt or Companion feedback is pl
 
 ### Mode and Intercepts
 
-**Inject prompt into context** adds the agent prompt directly to the normal main-model request. It does not require a separate helper request. This mode is suitable for writing rules, behavior instructions, point-of-view controls, and other prompts the main model should follow while producing its reply. This is similar to a Chat Completions' preset modularity in SillyBunny.
+**Inject prompt into context** adds the agent prompt directly to the normal main-model request. It does not require a separate helper request. This mode is suitable for writing rules, behavior instructions, point-of-view controls, and other prompts the main model should follow while producing its reply. This is similar to a Chat Completions' preset modularity in Fairy.
 
 **Run agent to modify outgoing context** makes a separate intercept request. Intercepts are more complex and consume additional tokens, but they can transform assembled context or process generated output.
 
@@ -234,7 +234,7 @@ When Companion processing is enabled, **Companion targets** limits the action to
 
 **Trigger Keywords** is a comma-separated list used to limit activation to matching content. Leaving it blank allows the agent to run without a keyword requirement.
 
-**Generation Types** decide which SillyBunny actions can trigger the agent. Normal applies to ordinary assistant responses. Continue applies when extending an existing response. Impersonate applies to generated user or persona text. Quiet applies to background generations used by supported features.
+**Generation Types** decide which Fairy actions can trigger the agent. Normal applies to ordinary assistant responses. Continue applies when extending an existing response. Impersonate applies to generated user or persona text. Quiet applies to background generations used by supported features.
 
 ## Companion Panel
 

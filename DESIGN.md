@@ -1,5 +1,5 @@
 ---
-name: SillyBunny
+name: Fairy
 description: A quiet, malleable roleplay workspace that keeps the character and conversation in front.
 colors:
   warm-signal: "#c9c6a8"
@@ -102,15 +102,15 @@ components:
     padding: "6px 8px"
 ---
 
-# Design System: SillyBunny
+# Design System: Fairy
 
 ## 1. Overview
 
 **"Simple by default, powerful when needed"**
 
-Picture a person writing at night with one conversation open, the rest of the desk cleared away, and a small set of tools within reach when needed. SillyBunny is a product UI, not a showcase surface: the character, messages, and composer own the visual priority. The shell is deliberately quiet so it can recede during active roleplay and become useful on demand.
+Picture a person writing at night with one conversation open, the rest of the desk cleared away, and a small set of tools within reach when needed. Fairy is a product UI, not a showcase surface: the character, messages, and composer own the visual priority. The shell is deliberately quiet so it can recede during active roleplay and become useful on demand.
 
-The system carries personality through helpful wording, tactile feedback, and a warm signal accent rather than decoration. It makes complexity available without making it ambient: configuration belongs behind the header, sub-category tabs reveal the next layer, and each view has one primary action. The default charcoal theme is only the starting point; every visual token must remain compatible with user themes and SillyTavern data, presets, extensions, and settings.
+The system carries personality through helpful wording, tactile feedback, and a warm signal accent rather than decoration. It makes complexity available without making it ambient: configuration belongs behind the header, sub-category tabs reveal the next layer, and each view has one primary action. The default charcoal theme is only the starting point; every visual token must remain compatible with user themes and Fairy data, presets, extensions, and settings.
 
 The physical scene is a focused writing session on a dim screen, where the user needs comfortable contrast, predictable touch targets, and no panel competing with the conversation. This system rejects UI creep, nested menu spirals, configuration sprawl, bottom bar bloat, mystery meat navigation, desktop-only assumptions, and generic SaaS polish.
 
@@ -177,7 +177,7 @@ The palette is a restrained dark neutral system: warm signal is scarce and meani
 
 ## 4. Elevation
 
-SillyBunny uses tonal layering first and restrained shadows second. The main chat surface stays visually calm. A shadow is reserved for an opened shell, an overlay that must sit above the conversation, or a selected surface that needs clear separation. Borders and shadows are not paired as generic card decoration; choose the one that communicates the state.
+Fairy uses tonal layering first and restrained shadows second. The main chat surface stays visually calm. A shadow is reserved for an opened shell, an overlay that must sit above the conversation, or a selected surface that needs clear separation. Borders and shadows are not paired as generic card decoration; choose the one that communicates the state.
 
 ### Shadow Vocabulary
 - **Shell Shadow** (`0 8px 24px color-mix(in srgb, var(--SmartThemeShadowColor) 24%, transparent)`): Open configuration shell or fixed overlay that must separate from chat.
@@ -237,7 +237,7 @@ SillyBunny uses tonal layering first and restrained shadows second. The main cha
 ### Do:
 - **Do** keep main content uninterrupted and let configuration appear only after deliberate input.
 - **Do** give every view one primary action, then place powerful options behind learnable progressive disclosure.
-- **Do** preserve SillyTavern-compatible settings, character data, chats, presets, extensions, and migration paths.
+- **Do** preserve Fairy-compatible settings, character data, chats, presets, extensions, and migration paths.
 - **Do** use `SmartTheme*`, `sb-*`, `color-*`, spacing, and radius tokens so user themes continue to work.
 - **Do** keep desktop and mobile gestures, ordering, labels, and action vocabulary consistent.
 - **Do** provide visible focus, semantic labels, comfortable touch targets, resilient wrapping, and reduced-motion behavior.

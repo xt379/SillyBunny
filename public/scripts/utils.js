@@ -2636,7 +2636,7 @@ export async function showFontAwesomePicker(customList = null) {
                         }
                     }
 
-                    // SillyBunny: keep matching icons at the front while preserving
+                    // Fairy: keep matching icons at the front while preserving
                     // the full icon grid so keyboard navigation remains stable.
                     const ordered = query
                         ? [...result, ...faList.filter(fa => !resultSet.has(fa))]

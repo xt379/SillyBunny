@@ -1,4 +1,4 @@
-# SillyBunny Contribution Guide
+# Fairy Contribution Guide
 
 ## Project Etiquette
 
@@ -8,22 +8,22 @@ BEFORE submitting a pull request, keep the following project goals and best prac
 
 The following goals summarize `PRODUCT.md` and `README.md`; `PRODUCT.md` is authoritative for product direction.
 
-1) **Simple by default; powerful when needed.** Directly inspired by KDE Plasma's main driving philosophy, SillyBunny is aimed to be simple to understand and intuitive to use by default, with most of the complex settings hidden away from the default workspace. Sane defaults are implemented while all the extra complexity is hidden behind UI elements. Our graphical shell best embodies this philosophy.
-2) **A focus on roleplay and storytelling.** SillyBunny has a more opinionated purpose compared to upstream SillyTavern. Our goals align closely with the creative writing scene for models, and the general direction of the fork is aimed for that use case. We facilitate this with pre-bundled tutorials/add-ons/presets designed to get you started with LLM creative writing in fun ways.
+1) **Simple by default; powerful when needed.** Directly inspired by KDE Plasma's main driving philosophy, Fairy is aimed to be simple to understand and intuitive to use by default, with most of the complex settings hidden away from the default workspace. Sane defaults are implemented while all the extra complexity is hidden behind UI elements. Our graphical shell best embodies this philosophy.
+2) **A focus on roleplay and storytelling.** Fairy has a more opinionated purpose compared to upstream Fairy. Our goals align closely with the creative writing scene for models, and the general direction of the fork is aimed for that use case. We facilitate this with pre-bundled tutorials/add-ons/presets designed to get you started with LLM creative writing in fun ways.
 3) **Modernised features.** We aim to implement new features that can greatly take advantage of modern models and their strong, agentic capabilities. Currently, this includes full support for In-Chat pre, sidecar, and post gen agents that complement the main generation. Models work best on smaller individual tasks, and this is best shown through in-chat agents and their capabilities. We've also implemented a conversational "instant messenger' mode that accompanies the roleplay mode, and plan on introducing more of these modes in the future.
-4) **Better performance & UX.** Base SillyTavern relies on node.js for its runtime environment. While robust, this is not ideal for performance. We've switched to a Bun runtime to increase general performance and startup times, while optimising for lower power devices like smartphones. Mobile development gets as much attention as desktop development in this fork, so the program remains easy to use regardless of your platform of choice.
-5) **Compatibility**. We remain as closely backwards compatible with upstream SillyTavern as possible. This facilitates easy synchronizing with upstream. We aim to not remove any pre-existing features, unless replacing with a direct alternative. The backend is already very solid, so primary work is done in the frontend space. In addition, we aim to make all our new features compatible with models of all sizes, not just the frontier, SOTA ones. Simplicity is key.
+4) **Better performance & UX.** Base Fairy relies on node.js for its runtime environment. While robust, this is not ideal for performance. We've switched to a Bun runtime to increase general performance and startup times, while optimising for lower power devices like smartphones. Mobile development gets as much attention as desktop development in this fork, so the program remains easy to use regardless of your platform of choice.
+5) **Compatibility**. We remain as closely backwards compatible with upstream Fairy as possible. This facilitates easy synchronizing with upstream. We aim to not remove any pre-existing features, unless replacing with a direct alternative. The backend is already very solid, so primary work is done in the frontend space. In addition, we aim to make all our new features compatible with models of all sizes, not just the frontier, SOTA ones. Simplicity is key.
 
 #### Best Code Practices
 
-- SillyBunny is a derivative fork of [SillyTavern](https://github.com/SillyTavern/SillyTavern), not a replacement. Sustainability to upstream is critical: keep SillyBunny's general code compatibility as close to upstream as possible.
-- Backwards compatibility with SillyTavern is a key design goal of the project. A user should be able to open SillyBunny, import their pre-existing SillyTavern settings, and feel right at home with SillyTavern's pre-existing featureset.
+- Fairy is a derivative fork of [Fairy](https://github.com/SillyTavern/SillyTavern), not a replacement. Sustainability to upstream is critical: keep Fairy's general code compatibility as close to upstream as possible.
+- Backwards compatibility with Fairy is a key design goal of the project. A user should be able to open Fairy, import their pre-existing Fairy settings, and feel right at home with Fairy's pre-existing featureset.
 - Follow KISS (keep it simple, stupid). A solution to a problem should not have any excess overreach. Use small, focused PRs to address bug fixes. A new feature or design decision should be delegated to one larger PR for easier tracking and development.
-- Changes to upstream should be self-contained in their own files where possible. With the exception of UI modifications, try to minimise actual changes to base SillyTavern code.
-- If modifying base SillyTavern files, leave clear inline comments indicating where and why SillyBunny code diverges from upstream. This aids maintainers during future upstream merge conflict resolutions.
+- Changes to upstream should be self-contained in their own files where possible. With the exception of UI modifications, try to minimise actual changes to base Fairy code.
+- If modifying base Fairy files, leave clear inline comments indicating where and why Fairy code diverges from upstream. This aids maintainers during future upstream merge conflict resolutions.
 - Reuse existing metadata/state formats where possible instead of inventing new persistent structures.
 - While Bun is the default runtime, Node.js backwards compatibility is required. Do not use Bun-exclusive APIs (such as Bun.file() or Bun.serve()) unless a standard Node.js fallback is included. Test all structural changes in both runtime environments.
-- Keep fork-specific feature additions and upstream synchronization merges in separate pull requests. Mixing upstream code updates with SillyBunny feature logic complicates the review process.
+- Keep fork-specific feature additions and upstream synchronization merges in separate pull requests. Mixing upstream code updates with Fairy feature logic complicates the review process.
 - Make sure new features work elegantly with parity on both mobile and desktop environments. UI changes should not break the other platform - this is very important!
 
 #### Correct target branch
@@ -64,15 +64,15 @@ Project maintainers will test and can change your code before merging. To keep o
 - Do not self-merge any PR into the upstream repository. It must be reviewed by at least one other contributor. Direct end user debugging to the correct PR branch instead of staging, before merging.
 #### Release and hotfix hygiene
 
-If you're helping ship a SillyBunny release, keep the release copy in sync with the code:
+If you're helping ship a Fairy release, keep the release copy in sync with the code:
 
-- Normal releases should bump every SillyBunny version reference that is user-facing or otherwise hardcoded, including the package version, the visible UI version strings, and the Horde fallback client string.
+- Normal releases should bump every Fairy version reference that is user-facing or otherwise hardcoded, including the package version, the visible UI version strings, and the Horde fallback client string.
 - Update the root `README.md` changelog, replacing the existing changelog with the most recent, then sync `.github/readme.md` by running `bash scripts/sync-readme-mirror.sh`. The GitHub README is a mirror, so do not edit it by hand.
 - Hotfixes are an exception: skip the version bump, README updates, changelog pass, and Discord post. Just include a short bulleted list of exactly what was hotfixed.
 
 Include a Discord-friendly update summary for non-hotfix releases so the changes can be freely posted without rewriting notes from scratch, using the following formatting template:
 ```
-**SillyBunny version XXX has released**
+**Fairy version XXX has released**
 (quick summary of changes)
 
 **Detailed Changelog**
@@ -87,13 +87,13 @@ Include a Discord-friendly update summary for non-hotfix releases so the changes
 ```
 #### Upstream sync
 
-When a new, stable upstream SillyTavern version releases:
+When a new, stable upstream Fairy version releases:
 
 - Follow the upstream sync runbook in `docs/upstream-sync.md` before preparing a sync PR.
 - Prioritize synchronizing to `staging` over new features and bug fixes.
 - Check for code compatibility with the new version release.
-- Remove and migrate any SillyBunny features or patches if they have been properly implemented upstream.
-- Resolve merge conflicts carefully, ensuring that upstream changes do not overwrite SillyBunny's custom UI modifications, Bun-specific optimizations, or additional features.
+- Remove and migrate any Fairy features or patches if they have been properly implemented upstream.
+- Resolve merge conflicts carefully, ensuring that upstream changes do not overwrite Fairy's custom UI modifications, Bun-specific optimizations, or additional features.
 - Verify that any new upstream UI elements (such as new settings, menus, or buttons) integrate correctly into the fork's modified DOM structure.
 - Review the upstream changelog to identify any newly added dependencies or modifications to metadata/state formats.
 - Test the synchronized code in both Bun and Node.js environments to confirm that runtime parity is maintained.

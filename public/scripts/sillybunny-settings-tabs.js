@@ -1,5 +1,5 @@
 /**
- * SillyBunny Settings Tabs Overhaul
+ * Fairy Settings Tabs Overhaul
  * Self-contained settings tab layout and search integration.
  */
 
@@ -496,7 +496,7 @@
             setupSearchIntegration();
             watchForLateDrawers();
         } catch (error) {
-            console.error('[SillyBunny Settings Tabs] Initialization failed:', error);
+            console.error('[Fairy Settings Tabs] Initialization failed:', error);
         }
     }
 

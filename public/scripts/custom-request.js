@@ -727,7 +727,7 @@ export class ChatCompletionService {
         const shouldUseConnectionProfileField = (field) => connectionProfileRequestFields.includes(field);
         normalizeChatCompletionBooleanFields(overridePayload);
 
-        // SillyBunny: Connection Profile requests can carry reasoning/image behavior without mutating global UI settings.
+        // Fairy: Connection Profile requests can carry reasoning/image behavior without mutating global UI settings.
         if (overridePayload.include_reasoning !== undefined) {
             settings.show_thoughts = coerceRequestBoolean(overridePayload.include_reasoning);
             if (!settings.show_thoughts) {

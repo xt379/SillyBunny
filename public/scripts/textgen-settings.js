@@ -167,7 +167,7 @@ function getStoredMancerServer() {
     try {
         return localStorage.getItem(MANCER_SERVER_KEY);
     } catch (error) {
-        // SillyBunny: iOS WebKit can throw on localStorage before the boot UI exists.
+        // Fairy: iOS WebKit can throw on localStorage before the boot UI exists.
         console.warn('Unable to read stored Mancer server.', error);
         return null;
     }
@@ -196,7 +196,7 @@ const KOBOLDCPP_ORDER = [6, 0, 1, 3, 4, 2, 5];
 
 function shouldUseLocalPromptCache(settings) {
     const serverUrl = getTextGenServer(settings?.type);
-    // SillyBunny: only keep prompt cache hot for local backends; remote servers
+    // Fairy: only keep prompt cache hot for local backends; remote servers
     // should not inherit the helper-generation cache lane.
     return isLikelyLocalServerUrl(serverUrl, window.location.href);
 }
@@ -1926,7 +1926,7 @@ export function createTextGenGenerationData(settings, model, finalPrompt = null,
     }
 
     if (shouldUseLocalPromptCache(settings)) {
-        // SillyBunny: helper generations must explicitly opt out, because some
+        // Fairy: helper generations must explicitly opt out, because some
         // local llama.cpp servers default to --cache-prompt for every request.
         params.cache_prompt = getLocalPromptCacheValue(cacheScope);
     }

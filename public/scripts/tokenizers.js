@@ -846,7 +846,7 @@ export function countTokensOpenAI(messages, full = false) {
 
 /**
  * Posts messages to the OpenAI token counting endpoint.
- * SillyBunny: jQuery rejects with the jqXHR object, which has no message or stack.
+ * Fairy: jQuery rejects with the jqXHR object, which has no message or stack.
  * If that escapes into an async jQuery ready callback, jQuery rethrows it and the
  * whole startup aborts with an unreadable "[object Object]" error, so failures are
  * downgraded to the guesstimate fallback used everywhere else in this module.
@@ -928,7 +928,7 @@ export async function countTokensOpenAIAsync(messages, full = false) {
 export async function countChatCompletionPayloadTokensOpenAIAsync(messages) {
     const tokenizerEndpoint = `/api/tokenizers/openai/count?model=${getTokenizerModel()}`;
 
-    // SillyBunny: count post-intercept payloads in one request so backend-specific
+    // Fairy: count post-intercept payloads in one request so backend-specific
     // per-payload padding is applied once instead of once per message.
     const tokenCount = await requestOpenAITokenCount(tokenizerEndpoint, messages);
 

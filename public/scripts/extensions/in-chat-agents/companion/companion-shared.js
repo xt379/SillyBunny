@@ -38,7 +38,7 @@ export const CHATROOM_STYLE_VALUES = new Set([
 
 export const CHATROOM_REPLY_MAX_CHARS = 2000;
 
-// SillyBunny: an agent with nothing to report returns one of these instead of prose or an empty
+// Fairy: an agent with nothing to report returns one of these instead of prose or an empty
 // string, so "nothing happened" is a deliberate answer rather than a failed run. Suppression keys
 // off the content alone, which means custom agents opt in purely by teaching their prompt a
 // sentinel - no template allowlist to maintain.

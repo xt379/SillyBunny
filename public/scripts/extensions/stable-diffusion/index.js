@@ -2381,7 +2381,7 @@ async function loadDrawthingsModels() {
 }
 
 async function loadOpenAiModels() {
-    // SillyBunny: omit DALL-E 2 and 3 after their OpenAI API retirement.
+    // Fairy: omit DALL-E 2 and 3 after their OpenAI API retirement.
     return [
         { value: 'gpt-image-2', text: 'gpt-image-2' },
         { value: 'gpt-image-2-2026-04-21', text: 'gpt-image-2-2026-04-21' },

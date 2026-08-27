@@ -41,7 +41,7 @@ import { shouldRestoreTextGenStatusOnStartup } from './scripts/textgen-startup-s
 import { normalizeCharacterChatName, resolveCharacterChatNameForLoad } from './scripts/character-chat-resolver.js';
 import { getDebouncedChatSaveAbortReason } from './scripts/chat-save-guard.js';
 import { getCharacterDefinitionFormValues, getSuspiciousEmptyCharacterDefinitionSave } from './scripts/character-save-guard.js';
-// SillyBunny: keep model-produced chat filenames behind a strict, independently tested parser.
+// Fairy: keep model-produced chat filenames behind a strict, independently tested parser.
 import { CHAT_LABEL_TITLE_LIMIT, extractGeneratedChatLabel, normalizeGeneratedChatLabel, truncateChatLabelText } from './scripts/chat-label.js';
 
 import {
@@ -488,7 +488,7 @@ export let converter;
 
 // array for prompt token calculations
 
-export const systemUserName = 'SillyBunny System';
+export const systemUserName = 'Fairy System';
 export const neutralCharacterName = 'Assistant';
 let default_user_name = 'User';
 export let name1 = default_user_name;
@@ -693,7 +693,7 @@ export const saveSettingsDebounced = debounce((loopCounter = 0) => saveSettings(
 let pendingCharacterSaveTimer = null;
 let characterSavePromise = Promise.resolve();
 
-// SillyBunny: the custom editor shell needs to wait for autosaves before reopening stale form data.
+// Fairy: the custom editor shell needs to wait for autosaves before reopening stale form data.
 function queueCharacterSave() {
     characterSavePromise = characterSavePromise
         .catch(error => console.warn('Previous character save failed before queued save.', error))
@@ -922,7 +922,7 @@ let this_edit_mes_id = undefined;
 
 //settings
 export let settings;
-// SillyBunny: version-tokened settings saves avoid stale overwrites across open devices/tabs.
+// Fairy: version-tokened settings saves avoid stale overwrites across open devices/tabs.
 let lastServerSettingsVersion = 0;
 let settingsSaveQueue = Promise.resolve();
 let settingsConflictReloadRequired = false;
@@ -985,7 +985,7 @@ export function getRequestHeaders({ omitContentType = false } = {}) {
  */
 export async function refreshCsrfToken() {
     if (!csrfTokenRefreshPromise) {
-        // SillyBunny: recover from server restarts that rotate the CSRF secret without a full page reload.
+        // Fairy: recover from server restarts that rotate the CSRF secret without a full page reload.
         csrfTokenRefreshPromise = (async () => {
             const tokenResponse = await fetch('/csrf-token', {
                 cache: 'no-store',
@@ -1052,10 +1052,10 @@ function registerSillyBunnyServiceWorker() {
     const register = () => {
         navigator.serviceWorker.register('/sw.js?v=20260622g', { updateViaCache: 'none' }).then((registration) => {
             return registration.update().catch((error) => {
-                console.warn('Failed to update SillyBunny service worker.', error);
+                console.warn('Failed to update Fairy service worker.', error);
             });
         }).catch((error) => {
-            console.warn('Failed to register SillyBunny service worker.', error);
+            console.warn('Failed to register Fairy service worker.', error);
         });
     };
 
@@ -1097,9 +1097,9 @@ async function firstLoadInit() {
 
     const splashLogo = document.createElement('img');
     splashLogo.src = getSillyBunnyFrontendIconSrc({ absolute: true });
-    splashLogo.alt = 'SillyBunny';
+    splashLogo.alt = 'Fairy';
     splashLogo.className = 'splash-logo';
-    splashLogo.ariaLabel = t`SillyBunny Badge`;
+    splashLogo.ariaLabel = t`Fairy Badge`;
     splashLogo.dataset.sbFrontendIcon = 'true';
 
     const splashMessage = document.createElement('h2');
@@ -1138,7 +1138,7 @@ async function firstLoadInit() {
         initLibraryShims();
         addShowdownPatch(showdown);
         addDOMPurifyHooks();
-        // SillyBunny: card script detection - see #94.
+        // Fairy: card script detection - see #94.
         eventSource.on(event_types.CHAT_CHANGED, forgetAllCardScripts);
         configureCardScriptRuntime({
             getPowerUser: () => power_user,
@@ -1208,7 +1208,7 @@ async function firstLoadInit() {
         scheduleStartupLoaderCleanup('app ready');
     } catch (error) {
         console.error('Application initialization failed.', error);
-        toastr.error(t`SillyBunny couldn't finish starting. Please refresh the page.`, t`Startup Error`, { timeOut: 0, extendedTimeOut: 0, preventDuplicates: true });
+        toastr.error(t`Fairy couldn't finish starting. Please refresh the page.`, t`Startup Error`, { timeOut: 0, extendedTimeOut: 0, preventDuplicates: true });
         throw error;
     } finally {
         await releaseStartupLoader('startup finally');
@@ -1811,7 +1811,7 @@ async function getExistingCharacterChats(characterId, fileName = '') {
     });
 
     if (!response.ok) {
-        // SillyBunny: an unreadable chat list must not look like a character with no chats.
+        // Fairy: an unreadable chat list must not look like a character with no chats.
         throw new Error(`Could not list existing chats: ${response.statusText}`);
     }
 
@@ -1838,7 +1838,7 @@ async function resolveCharacterChatForLoad(characterId, { allowCreate = false, a
     }
 
     const existingChats = await getExistingCharacterChats(characterId, persistedChat);
-    // SillyBunny: avoid recreating stale character.chat filenames as new files.
+    // Fairy: avoid recreating stale character.chat filenames as new files.
     const resolvedChat = resolveCharacterChatNameForLoad({
         persistedChat,
         existingChats,
@@ -1925,7 +1925,7 @@ export async function deleteCharacterChatByName(characterId, fileName) {
     }
 
     await eventSource.emit(event_types.CHAT_DELETED, fileName);
-    // SillyBunny: Home only clears pinned state after a confirmed deletion.
+    // Fairy: Home only clears pinned state after a confirmed deletion.
     return true;
 }
 
@@ -2403,7 +2403,7 @@ function getChatRenderLifecycleRolloutStorage() {
 }
 
 function isChatRenderLifecycleRolloutEnabled(route = null) {
-    // SillyBunny: explicit overrides remain global; defaults are per-route for one-route-at-a-time rollout.
+    // Fairy: explicit overrides remain global; defaults are per-route for one-route-at-a-time rollout.
     return resolveChatRenderLifecycleRollout({
         queryValue: getChatRenderLifecycleRolloutQueryValue(),
         route,
@@ -2563,7 +2563,7 @@ async function applyChatMessageResizeAction(element, entry, metadata) {
         return;
     }
 
-    // SillyBunny: streaming progress owns the live message's scroll lane; skip resize scrolls for that block.
+    // Fairy: streaming progress owns the live message's scroll lane; skip resize scrolls for that block.
     if (isActiveStreamingMessageResizeBlock(element)) {
         refreshChatMessageResizeState(element, metadata, entry);
         return;
@@ -2578,7 +2578,7 @@ async function applyChatMessageResizeAction(element, entry, metadata) {
     });
 
     if (shouldApplyChatBottomScrollAction(action)) {
-        // SillyBunny: coalesce media resize pins with the shared bottom-scroll rAF lane.
+        // Fairy: coalesce media resize pins with the shared bottom-scroll rAF lane.
         scrollChatToBottom({ waitForFrame: true, isNearBottom: true });
         requestAnimationFrame(() => refreshChatMessageResizeState(element, metadata, entry));
         return;
@@ -2821,12 +2821,12 @@ const CHAT_HISTORY_NEWER_BUTTON_ID = 'show_newer_messages';
 const CHAT_HISTORY_WINDOW_CONTROL_SELECTOR = `#${CHAT_HISTORY_OLDER_BUTTON_ID}, #${CHAT_HISTORY_NEWER_BUTTON_ID}`;
 
 function getChatRenderWindowSize(requestedSize = power_user.chat_truncation) {
-    // SillyBunny: aggressive DOM unloading for low-memory devices (e.g., iPhones crashing on long streams)
+    // Fairy: aggressive DOM unloading for low-memory devices (e.g., iPhones crashing on long streams)
     if (power_user.aggressive_dom_unload) {
         const aggressiveSize = power_user.aggressive_dom_window_size || 5;
         return normalizeChatRenderWindowSize(aggressiveSize, { maxSize: aggressiveSize });
     }
-    // SillyBunny: prevent long chats from using 0/huge truncation values to render every message into the DOM.
+    // Fairy: prevent long chats from using 0/huge truncation values to render every message into the DOM.
     return normalizeChatRenderWindowSize(requestedSize);
 }
 
@@ -3177,7 +3177,7 @@ function scrollLoadedChatToBottomThroughLifecycle() {
 }
 
 function scrollLoadedChatToBottom() {
-    // SillyBunny: previous-chat taps can leave the mobile manual-scroll guard active.
+    // Fairy: previous-chat taps can leave the mobile manual-scroll guard active.
     const latestSettleDelay = Math.max(...CHAT_LOAD_SCROLL_SETTLE_DELAYS_MS);
     const bottomLockDurationMs = latestSettleDelay + CHAT_LOAD_BOTTOM_LOCK_EXTRA_MS;
     beginChatLoadBottomLock({ durationMs: bottomLockDurationMs });
@@ -3501,7 +3501,7 @@ export async function deleteMessage(id, swipeDeletionIndex = undefined, askConfi
     const startIndex = [0, minId].includes(id) ? id : null;
     deleteItemizedPromptForMessage(id);
     updateViewMessageIds(startIndex);
-    // SillyBunny: this shrink is the user's own deletion, not an accidental overwrite.
+    // Fairy: this shrink is the user's own deletion, not an accidental overwrite.
     saveChatDebounced({ allowShrink: true });
 
     if (this_edit_mes_id === id) {
@@ -3580,7 +3580,7 @@ export async function sendTextareaMessage() {
     return generation;
 }
 
-// SillyBunny: Extracted message text preparation from messageFormatting for mobile streaming performance.
+// Fairy: Extracted message text preparation from messageFormatting for mobile streaming performance.
 // Allows plain-text preview rendering without full markdown/sanitizer pipeline on Android.
 function prepareMessageDisplayText(mes, ch_name, isSystem, isUser, messageId, isReasoning = false) {
     const resolvedMessageId = messageId !== null && messageId !== undefined && messageId !== ''
@@ -3658,7 +3658,7 @@ function prepareMessageDisplayText(mes, ch_name, isSystem, isUser, messageId, is
     return { mes, isSystem, showdownSource };
 }
 
-// SillyBunny: Extracted markdown balancing for streaming preview optimization.
+// Fairy: Extracted markdown balancing for streaming preview optimization.
 function balanceStreamingMarkdown(text) {
     let balancedText = text;
     for (const char of ['*', '"', '```', '~~~']) {
@@ -3670,7 +3670,7 @@ function balanceStreamingMarkdown(text) {
     return balancedText;
 }
 
-// SillyBunny: Extracted HTML sanitization to allow reuse in streaming and final render paths.
+// Fairy: Extracted HTML sanitization to allow reuse in streaming and final render paths.
 function sanitizeMessageHtml(mes, sanitizerOverrides = {}) {
     /** @type {DOMPurify.Config} */
     const config = {
@@ -3797,7 +3797,7 @@ export function messageFormatting(mes, ch_name, isSystem, isUser, messageId, san
     }
 
     mes = restoreOocBlocksForDisplay(mes, oocBlocks);
-    // SillyBunny: card script detection - see #94.
+    // Fairy: card script detection - see #94.
     mes = markCardScriptHtml(mes, messageId, originalMessageHtml);
     return sanitizeMessageHtml(mes, sanitizerOverrides);
 }
@@ -3836,7 +3836,7 @@ function notifyCardScriptStripped(messageElement, messageId) {
     }
 
     markCardScriptToastShown(toastKey);
-    toastr.warning(t`This message contains card scripts. SillyBunny does not run them by default.`, t`Card scripts blocked`, { timeOut: 6000, preventDuplicates: true });
+    toastr.warning(t`This message contains card scripts. Fairy does not run them by default.`, t`Card scripts blocked`, { timeOut: 6000, preventDuplicates: true });
 }
 
 /**
@@ -4640,14 +4640,14 @@ export function addOneMessage(mes, { type = undefined, insertAfter = null, scrol
  */
 export function updateMessageElement(mes, { messageId = chat.length - 1, messageElement = messageTemplate.clone(), adjustMediaScroll = SCROLL_BEHAVIOR.NONE } = {}) {
     let avatarImg = getThumbnailUrl('persona', user_avatar);
-    // SillyBunny: Add mobile thumbnail tracking for viewport-aware avatar rendering (mobile performance).
+    // Fairy: Add mobile thumbnail tracking for viewport-aware avatar rendering (mobile performance).
     let mobileAvatarImg = getMobileThumbnailUrl('persona', user_avatar);
     let originalAvatarImg = getFullAvatarUrl('persona', user_avatar);
 
     //for non-user messages
     if (!mes.is_user) {
         if (mes.force_avatar) {
-            // SillyBunny: getAvatarRenderSources provides desktop/mobile/original variants for performance.
+            // Fairy: getAvatarRenderSources provides desktop/mobile/original variants for performance.
             ({ desktop: avatarImg, mobile: mobileAvatarImg, original: originalAvatarImg } = getAvatarRenderSources(mes.force_avatar));
         } else if (this_chid === undefined) {
             avatarImg = system_avatar;
@@ -4655,7 +4655,7 @@ export function updateMessageElement(mes, { messageId = chat.length - 1, message
             originalAvatarImg = system_avatar;
         } else if (characters[this_chid] && characters[this_chid].avatar !== 'none') {
             avatarImg = getThumbnailUrl('avatar', characters[this_chid].avatar);
-            // SillyBunny: Mobile thumbnail for character avatars reduces payload on mobile devices.
+            // Fairy: Mobile thumbnail for character avatars reduces payload on mobile devices.
             mobileAvatarImg = getMobileThumbnailUrl('avatar', characters[this_chid].avatar);
             originalAvatarImg = getFullAvatarUrl('avatar', characters[this_chid].avatar);
         } else {
@@ -4669,7 +4669,7 @@ export function updateMessageElement(mes, { messageId = chat.length - 1, message
         //characterName = mes.is_system || mes.force_avatar ? mes.name : name2;
     } else if (mes.is_user && mes.force_avatar) {
         // Special case for persona images.
-        // SillyBunny: getAvatarRenderSources provides desktop/mobile/original variants for performance.
+        // Fairy: getAvatarRenderSources provides desktop/mobile/original variants for performance.
         ({ desktop: avatarImg, mobile: mobileAvatarImg, original: originalAvatarImg } = getAvatarRenderSources(mes.force_avatar));
     }
     const momentDate = timestampToMoment(mes.send_date);
@@ -4963,7 +4963,7 @@ export function scrollChatToBottom({ waitForFrame, force = false, isNearBottom =
     }
 
     const doScroll = () => {
-        // SillyBunny: guarded lifecycle route keeps the legacy path available during rollout.
+        // Fairy: guarded lifecycle route keeps the legacy path available during rollout.
         if (isChatRenderLifecycleRolloutEnabled(CHAT_RENDER_LIFECYCLE_ROUTE.BOTTOM_SCROLL)) {
             const action = resolveChatBottomScrollAction({
                 force,
@@ -4980,7 +4980,7 @@ export function scrollChatToBottom({ waitForFrame, force = false, isNearBottom =
             return;
         }
 
-        // SillyBunny: mobile browsers can fight streaming autoscroll during touch and momentum scrolling.
+        // Fairy: mobile browsers can fight streaming autoscroll during touch and momentum scrolling.
         if (!force && shouldSuppressMobileChatAutoScroll()) {
             requestId = null;
             return;
@@ -5365,7 +5365,7 @@ export async function generateQuietPrompt({ quietPrompt = '', quietToLoud = fals
             TempResponseLength.restore(main_api);
             TempResponseLength.removeEventHook(main_api, eventHook);
         }
-        // SillyBunny: guarantee the send buttons are reactivated after quiet
+        // Fairy: guarantee the send buttons are reactivated after quiet
         // generation, regardless of whether Generate succeeded, failed, threw,
         // or returned null data. Without this, memory refresh and other quiet
         // generation callers can leave the chat input locked. (#527)
@@ -5933,7 +5933,7 @@ class StreamingProcessor {
         const cachedMessageTextDomInvalid = this.messageTextDom !== null && !this.messageTextDom.isConnected;
 
         if (cachedMessageDomInvalid || cachedMessageTextDomInvalid) {
-            // SillyBunny: refresh stale stream targets after chat-window pruning or tail-gap re-renders.
+            // Fairy: refresh stale stream targets after chat-window pruning or tail-gap re-renders.
             this.messageDom = null;
             this.messageTextDom = null;
             this.messageTimerDom = null;
@@ -6391,7 +6391,7 @@ class StreamingProcessor {
                 if (logprobs) {
                     this.messageLogprobs.push(...(Array.isArray(logprobs) ? logprobs : [logprobs]));
                 }
-                // SillyBunny: keep full reasoning regex/DOM work on UI ticks. Reasoning-heavy
+                // Fairy: keep full reasoning regex/DOM work on UI ticks. Reasoning-heavy
                 // streams like DeepSeek and GLM can otherwise overwhelm iOS WebKit.
                 this.pendingReasoning = typeof state?.reasoning === 'string' ? state.reasoning : null;
                 this.images = state?.images ?? [];
@@ -6924,7 +6924,7 @@ export async function Generate(type, { automatic_trigger, force_name2, quiet_pro
             textareaText = '';
             if (chat.length && lastMessage.is_user) {
                 //do nothing? why does this check exist?
-            // SillyBunny: Guided Correction regenerates against the existing assistant reply.
+            // Fairy: Guided Correction regenerates against the existing assistant reply.
             } else if (type !== 'quiet' && type !== 'swipe' && !isImpersonate && !dryRun && !depth && chat.length && !(type === 'regenerate' && preserveLastMessage)) {
                 if (type === 'regenerate') {
                     requestMobileChatBottomPin();
@@ -7037,7 +7037,7 @@ export async function Generate(type, { automatic_trigger, force_name2, quiet_pro
     // assemble the prompt so we can count its tokens regardless of whether a chat is active.)
     if (!dryRun && !hasBackendConnection) {
         is_send_press = false;
-        // SillyBunny: reactivate send buttons on early exit so the UI is not
+        // Fairy: reactivate send buttons on early exit so the UI is not
         // left locked when there is no backend connection. (#527)
         activateSendButtons();
         return Promise.resolve();
@@ -7186,7 +7186,7 @@ export async function Generate(type, { automatic_trigger, force_name2, quiet_pro
             : originalMessage;
         const isConsolidatedCompanionHost = chatItem === consolidatedCompanionHistoryHost;
         const hiddenCompanionHistory = chatItem.is_system && isConsolidatedCompanionHost;
-        // SillyBunny: project opted-in companion notes into prompt history without changing stored chat text.
+        // Fairy: project opted-in companion notes into prompt history without changing stored chat text.
         const retainedContributions = isConsolidatedCompanionHost
             ? consolidatedRetainedContributions.map(item => item.contribution).filter(contribution => contribution.content)
             : [];
@@ -7196,7 +7196,7 @@ export async function Generate(type, { automatic_trigger, force_name2, quiet_pro
         let regexType = chatItem.is_user ? regex_placement.USER_INPUT : regex_placement.AI_OUTPUT;
         let options = { isPrompt: true, depth: (coreChat.length - index - (isContinue ? 2 : 1)) };
 
-        // SillyBunny: apply in-chat agent regex scripts (e.g. CYOA "Trim Choices") in prompt mode
+        // Fairy: apply in-chat agent regex scripts (e.g. CYOA "Trim Choices") in prompt mode
         const agentRegexScripts = resolveRegexScriptsForSnapshot(chatItem?.extra?.inChatAgents);
         if (agentRegexScripts.length > 0) {
             const agentPlacement = chatItem.is_user ? AGENT_REGEX_PLACEMENT.USER_INPUT : AGENT_REGEX_PLACEMENT.AI_OUTPUT;
@@ -7276,12 +7276,12 @@ export async function Generate(type, { automatic_trigger, force_name2, quiet_pro
             index,
         };
     }));
-    // SillyBunny: ICA prompt-only regexes must not remove stored chat text from World Info scans.
+    // Fairy: ICA prompt-only regexes must not remove stored chat text from World Info scans.
     const worldInfoOnlyChat = coreChat.filter(chatItem => {
         const variant = worldInfoMessageVariants.get(chatItem.index);
         return variant && !hasPromptPayload(chatItem) && hasPromptPayload({ ...chatItem, mes: variant.worldInfo });
     });
-    // SillyBunny: preserve an interrupted reasoning-only prefix when continuing.
+    // Fairy: preserve an interrupted reasoning-only prefix when continuing.
     coreChat = coreChat.filter((chatItem, index) => hasPromptPayload(
         chatItem,
         isContinue && index === coreChat.length - 1,
@@ -8292,7 +8292,7 @@ export async function Generate(type, { automatic_trigger, force_name2, quiet_pro
                 clearStreamingProcessorIfCurrent(activeStreamingProcessor);
                 return;
             } finally {
-                // SillyBunny: Safety net - every streaming exit path must leave the UI idle.
+                // Fairy: Safety net - every streaming exit path must leave the UI idle.
                 // Cancelled streams used to skip unblockGeneration(), leaving is_send_press stuck.
                 if (is_send_press && streamingProcessor === null && !startedSuccessorGeneration) {
                     unblockGeneration(type);
@@ -8313,7 +8313,7 @@ export async function Generate(type, { automatic_trigger, force_name2, quiet_pro
      */
     async function onSuccess(data) {
         if (!data) {
-            // SillyBunny: unblock generation on null/falsy data so the send
+            // Fairy: unblock generation on null/falsy data so the send
             // buttons are not left locked. (#527)
             unblockGeneration(type, { force: true });
             return;
@@ -8594,7 +8594,7 @@ function unblockGeneration(type, { emitGenerationEnded = true, force = false } =
         type,
         hasStreamingProcessor: Boolean(streamingProcessor),
         isStreamingFinished: Boolean(streamingProcessor?.isFinished),
-        // SillyBunny: explicit Stop must always release the UI lock so users can retry.
+        // Fairy: explicit Stop must always release the UI lock so users can retry.
         forceUnblock: force,
     });
 
@@ -8698,7 +8698,7 @@ export function triggerAutoContinue(messageChunk, isImpersonate) {
         return;
     }
 
-    // SillyBunny: Auto-swipe can take the generation lock before this callback resumes.
+    // Fairy: Auto-swipe can take the generation lock before this callback resumes.
     if (is_send_press || is_group_generating || streamingProcessor) {
         console.debug('Auto-continue skipped: a generation is already in progress');
         return;
@@ -10430,7 +10430,7 @@ export function saveChatDebounced(options = {}) {
     chatSaveTimeout = setTimeout(async () => {
         chatSaveTimeout = null;
 
-        // SillyBunny: keep debounced saves bound to the file they were scheduled for.
+        // Fairy: keep debounced saves bound to the file they were scheduled for.
         const abortReason = getDebouncedChatSaveAbortReason({
             scheduledGroupId: selectedGroup,
             currentGroupId: selected_group,
@@ -10464,7 +10464,7 @@ function hasPendingChatSave() {
 
 /**
  * Waits for saves already queued on the serial chat save queue to settle.
- * SillyBunny: hasPendingChatSave() only sees the debounce timer, so queued saves need a separate drain.
+ * Fairy: hasPendingChatSave() only sees the debounce timer, so queued saves need a separate drain.
  * @returns {Promise<void>}
  */
 async function waitForQueuedChatSaves() {
@@ -10479,7 +10479,7 @@ async function waitForQueuedChatSaves() {
 
 export async function flushPendingChatSavesForNavigation() {
     if (hasPendingChatSave()) {
-        // SillyBunny: preserve swipe/message edits before navigation clears the active chat.
+        // Fairy: preserve swipe/message edits before navigation clears the active chat.
         const didFlush = await flushPendingChatSaves({ silent: true });
         if (!didFlush) {
             toastr.error(t`Could not save the current chat before switching chats. Try again in a moment.`, t`Chat save failed`);
@@ -10487,7 +10487,7 @@ export async function flushPendingChatSavesForNavigation() {
         }
     }
 
-    // SillyBunny: let queued saves land instead of refusing to navigate while one is in flight.
+    // Fairy: let queued saves land instead of refusing to navigate while one is in flight.
     await waitForQueuedChatSaves();
     await waitForQueuedGroupChatSaves();
     return true;
@@ -10819,7 +10819,7 @@ function getAvatarRenderSources(rawSrc) {
  * @param {string} rawSrc Avatar image source.
  * @returns {{ type: 'avatar' | 'persona' | null, file: string, original: string, preset?: string | null } | null}
  */
-// SillyBunny: exported so sillybunny-tabs.js reuses this parser instead of keeping a divergent copy
+// Fairy: exported so sillybunny-tabs.js reuses this parser instead of keeping a divergent copy
 // that skipped the pathname decode and re-encoded file names into "%2520".
 export function parseAvatarSource(rawSrc) {
     if (!rawSrc) {
@@ -11089,7 +11089,7 @@ export async function getChat({ allowMissingPersisted = false, switchMenu = true
             chat.splice(0, chat.length);
             chat_metadata = {};
         }
-        // SillyBunny: a chat with no integrity slug is treated as intact by the server, which mints
+        // Fairy: a chat with no integrity slug is treated as intact by the server, which mints
         // one on the first real save. Stamping one in here only dirtied legacy chats on load, and a
         // dirty chat is one that gets rewritten to disk for no reason.
         await getChatResult({ emitCreated: resolvedChat.created, switchMenu });
@@ -11104,7 +11104,7 @@ export async function getChat({ allowMissingPersisted = false, switchMenu = true
         });
         return true;
     } catch (error) {
-        // SillyBunny: a failed strict load must not be replaced with a newly saved greeting.
+        // Fairy: a failed strict load must not be replaced with a newly saved greeting.
         console.log(error);
         toastr.error(t`Could not load chat data. Try reloading the page.`);
         return false;
@@ -11121,7 +11121,7 @@ async function getChatResult({ emitCreated = false, switchMenu = true } = {}) {
             freshChat = true;
         }
         // Make sure the chat appears on the server
-        // SillyBunny: never persist a message-less chat over a file this load did not create.
+        // Fairy: never persist a message-less chat over a file this load did not create.
         if (emitCreated || freshChat) {
             await saveChatConditional();
         }
@@ -11189,7 +11189,7 @@ export async function openCharacterChat(file_name) {
         $('#selected_chat_pole').val(previousChatName);
         return;
     }
-    // SillyBunny: reopening the chat that is already recorded has nothing to persist.
+    // Fairy: reopening the chat that is already recorded has nothing to persist.
     if (file_name !== previousChatName) {
         await updateRemoteChatName(this_chid, file_name);
     }
@@ -11367,7 +11367,7 @@ async function promptSettingsConflictReload() {
     }
 
     if (settingsConflictPromptDismissed) {
-        toastr.warning(t`Settings saves are blocked until you reload SillyBunny.`, t`Settings save blocked`, { preventDuplicates: true });
+        toastr.warning(t`Settings saves are blocked until you reload Fairy.`, t`Settings save blocked`, { preventDuplicates: true });
         return;
     }
 
@@ -11376,7 +11376,7 @@ async function promptSettingsConflictReload() {
     try {
         const confirmation = await Popup.show.confirm(
             t`Settings changed on another device`,
-            t`Another device or browser tab saved newer settings. Reload SillyBunny before saving again to prevent overwriting those changes.`,
+            t`Another device or browser tab saved newer settings. Reload Fairy before saving again to prevent overwriting those changes.`,
             {
                 okButton: t`Reload now`,
                 cancelButton: t`Keep editing`,
@@ -11389,7 +11389,7 @@ async function promptSettingsConflictReload() {
         }
 
         settingsConflictPromptDismissed = true;
-        toastr.warning(t`Settings saves are blocked until you reload SillyBunny.`, t`Settings save blocked`, { preventDuplicates: true });
+        toastr.warning(t`Settings saves are blocked until you reload Fairy.`, t`Settings save blocked`, { preventDuplicates: true });
     } finally {
         settingsConflictPromptOpen = false;
     }
@@ -11671,7 +11671,7 @@ export async function clearFrontendCache({ skipConfirmation = false, saveBeforeC
     if (!skipConfirmation) {
         const confirmation = await Popup.show.confirm(
             t`Clear all cache?`,
-            t`This removes browser cache, service worker data, temporary session data, and IndexedDB cache stores for SillyBunny, then reloads the page. Saved settings and account data stay intact.`,
+            t`This removes browser cache, service worker data, temporary session data, and IndexedDB cache stores for Fairy, then reloads the page. Saved settings and account data stay intact.`,
             {
                 okButton: t`Clear cache`,
                 cancelButton: t`Cancel`,
@@ -11719,7 +11719,7 @@ export async function clearFrontendCache({ skipConfirmation = false, saveBeforeC
 
     if (globalThis.navigator?.serviceWorker && typeof globalThis.navigator.serviceWorker.getRegistrations === 'function') {
         try {
-            // SillyBunny: on iOS WebKit the controlling service worker stays attached to this
+            // Fairy: on iOS WebKit the controlling service worker stays attached to this
             // page after unregister() until the page unloads. Without an explicit purge the SW
             // re-fills its caches during the reload navigation, undoing the clear. We message
             // the controller to delete all sillybunny-cache-* caches before unregistering.
@@ -11757,7 +11757,7 @@ export async function clearFrontendCache({ skipConfirmation = false, saveBeforeC
 
     droppedStores.forEach((result, index) => {
         if (result.status === 'rejected') {
-            // SillyBunny: IDB drops are best-effort. iOS WebKit with ITP or storage pressure
+            // Fairy: IDB drops are best-effort. iOS WebKit with ITP or storage pressure
             // can reject localforage.dropInstance() — log but don't abort the clear so that
             // cookie expiry and the reload still happen.
             console.warn(`Failed to clear IndexedDB cache store: ${FRONTEND_CACHE_INSTANCE_NAMES[index]}`, result.reason);
@@ -11767,7 +11767,7 @@ export async function clearFrontendCache({ skipConfirmation = false, saveBeforeC
     try {
         sessionStorage.clear();
     } catch (error) {
-        // SillyBunny: sessionStorage may be blocked by iOS ITP in private browsing; non-fatal.
+        // Fairy: sessionStorage may be blocked by iOS ITP in private browsing; non-fatal.
         console.warn('Failed to clear session storage', error);
     }
 
@@ -11791,7 +11791,7 @@ async function clearAllCacheAndReload() {
         return false;
     }
 
-    toastr.success(t`Cache cleared. Reloading SillyBunny...`, t`Cache cleared`);
+    toastr.success(t`Cache cleared. Reloading Fairy...`, t`Cache cleared`);
     window.setTimeout(() => window.location.reload(), 1000);
     return true;
 }
@@ -11817,7 +11817,7 @@ async function maybeAutoClearCacheOnVersionChange(isVersionChanged) {
         return false;
     }
 
-    toastr.info(t`SillyBunny updated. Clearing cached UI data and reloading...`, t`Update detected`);
+    toastr.info(t`Fairy updated. Clearing cached UI data and reloading...`, t`Update detected`);
     window.setTimeout(() => window.location.reload(true), 1000);
     return true;
 }
@@ -12214,7 +12214,7 @@ async function renderMessageScreenshotCanvas(startId, endId) {
     surface.replaceChildren(...screenshotElements);
     shell.appendChild(surface);
 
-    // Keep the capture under #chat so chat-scoped SillyBunny layout rules apply to cloned messages.
+    // Keep the capture under #chat so chat-scoped Fairy layout rules apply to cloned messages.
     const captureParent = chatElement[0] instanceof HTMLElement
         ? chatElement[0]
         : document.getElementById('chat') ?? document.body;
@@ -14325,7 +14325,7 @@ export function isMessageSwipeable(messageId, message = undefined) {
     }
 }
 
-// SillyBunny: one-click recovery for replacing a failed current swipe.
+// Fairy: one-click recovery for replacing a failed current swipe.
 function canDeleteAddSwipe(messageId, message = chat[messageId]) {
     if (!message) {
         return false;
@@ -14920,7 +14920,7 @@ export async function createOrEditCharacter(e) {
             if (suspiciousEmptyDefinitionSave) {
                 const fieldList = suspiciousEmptyDefinitionSave.emptiedFieldLabels.join(', ');
                 const confirmation = await callGenericPopup(
-                    t`SillyBunny is about to save this character with previously populated definition fields empty: ${fieldList}. This can happen after a stale frontend load. Reload the page unless you intentionally cleared these fields. Continue saving?`,
+                    t`Fairy is about to save this character with previously populated definition fields empty: ${fieldList}. This can happen after a stale frontend load. Reload the page unless you intentionally cleared these fields. Continue saving?`,
                     POPUP_TYPE.CONFIRM,
                 );
 
@@ -15163,7 +15163,7 @@ export async function swipe(event, direction, { source, repeated, message = chat
             //Update the chat.
             await loadFromSwipeId(mesId, newSwipeId);
             //Transition to the new chat.
-            // SillyBunny: skip the slide-out so the target swipe's content renders to the DOM instantly,
+            // Fairy: skip the slide-out so the target swipe's content renders to the DOM instantly,
             // rather than lagging behind the previous message until the slide-out completes.
             await animateSwipe(false, true);
         }
@@ -15325,7 +15325,7 @@ export async function swipe(event, direction, { source, repeated, message = chat
     /**
      * Anime a swipe, optionally running a generation.
      * @param {boolean} run_generate
-     * @param {boolean} [skipSwipeOut=false] SillyBunny: callers now pass `true` so the DOM swaps instantly
+     * @param {boolean} [skipSwipeOut=false] Fairy: callers now pass `true` so the DOM swaps instantly
      *     (the message is blanked/replaced immediately), keeping only the slide-in enter animation.
      */
     async function animateSwipe(run_generate = false, skipSwipeOut = false) {
@@ -15341,7 +15341,7 @@ export async function swipe(event, direction, { source, repeated, message = chat
             await updateSwipeCounter(mesId);
             //shows "..." while generating
             thisMesDiv.find('.mes_text').html('...');
-            // SillyBunny: keep data in sync so MESSAGE_SWIPED listeners cannot re-render stale swipe text.
+            // Fairy: keep data in sync so MESSAGE_SWIPED listeners cannot re-render stale swipe text.
             chat[mesId].mes = '...';
             if (Array.isArray(chat[mesId].swipes) && chat[mesId].swipe_id < chat[mesId].swipes.length) {
                 chat[mesId].swipes[chat[mesId].swipe_id] = '...';
@@ -15354,7 +15354,7 @@ export async function swipe(event, direction, { source, repeated, message = chat
             //console.log('showing previously generated swipe candidate, or "..."');
             //console.log('onclick right swipe calling addOneMessage');
 
-            // SillyBunny: route display-only swipe replacement scroll handling through the guarded lifecycle seam.
+            // Fairy: route display-only swipe replacement scroll handling through the guarded lifecycle seam.
             const isLastMessageSwipe = (mesId == chat.length - 1);
             const useLifecycleRoute = source !== SWIPE_SOURCE.DELETE && source !== SWIPE_SOURCE.BACK && !isOverswipeReplacement;
             swipeViewportUpdate = getSwipeReplacementViewportUpdate({ isLastMessageSwipe, useLifecycleRoute });
@@ -15482,7 +15482,7 @@ export async function swipe(event, direction, { source, repeated, message = chat
                 clearMessageData(chat[mesId]);
                 let run_generate = true;
                 //Generate.
-                // SillyBunny: skip the slide-out so the message blanks to "..." instantly on regenerate,
+                // Fairy: skip the slide-out so the message blanks to "..." instantly on regenerate,
                 // instead of keeping the previous generation visible during the slide-out animation.
                 await animateSwipe(run_generate, true);
                 await endSwipe();
@@ -15799,7 +15799,7 @@ export async function renameGroupOrCharacterChat({ characterId, groupId, oldFile
         };
 
         const actualNewFileName = await sendRenameRequest(body);
-        // SillyBunny: update only the lightweight active-chat pointer, never rewrite the full card.
+        // Fairy: update only the lightweight active-chat pointer, never rewrite the full card.
         const shouldUpdateCharacterPointer = !isGroupRename
             && characterId !== undefined
             && getChatBaseName(targetCharacter?.chat) === getChatBaseName(oldFileName);
@@ -15917,7 +15917,7 @@ export async function updateRemoteChatName(characterId, newName) {
     if (!character) {
         throw new Error(`Character not found for ID: ${characterId}`);
     }
-    // SillyBunny: the last opened chat lives in a sidecar, not the card, so
+    // Fairy: the last opened chat lives in a sidecar, not the card, so
     // switching chats no longer rewrites the character file.
     const response = await fetch('/api/characters/last-chat', {
         method: 'POST',
@@ -16405,7 +16405,7 @@ jQuery(async function () {
         const isCharactersBlockClick = $(this).closest('#rm_print_characters_block').length > 0;
         const shouldCloseCharacterMenu = isCharactersBlockClick && (window.SillyBunnyShell?.isMobileViewport?.() ?? true);
         const id = Number($(this).attr('data-chid'));
-        // SillyBunny: drawer selection flashes Editor instead of opening it.
+        // Fairy: drawer selection flashes Editor instead of opening it.
         const didSelectCharacter = await selectCharacterById(id, { switchMenu: false });
         if (didSelectCharacter && isCharactersBlockClick) {
             pulseSelectedEntityCard(this);
@@ -16992,7 +16992,7 @@ jQuery(async function () {
             chatElement.find(`.mes[mesid="${this_del_mes}"]`).remove();
             chat.length = this_del_mes;
             chat_metadata.tainted = true;
-            // SillyBunny: this shrink is the user's own deletion, not an accidental overwrite.
+            // Fairy: this shrink is the user's own deletion, not an accidental overwrite.
             await saveChatConditional({ allowShrink: true });
             chatElement.scrollTop(chatElement[0].scrollHeight);
             await eventSource.emit(event_types.MESSAGE_DELETED, chat.length);

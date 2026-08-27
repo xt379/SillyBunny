@@ -1,7 +1,7 @@
 # Frontend Production Build
 
-SillyBunny normally serves the plain ES modules and stylesheets from `public/`.
-That keeps development readable and close to upstream SillyTavern. The optional
+Fairy normally serves the plain ES modules and stylesheets from `public/`.
+That keeps development readable and close to upstream Fairy. The optional
 frontend production build creates minified, fingerprinted assets in
 `dist/frontend/` for release testing and performance checks.
 

@@ -698,10 +698,10 @@ export class ReasoningHandler {
             minIntervalMs: getStreamingReasoningRenderInterval(navigatorRef),
         });
 
-        // SillyBunny: mobile browsers can force-reload under reasoning-heavy streams if we
+        // Fairy: mobile browsers can force-reload under reasoning-heavy streams if we
         // format and morph a growing hidden reasoning block on every live tick.
         if (shouldRenderReasoning) {
-            // SillyBunny: throttle live reasoning DOM work on reduced platforms so large
+            // Fairy: throttle live reasoning DOM work on reduced platforms so large
             // hidden reasoning blocks do not cause aggressive repaint or reload loops.
             const reasoning = trimSpaces(this.reasoningDisplayText ?? this.reasoning);
             const displayReasoning = messageFormatting(reasoning, '', false, false, messageId, {}, true);
@@ -1475,7 +1475,7 @@ function setReasoningEventHandlers() {
             return;
         }
         updateReasoningFromValue(message, newReasoning);
-        // SillyBunny: keep edited reasoning blocks counted the same way as the
+        // Fairy: keep edited reasoning blocks counted the same way as the
         // fork's live reasoning parse path so token totals stay consistent.
         await updateMessageTokenAccounting(message, {
             reasoning: message.extra.reasoning,
@@ -1544,7 +1544,7 @@ function setReasoningEventHandlers() {
         message.extra.reasoning = '';
         delete message.extra.reasoning_type;
         delete message.extra.reasoning_duration;
-        // SillyBunny: clearing reasoning must also clear its token accounting.
+        // Fairy: clearing reasoning must also clear its token accounting.
         await updateMessageTokenAccounting(message, {
             reasoning: '',
             reasoningTokens: 0,

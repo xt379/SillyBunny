@@ -1505,7 +1505,7 @@ export function initDefaultSlashCommands() {
         aliases: ['default'],
         helpString: t`Sets the message style to flat chat mode.`,
     }));
-    // SillyBunny: expose extra chat style aliases so shell-specific styles can be
+    // Fairy: expose extra chat style aliases so shell-specific styles can be
     // switched from slash commands without touching the upstream style list.
     registerChatStyleSlashCommand({
         name: 'echostyle',
@@ -5129,7 +5129,7 @@ async function deleteMessagesByNameCallback(_, name) {
         }
     }
 
-    // SillyBunny: this shrink is the user's own deletion, not an accidental overwrite.
+    // Fairy: this shrink is the user's own deletion, not an accidental overwrite.
     await saveChatConditional({ allowShrink: true });
     await reloadCurrentChat();
 

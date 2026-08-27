@@ -61,7 +61,7 @@ const CC_COMMANDS = [
     'stop-strings',
     'start-reply-with',
     'reasoning-template',
-    // SillyBunny: persist Chat Completion reasoning and request behavior in connection profiles.
+    // Fairy: persist Chat Completion reasoning and request behavior in connection profiles.
     'request-reasoning',
     'reasoning-effort',
     'verbosity',
@@ -600,7 +600,7 @@ function getCustomEndpointProfileSecretId(mode) {
         return '';
     }
 
-    // SillyBunny: Custom endpoint profiles bind to their saved preset secret, not the active fallback key.
+    // Fairy: Custom endpoint profiles bind to their saved preset secret, not the active fallback key.
     return String(selected_custom_endpoint_preset?.secretId ?? '').trim();
 }
 
@@ -613,7 +613,7 @@ function syncAppliedCustomEndpointProfileSecret(mode, secretId) {
         return;
     }
 
-    // SillyBunny: Custom status/model fetches read the selected preset secret after profile apply.
+    // Fairy: Custom status/model fetches read the selected preset secret after profile apply.
     syncCustomEndpointPresetSelectionBySecretId(secretId);
 }
 
@@ -739,7 +739,7 @@ function getWorldInfoActiveCount() {
 }
 
 function enrichProfileSnapshot(profile) {
-    // SillyBunny: include fork-only connection summary fields so exported profile
+    // Fairy: include fork-only connection summary fields so exported profile
     // snapshots still reflect the active shell state when reopened later.
     profile['active-agents'] = getActiveAgentsSummary();
     profile.samplers = getSamplerSummary();
@@ -991,7 +991,7 @@ async function applyConnectionProfile(profile) {
 
             let argument = profile[command];
             const allowEmpty = ALLOW_EMPTY.includes(command);
-            // SillyBunny: a profile without a proxy value means "no proxy". Reset the
+            // Fairy: a profile without a proxy value means "no proxy". Reset the
             // proxy preset instead of skipping, otherwise the previous profile's proxy
             // stays active and leaks into requests made under this profile.
             if (command === 'proxy' && !argument && !profile.exclude?.includes(command)) {
@@ -1003,7 +1003,7 @@ async function applyConnectionProfile(profile) {
             try {
                 const args = getNamedArguments(allowEmpty ? { force: 'true' } : {});
                 const commandPromise = SlashCommandParser.commands[command].callback(args, argument);
-                // SillyBunny: profile application triggers UI handlers that queue partial settings saves.
+                // Fairy: profile application triggers UI handlers that queue partial settings saves.
                 // Keep persistence centralized in the explicit save after the full profile is applied.
                 cancelDebounce(saveSettingsDebounced);
                 try {

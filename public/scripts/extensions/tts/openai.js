@@ -3,7 +3,7 @@ import { getPreviewString, saveTtsProviderSettings, sanitizeId } from './index.j
 
 export { OpenAITtsProvider };
 
-// SillyBunny: expose OpenAI's browser-playable response formats instead of forcing MP3.
+// Fairy: expose OpenAI's browser-playable response formats instead of forcing MP3.
 const OPENAI_TTS_RESPONSE_FORMATS = [
     { value: 'wav', label: 'WAV' },
     { value: 'mp3', label: 'MP3' },
@@ -186,7 +186,7 @@ class OpenAITtsProvider {
         $('#openai-character-instructions').empty();
 
         for (const char of currentCharacters) {
-            if (char === 'SillyTavern System' || char === '[Default Voice]') continue;
+            if (char === 'Fairy System' || char === '[Default Voice]') continue;
 
             const sanitizedName = sanitizeId(char);
             const savedInstructions = this.settings.characterInstructions?.[char] || '';

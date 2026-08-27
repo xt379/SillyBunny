@@ -212,7 +212,7 @@ import {
     resolveMainGenerationControlState,
     shouldBlockGenerationStart,
 } from "./lib/action-controls.js";
-// SillyBunny divergence: Conversation capability registry bridge.
+// Fairy divergence: Conversation capability registry bridge.
 import { registerExtensionCapability } from "../../sillybunny-conversation/extension-capabilities.js";
 
 // Artist lists for random selection
@@ -5284,7 +5284,7 @@ function enrichSceneTextForFilters(sceneText, label = "Contextual filters", cont
 
 let quickImageGenInitializationPromise = null;
 
-// SillyBunny divergence: expose a tiny readiness seam so Conversation media flows can wait for QIG boot without copying its init state.
+// Fairy divergence: expose a tiny readiness seam so Conversation media flows can wait for QIG boot without copying its init state.
 function ensureQuickImageGenReady(timeoutMs = 10000) {
     if (!quickImageGenInitializationPromise) {
         return Promise.reject(new Error("Quick Image Gen initialization has not started."));
@@ -5318,7 +5318,7 @@ function getGenerationSettingsForRun(context = null) {
     const merged = transientValues && typeof transientValues === "object"
         ? { ...baseSettings, ...transientValues }
         : baseSettings;
-    // SillyBunny divergence: scope settings to an explicitly supplied context so
+    // Fairy divergence: scope settings to an explicitly supplied context so
     // Conversation generation cannot inherit the active roleplay character.
     const runContext = context || getContext?.();
     const snapshot = snapshotGenerationRunSettings(getScopedCharacterGenerationSettings(merged, runContext));
@@ -6034,7 +6034,7 @@ async function prepareQigFinalPrompt({
             llmSceneText: llmSceneText || sourcePrompt,
             signal,
             settings,
-            // SillyBunny divergence: keep filter matching on the caller's context.
+            // Fairy divergence: keep filter matching on the caller's context.
             ...(context ? { context } : {}),
         });
         if (signal?.aborted) throw getAbortError(signal);
@@ -8259,7 +8259,7 @@ async function genLocal(prompt, negative, s, signal, options = {}) {
                 promptId: promptResponse.prompt_id,
                 allowLegacyInterrupt: s.comfyAllowLegacyInterrupt === true,
             };
-            // SillyBunny divergence: external capability runs own their prompt directly and
+            // Fairy divergence: external capability runs own their prompt directly and
             // must never claim or clear the UI generation's tracked prompt.
             if (options.externalRun) {
                 options.externalRun.comfyPrompt = trackedPrompt;
@@ -11041,7 +11041,7 @@ async function finalizeGeneratedResults(providerResult, prompt, negative, settin
         });
         return entries;
     } catch (error) {
-        // SillyBunny divergence: release outputs when a scoped/external run fails or is cancelled.
+        // Fairy divergence: release outputs when a scoped/external run fails or is cancelled.
         finalizedEntries.forEach(releaseTransientProviderResult);
         releaseTransientProviderResult(providerResult);
         throw error;
@@ -21741,7 +21741,7 @@ function initializeQuickImageGen() {
         } catch (err) {
             console.error("[Quick Image Gen] Initialization failed:", err);
             reportInitializationFailure(err);
-            // SillyBunny divergence: still reject so ensureQuickImageGenReady() fails fast
+            // Fairy divergence: still reject so ensureQuickImageGenReady() fails fast
             // for Conversation media flows instead of waiting out its timeout.
             throw err;
         }
@@ -22313,7 +22313,7 @@ export function deactivate() {
 // Export module info for SillyTavern
 export { extensionName };
 
-// SillyBunny divergence: minimal helper exports for the Expressions Agent bridge.
+// Fairy divergence: minimal helper exports for the Expressions Agent bridge.
 // These are kept intentionally small so upstream syncs only need to preserve this
 // one export block. The actual sprite-generation logic lives outside QIG in
 // public/scripts/extensions/expressions/expression-sprite-bridge.js.
