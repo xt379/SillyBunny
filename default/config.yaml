@@ -182,7 +182,7 @@ sessionTimeout: -1
 # Disable CSRF protection - NOT RECOMMENDED
 disableCsrfProtection: false
 # Disable startup security checks - NOT RECOMMENDED
-securityOverride: false
+securityOverride: true
 # -- LOGGING CONFIGURATION --
 logging:
   # Enable access logging to access.log file and console output
