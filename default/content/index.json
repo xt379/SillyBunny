@@ -930,5 +930,29 @@
     {
         "filename": "errors/url-not-found.html",
         "type": "error_page"
+    },
+    {
+        "filename": "default_XiaoXian.json",
+        "type": "character"
+    },
+    {
+        "filename": "default_YueHua.json",
+        "type": "character"
+    },
+    {
+        "filename": "default_WenBiJiang.json",
+        "type": "character"
+    },
+    {
+        "filename": "ModernLife.json",
+        "type": "world"
+    },
+    {
+        "filename": "StarlightEra.json",
+        "type": "world"
+    },
+    {
+        "filename": "AetherRealm.json",
+        "type": "world"
     }
 ]
