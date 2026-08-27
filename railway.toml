@@ -1,7 +1,4 @@
-[build]
-builder = "dockerfile"
-
 [deploy]
-healthcheck = { type = "http", path = "/", interval = "30s", timeout = "300s" }
-restartPolicyType = "on_failure"
+healthcheckType = "tcp"
+restartPolicyType = "on-failure"
 restartPolicyMaxRetries = 10
