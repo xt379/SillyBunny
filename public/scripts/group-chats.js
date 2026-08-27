@@ -556,7 +556,7 @@ async function _save(group, reload = true) {
         headers: getRequestHeaders(),
         body: JSON.stringify(group),
     });
-    // Fairy: surface metadata-save failures so chat rename can roll back consistently.
+    // SillyBunny: surface metadata-save failures so chat rename can roll back consistently.
     if (!response.ok) {
         throw new Error(`Could not save group ${group.id}.`);
     }
@@ -602,7 +602,7 @@ async function loadGroupChat(chatId, allowCreate = false) {
         body: JSON.stringify({ id: chatId, allow_create: allowCreate }),
     }), { refreshCsrfToken });
 
-    // Fairy: fail closed instead of replacing missing or corrupt persisted chat data with a greeting.
+    // SillyBunny: fail closed instead of replacing missing or corrupt persisted chat data with a greeting.
     if (!response.ok) {
         throw new Error(`Could not load group chat ${chatId}.`);
     }
@@ -706,7 +706,7 @@ async function validateGroup(group, { trustActiveChat = false } = {}) {
             dirty = true;
         }
 
-        // Fairy: a newly-created group chat has no JSONL yet, so keep its active branch id.
+        // SillyBunny: a newly-created group chat has no JSONL yet, so keep its active branch id.
         if (!trustActiveChat && presentChats.length && !presentChats.includes(String(group.chat_id ?? ''))) {
             group.chat_id = presentChats[presentChats.length - 1];
             dirty = true;
@@ -771,10 +771,10 @@ export async function getGroupChat(groupId, reload = false, { switchMenu = true,
         data.shift();
     }
 
-    // Fairy: initialize empty, untainted group chats even when the chat id was created before this load.
+    // SillyBunny: initialize empty, untainted group chats even when the chat id was created before this load.
     const freshChat = !metadata.tainted && (!Array.isArray(data) || !data.length);
 
-    // Fairy: no integrity slug means the server treats the file as intact and mints one on the
+    // SillyBunny: no integrity slug means the server treats the file as intact and mints one on the
     // first real save. Stamping one in on load only dirtied legacy chats into a needless rewrite.
     await loadItemizedPrompts(getCurrentChatId());
 
@@ -1127,7 +1127,7 @@ function saveGroupChat(groupId, shouldSaveGroup, force = false, throwOnError = f
 
 /**
  * Waits for saves already queued on the serial group chat save queue to settle.
- * Fairy: group saves run on their own queue, so navigation has to drain it separately.
+ * SillyBunny: group saves run on their own queue, so navigation has to drain it separately.
  * @returns {Promise<void>}
  */
 export async function waitForQueuedGroupChatSaves() {
@@ -1168,7 +1168,7 @@ async function saveGroupChatImmediately({ groupId, shouldSaveGroup, force = fals
         headers: getRequestHeaders(),
         body: savePayload,
     });
-    // Fairy: rebuild compressed save requests after refreshing a stale CSRF token.
+    // SillyBunny: rebuild compressed save requests after refreshing a stale CSRF token.
     const response = await fetchWithCsrfRetry('/api/chats/group/save', buildSaveGroupChatRequest, { refreshCsrfToken });
 
     if (!response.ok) {
@@ -3170,7 +3170,7 @@ jQuery(() => {
         const isCharactersBlockClick = $(this).closest('#rm_print_characters_block').length > 0;
         const shouldCloseCharacterMenu = isCharactersBlockClick && (globalThis.SillyBunnyShell?.isMobileViewport?.() ?? true);
         const groupId = $(this).attr('data-chid') || $(this).attr('data-grid');
-        // Fairy: drawer selection flashes Editor instead of opening it.
+        // SillyBunny: drawer selection flashes Editor instead of opening it.
         const didOpenGroup = await openGroupById(groupId, { switchMenu: false });
         if (didOpenGroup && isCharactersBlockClick) {
             pulseSelectedEntityCard(this);

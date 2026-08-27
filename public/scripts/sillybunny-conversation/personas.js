@@ -181,7 +181,7 @@ export function composeConversationPersonaDescription(avatarId, options = {}) {
     const activeIds = new Set(getActiveConversationPersonaAppendixIds(avatarId, options));
     for (const appendix of getConversationPersonaAppendices(avatarId)) {
         if (activeIds.has(appendix.id) && appendix.description.trim()) {
-            // Fairy: wrap the appendix label in parentheses instead of square brackets.
+            // SillyBunny: wrap the appendix label in parentheses instead of square brackets.
             // Square brackets collide with Conversation Mode's reply command grammar
             // ([selfie], [schedule_update:], [reminder:]); echoing them in a reply caused
             // the strip pass to blank it entirely.

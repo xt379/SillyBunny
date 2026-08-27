@@ -1,7 +1,7 @@
-/* Fairy mobile shell foundation: final sheet contract for modal drawers.
+/* SillyBunny mobile shell foundation: final sheet contract for modal drawers.
  * Keep this at the end of the shell sheet so it beats older mobile drawer rules. */
 @media screen and (max-width: 768px) {
-    /* Fairy: Android Firefox ignores user-scalable=no in the viewport
+    /* SillyBunny: Android Firefox ignores user-scalable=no in the viewport
        meta, allowing pinch-zoom to drift the visual viewport away from the
        layout viewport. pan-y permits vertical touch scrolling but blocks
        horizontal panning, pinch-zoom, and double-tap-zoom on the document
@@ -12,7 +12,7 @@
         touch-action: pan-y;
     }
 
-    /* Fairy: visualViewport-backed height so the shell contracts with
+    /* SillyBunny: visualViewport-backed height so the shell contracts with
        the software keyboard instead of relying on dvh, which is unreliable
        with body { position: fixed } on Android Chrome. */
     body:not(.movingUI) #sheld {
@@ -128,7 +128,7 @@
         gap: 3px !important;
     }
 
-    /* Fairy: name what the phone composer hides instead of allow-listing what it keeps.
+    /* SillyBunny: name what the phone composer hides instead of allow-listing what it keeps.
        The old allow-list also swallowed every third-party button injected into the right rail;
        those are now relocated into the scrollable left rail by placeComposerControls().
        The STscript play/pause/stop controls are unused by this fork's roleplay-focused audience
@@ -436,7 +436,7 @@
         display: none !important;
     }
 
-    /* Fairy: was top: -42px, floating above the panel and invisible to the user;
+    /* SillyBunny: was top: -42px, floating above the panel and invisible to the user;
        changed to 8px to keep the close button inside the header and reachable on mobile */
     #right-nav-panel.openDrawer > .sb-character-shell-header .sb-shell-close {
         top: 8px !important;
@@ -845,7 +845,7 @@
 }
 
 @media screen and (min-width: 769px) and (max-width: 1180px) {
-    /* Fairy: keep tablet full-screen shells edge-to-edge without overriding MovingUI resizing. */
+    /* SillyBunny: keep tablet full-screen shells edge-to-edge without overriding MovingUI resizing. */
     body:not(.movingUI) #sheld {
         width: 100vw !important;
         width: 100dvw !important;
@@ -868,9 +868,9 @@
 
 @supports (-webkit-touch-callout: none) {
     @media screen and (max-width: 768px) {
-        /* Fairy: iOS 17 WebKit can misresolve dvh for the main shell. */
+        /* SillyBunny: iOS 17 WebKit can misresolve dvh for the main shell. */
         body:not(.movingUI) #sheld {
-            /* Fairy: add visual-viewport top so that when iOS Safari shifts the
+            /* SillyBunny: add visual-viewport top so that when iOS Safari shifts the
                viewport up (keyboard open) the shell moves with it instead of floating
                mid-screen above the composer. NOTE: must be a CSS block comment, not //,
                or the parser discards tokens through the next semicolon and silently
@@ -905,7 +905,7 @@
     }
 }
 
-/* Fairy: mirror the <=768px drawer keyboard inset on wide iOS viewports
+/* SillyBunny: mirror the <=768px drawer keyboard inset on wide iOS viewports
    (iPadOS desktop-mode Safari reports a desktop UA and exceeds 768px).
    .sb-ios-keyboard-inset-active is only toggled while the iOS software
    keyboard is open, so non-iOS and keyboard-closed layouts never match. */
@@ -1048,7 +1048,7 @@ html.sb-ios-keyboard-inset-active #right-nav-panel.openDrawer > .scrollableInner
     }
 }
 
-/* Fairy: mobile-only rules moved out of blocking tabs.css for startup budget. */
+/* SillyBunny: mobile-only rules moved out of blocking tabs.css for startup budget. */
 @media screen and (max-width: 768px) {
     :root {
         --sb-topbar-scale-active: var(--sb-topbar-scale-mobile);
@@ -2811,7 +2811,7 @@ html.sb-ios-keyboard-inset-active #right-nav-panel.openDrawer > .scrollableInner
     }
 }
 
-/* Fairy: final mobile density pass for phone chat chrome and message rhythm. */
+/* SillyBunny: final mobile density pass for phone chat chrome and message rhythm. */
 @media screen and (max-width: 768px) {
     :root {
         --sb-topbar-primary-height-base: 28px;
@@ -3032,7 +3032,7 @@ html.sb-ios-keyboard-inset-active #right-nav-panel.openDrawer > .scrollableInner
     }
 }
 
-/* Fairy: streaming display (generation toast) density pass for phone. */
+/* SillyBunny: streaming display (generation toast) density pass for phone. */
 @media screen and (max-width: 768px) {
     .streaming-display {
         padding: 10px;

@@ -307,7 +307,7 @@ const INLINE_SELECT_PICKER_CONTROLS = [
     { source: 'openrouter-quantizations-text', select: '#openrouter_quantizations_text', label: 'OpenRouter quantizations', multiple: true },
 ];
 
-// Fairy: touch browsers can open Select2 search as a keyboard-only field.
+// SillyBunny: touch browsers can open Select2 search as a keyboard-only field.
 // Keep mobile OpenRouter/API selects backed by native values while rendering an inline list.
 const modelIdSearchControlState = new Map();
 let modelSelectPickerDocumentListenerBound = false;
@@ -728,7 +728,7 @@ function applyToolCallRecurseLimit(value = oai_settings.tool_call_recurse_limit)
 export let promptManager = null;
 
 /**
- * Fairy: prompt order reset needs the selected preset's saved order, not the current modified settings.
+ * SillyBunny: prompt order reset needs the selected preset's saved order, not the current modified settings.
  * Gets the prompt order from the selected OpenAI preset before user edits are applied.
  * @param {number|string|null} characterId Character/dummy ID to match in the preset prompt order.
  * @returns {Array<Object>} Prompt order from the selected preset, or an empty array.
@@ -1912,7 +1912,7 @@ export async function prepareOpenAIMessages({
 
     let chat = chatCompletion.getChat();
 
-    // Fairy: only prompt-ready listeners that mutate the finalized chat should
+    // SillyBunny: only prompt-ready listeners that mutate the finalized chat should
     // trigger the post-mutation budget recount.
     const eventData = { chat, dryRun, chatChanged: false };
     await eventSource.emit(event_types.CHAT_COMPLETION_PROMPT_READY, eventData);
@@ -2093,7 +2093,7 @@ function isContextUnlockConfigurable(source = oai_settings.chat_completion_sourc
 }
 
 function isMaxContextUnlockedForSource(settings = oai_settings) {
-    // Fairy keeps most OpenAI-compatible sources unlocked; expose model limits only where users requested them.
+    // SillyBunny keeps most OpenAI-compatible sources unlocked; expose model limits only where users requested them.
     return !isContextUnlockConfigurable(settings.chat_completion_source) || !!settings.max_context_unlocked;
 }
 
@@ -5089,7 +5089,7 @@ function getReasoningEffort(settings = null, model = null) {
                     : reasoning_effort_types.low;
             case reasoning_effort_types.max: {
                 const nativeOpenAISource = [chat_completion_sources.OPENAI, chat_completion_sources.OPENAI_RESPONSES, chat_completion_sources.AZURE_OPENAI].includes(settings.chat_completion_source);
-                // Fairy: GPT-5.6 exposes max separately from xhigh.
+                // SillyBunny: GPT-5.6 exposes max separately from xhigh.
                 if (nativeOpenAISource && /^gpt-5\.6(?:-|$)/.test(model)) {
                     return reasoning_effort_types.max;
                 }
@@ -5556,7 +5556,7 @@ export async function createGenerationParameters(settings, model, type, messages
         }
     }
 
-    // Fairy: Claude Fable and Sonnet 5 reject sampling parameters, including through provider-prefixed proxy model ids.
+    // SillyBunny: Claude Fable and Sonnet 5 reject sampling parameters, including through provider-prefixed proxy model ids.
     applyClaudeModelParameterConstraints(generate_data, {
         preserveReasoning: [chat_completion_sources.CLAUDE, chat_completion_sources.LINKAPI].includes(settings.chat_completion_source),
     });
@@ -5592,7 +5592,7 @@ async function sendOpenAIRequest(type, messages, signal, { jsonSchema = null, ca
     await eventSource.emit(event_types.CHAT_COMPLETION_SETTINGS_READY, generate_data);
 
     if (generate_data.chat_completion_source === chat_completion_sources.CUSTOM && selected_custom_endpoint_preset?.secretId) {
-        // Fairy: Custom endpoint profiles bind chat requests to their saved secret, not the last active CUSTOM key.
+        // SillyBunny: Custom endpoint profiles bind chat requests to their saved secret, not the last active CUSTOM key.
         generate_data.secret_id = selected_custom_endpoint_preset.secretId;
     }
 
@@ -7105,7 +7105,7 @@ export function maybeApplyModelSamplingProfile() {
         oai_settings.model_sampling_profiles[profileMatch.canonicalKey] = structuredClone(profileMatch.profile);
         saveSettingsDebounced();
     }
-    // Fairy: Removed constant "Model sampling profile loaded" toast to reduce UI noise
+    // SillyBunny: Removed constant "Model sampling profile loaded" toast to reduce UI noise
 }
 
 function maybeShowPresetConnectionBindingReminder(previousPresetName, nextPresetName) {
@@ -7882,7 +7882,7 @@ function onSettingsPresetChange() {
         scheduleOpenAIUiRefresh();
         $('#openai_logit_bias_preset').trigger('change');
 
-        // Fairy: re-assert the per-model sampling profile after a preset has
+        // SillyBunny: re-assert the per-model sampling profile after a preset has
         // written its sampling values, so a bound model profile always wins over
         // the (Default/char) preset — the core promise of "decouple sampling from
         // preset". Without this, starting a new chat or switching to a backend
@@ -7899,7 +7899,7 @@ function getMaxContextOpenAI(value) {
     if (isMaxContextUnlockedForSource()) {
         return unlocked_max;
     } else if (value.startsWith('gpt-5.4') || value.startsWith('gpt-5.6')) {
-        // Fairy: GPT-5.6 has the same one-million-token context tier as GPT-5.4.
+        // SillyBunny: GPT-5.6 has the same one-million-token context tier as GPT-5.4.
         return max_1mil;
     } else if (value.startsWith('gpt-5')) {
         return max_400k;
@@ -8575,7 +8575,7 @@ async function onModelChange() {
     if (oai_settings.chat_completion_source == chat_completion_sources.CLAUDE) {
         if (maxContextUnlocked) {
             $('#openai_max_context').attr('max', unlocked_max);
-        } else if (/^claude-(opus-5|sonnet-5|sonnet-4-(?:[5-9]|\d{2,})|opus-4-(?:[6-9]|\d{2,})|fable)/.test(value)) { // Fairy: current Claude models with 1M context windows
+        } else if (/^claude-(opus-5|sonnet-5|sonnet-4-(?:[5-9]|\d{2,})|opus-4-(?:[6-9]|\d{2,})|fable)/.test(value)) { // SillyBunny: current Claude models with 1M context windows
             $('#openai_max_context').attr('max', max_1mil);
         } else if (/^claude-(3|opus|haiku|sonnet)/.test(value)) {
             $('#openai_max_context').attr('max', max_200k);
@@ -8976,7 +8976,7 @@ async function onConnectButtonClick(e) {
             && selected_custom_endpoint_preset?.name !== 'None'
             && selected_custom_endpoint_preset?.secretId;
 
-        // Fairy: custom endpoint profiles keep their own secret ids; Connect must not mint duplicate active keys.
+        // SillyBunny: custom endpoint profiles keep their own secret ids; Connect must not mint duplicate active keys.
         if (!isBoundCustomEndpointProfile && apiKey.length) {
             await writeSecret(config.key, apiKey);
         }
@@ -9208,9 +9208,9 @@ export function isImageInliningSupported() {
         'o4-mini',
         // Claude
         'claude-3',
-        'claude-fable', // Fairy: claude-fable-5 vision support
-        'claude-opus-5', // Fairy: claude-opus-5 vision support
-        'claude-sonnet-5', // Fairy: claude-sonnet-5 vision support
+        'claude-fable', // SillyBunny: claude-fable-5 vision support
+        'claude-opus-5', // SillyBunny: claude-opus-5 vision support
+        'claude-sonnet-5', // SillyBunny: claude-sonnet-5 vision support
         'claude-opus-4',
         'claude-sonnet-4',
         'claude-haiku-4',
@@ -9523,7 +9523,7 @@ function setProxyPreset(name, url, password, source = '', { applySource = true, 
 
     const shouldSwitchSource = applySource && normalizedPreset.source && normalizedPreset.source !== oai_settings.chat_completion_source;
 
-    // Fairy: when applying a bound preset during settings load (silent), switch the backend
+    // SillyBunny: when applying a bound preset during settings load (silent), switch the backend
     // and refresh source-dependent UI without triggering a reconnect or the proxy confirmation modal,
     // which would otherwise block the startup loader and freeze the settings panel. See #304 regression.
     if (silent) {
@@ -9554,7 +9554,7 @@ function onProxyPresetChange() {
     saveSettingsDebounced();
 }
 
-// Fairy: reverse direction of the reverse-proxy backend binding. Selecting a bound preset already
+// SillyBunny: reverse direction of the reverse-proxy backend binding. Selecting a bound preset already
 // switches the backend (forward); this keeps the binding two-way by selecting a preset bound to the
 // newly chosen backend. Guarded against re-entrancy so it can't feed back into the source change handler.
 let isSyncingProxyBinding = false;
@@ -9654,7 +9654,7 @@ export async function loadCustomEndpointPresets(settings) {
     }
 
     const savedSelectedPreset = settings.selected_custom_endpoint_preset;
-    // Fairy: re-resolve the saved selection against the presets array so both point at the same object.
+    // SillyBunny: re-resolve the saved selection against the presets array so both point at the same object.
     const savedSelectedName = savedSelectedPreset ? normalizeCustomEndpointPreset(savedSelectedPreset).name : null;
     selected_custom_endpoint_preset = savedSelectedName
         ? custom_endpoint_presets.find(preset => preset.name === savedSelectedName) ?? null
@@ -9673,7 +9673,7 @@ export async function loadCustomEndpointPresets(settings) {
     $('#custom_endpoint_preset').val(selected_custom_endpoint_preset?.name || 'None');
 
     if (selected_custom_endpoint_preset) {
-        // Fairy: load-time apply must not rotate or write secrets; requests send secret_id explicitly.
+        // SillyBunny: load-time apply must not rotate or write secrets; requests send secret_id explicitly.
         await setCustomEndpointPreset(
             selected_custom_endpoint_preset.name,
             selected_custom_endpoint_preset.url,
@@ -9715,12 +9715,12 @@ async function activateCustomEndpointPresetSecret(preset, { forceWrite = false }
     }
 
     if (preset.secretId && (!forceWrite || !preset.key)) {
-        // Fairy: rotate to the bound profile secret instead of writing duplicate or accidental empty keys.
+        // SillyBunny: rotate to the bound profile secret instead of writing duplicate or accidental empty keys.
         await rotateSecret(SECRET_KEYS.CUSTOM, preset.secretId);
         return;
     }
 
-    // Fairy: legacy/keyless profiles get a stable per-profile secret id, even when the key is intentionally empty.
+    // SillyBunny: legacy/keyless profiles get a stable per-profile secret id, even when the key is intentionally empty.
     const secretId = await writeSecret(SECRET_KEYS.CUSTOM, preset.key, undefined, { allowEmpty: true });
     if (secretId) {
         preset.secretId = secretId;
@@ -9729,7 +9729,7 @@ async function activateCustomEndpointPresetSecret(preset, { forceWrite = false }
 
 function updateCustomEndpointKeyInput(preset, key) {
     if (preset?.secretId) {
-        // Fairy: saved profile secrets are write-only in the UI; avoid replaying stale plaintext copies.
+        // SillyBunny: saved profile secrets are write-only in the UI; avoid replaying stale plaintext copies.
         $('#api_key_custom').val('').attr('placeholder', t`(saved secret)`);
         return;
     }
@@ -9737,7 +9737,7 @@ function updateCustomEndpointKeyInput(preset, key) {
     $('#api_key_custom').removeAttr('placeholder').val(key);
 }
 
-// Fairy: connection profiles can rotate CUSTOM secrets without using the endpoint preset dropdown.
+// SillyBunny: connection profiles can rotate CUSTOM secrets without using the endpoint preset dropdown.
 export function syncCustomEndpointPresetSelectionBySecretId(secretId) {
     const normalizedSecretId = String(secretId ?? '').trim();
     if (!normalizedSecretId) {
@@ -9883,7 +9883,7 @@ function runProxyCallback(_, value) {
 
     const proxyNames = proxies.map(preset => preset.name);
 
-    // Fairy: 'None' is the no-proxy sentinel connection profiles send when they
+    // SillyBunny: 'None' is the no-proxy sentinel connection profiles send when they
     // have no proxy configured, but the None preset itself is deletable. Resolve the
     // sentinel exactly — fuzzy search could land on a real proxy — and recreate it
     // silently instead of warning about a preset the user never chose.
@@ -10298,7 +10298,7 @@ export function initOpenAI() {
         ],
         helpString: 'Sets a proxy preset by name.',
     }));
-    // Fairy: Connection Manager snapshots Chat Completion request behavior via slash commands.
+    // SillyBunny: Connection Manager snapshots Chat Completion request behavior via slash commands.
     registerChatCompletionProfileSlashCommands();
 
     $('#test_api_button').on('click', testApiConnection);
@@ -10513,7 +10513,7 @@ export function initOpenAI() {
         toggleChatCompletionForms();
         applyConfigurableContextLimit();
         syncProxyPresetToBoundSource(oai_settings.chat_completion_source);
-        // Fairy: source switches should not reset the selected settings preset.
+        // SillyBunny: source switches should not reset the selected settings preset.
         restoreOpenAIPresetSelection(presetName);
         maybeApplyModelSamplingProfile();
         saveSettingsDebounced();

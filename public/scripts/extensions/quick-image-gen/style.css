@@ -2391,7 +2391,7 @@ button.qig-message-generate {
     opacity: 0.85 !important;
 }
 
-/* Content rendered inside Fairy's own popups, which supply the frame. */
+/* Content rendered inside SillyTavern's own popups, which supply the frame. */
 .qig-dialog-title {
     margin: 0 0 8px;
     font-size: 1.1em;

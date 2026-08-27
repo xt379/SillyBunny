@@ -1,12 +1,12 @@
 # Upstream Sync Runbook
 
-Fairy keeps fork-specific feature work separate from upstream synchronization work.
-Use this runbook when checking or preparing an upstream Fairy sync.
+SillyBunny keeps fork-specific feature work separate from upstream synchronization work.
+Use this runbook when checking or preparing an upstream SillyTavern sync.
 
 ## Upstream Ancestry Anchor
 
-Fairy's public history was re-rooted before the Fairy 1.18 migration,
-so older Fairy commits do not share Git ancestry with upstream even though the
+SillyBunny's public history was re-rooted before the SillyTavern 1.18 migration,
+so older SillyBunny commits do not share Git ancestry with upstream even though the
 1.18 code was manually ported.
 
 The branch that anchors upstream ancestry must be merged with a normal merge
@@ -14,7 +14,7 @@ commit. Do not squash or rebase that PR: either option drops the upstream parent
 and restores the unrelated-history failure.
 
 The anchor records upstream `SillyTavern/SillyTavern` `release` at commit
-`51ad27fb86d39a3daca3adaa970375c9670c12df` as already ported into Fairy.
+`51ad27fb86d39a3daca3adaa970375c9670c12df` as already ported into SillyBunny.
 The anchor merge must not import upstream runtime or application-code changes.
 Any same-PR documentation changes should be explicit and reviewable in the file
 diff.

@@ -276,7 +276,7 @@ async function onNarrateText(args, text) {
     await initVoiceMap(true);
 
     const baseName = args?.voice || name2;
-    const name = (baseName === 'Fairy System' ? DEFAULT_VOICE_MARKER : baseName) || DEFAULT_VOICE_MARKER;
+    const name = (baseName === 'SillyTavern System' ? DEFAULT_VOICE_MARKER : baseName) || DEFAULT_VOICE_MARKER;
 
     const voiceMapEntry = resolveSpeakerVoiceMapEntry(name);
 
@@ -868,7 +868,7 @@ function parseMessageSegments(text) {
     return segments;
 }
 
-// Fairy: filter action blocks before quote extraction so quoted actions remain excluded from dialogue-only narration.
+// SillyBunny: filter action blocks before quote extraction so quoted actions remain excluded from dialogue-only narration.
 function filterTtsAsterisks(text, { narrateDialoguesOnly = false, passAsterisks = false } = {}) {
     if (passAsterisks) {
         return text;
@@ -879,7 +879,7 @@ function filterTtsAsterisks(text, { narrateDialoguesOnly = false, passAsterisks 
         : text.replaceAll('*', '').trim();
 }
 
-// Fairy: discard semantic blocks before quote extraction without dropping dialogue wrapped in presentation tags.
+// SillyBunny: discard semantic blocks before quote extraction without dropping dialogue wrapped in presentation tags.
 function stripTtsTaggedBlocks(text, { preserveFormatting = false } = {}) {
     const formattingTags = new Set([
         'b', 'big', 'em', 'font', 'i', 'mark', 's', 'small', 'span', 'strike', 'strong', 'sub', 'sup', 'u',
@@ -985,7 +985,7 @@ async function processTtsQueue() {
         passAsterisks: extension_settings.tts.pass_asterisks,
     });
 
-    // Fairy: Strip tag markup before quote extraction so wrappers preserve dialogue without narrating attributes.
+    // SillyBunny: Strip tag markup before quote extraction so wrappers preserve dialogue without narrating attributes.
     if (extension_settings.tts.narrate_quoted_only) {
         const partJoiner = (ttsProvider?.separator || ' ... ');
         if (extension_settings.tts.skip_tags) {
@@ -1632,7 +1632,7 @@ function expandCharactersForMultiVoice(characters, multiVoiceEnabled) {
 
     const expandedCharacters = [];
     for (const char of characters) {
-        if (char === DEFAULT_VOICE_MARKER || char === 'Fairy System') {
+        if (char === DEFAULT_VOICE_MARKER || char === 'SillyTavern System') {
             expandedCharacters.push(char);
         } else {
             expandedCharacters.push(`${char} ("Quotes")`);
@@ -1846,7 +1846,7 @@ async function initVoiceMapInternal(unrestricted, speakers, provider, providerNa
 
     // Build UI using VoiceMapEntry objects
     for (const character of characters) {
-        if (character === 'Fairy System') {
+        if (character === 'SillyTavern System') {
             continue;
         }
         // Check provider settings for voiceIds

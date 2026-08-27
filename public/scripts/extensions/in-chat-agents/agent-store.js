@@ -629,7 +629,7 @@ export function isBundledPathfinderAgentSnapshot(agent, templates = []) {
     return agentName === 'pathfinder' &&
         category === 'tool' &&
         agentPrompt === '' &&
-        (agentAuthor === 'Fairy' || hasPathfinderToolMetadata(agent));
+        (agentAuthor === 'sillybunny' || hasPathfinderToolMetadata(agent));
 }
 
 function getBundledAgentDuplicateKey(agent, templates = []) {
@@ -998,7 +998,7 @@ export function normalizeCompanionConfig(raw = {}) {
         rawPrompt: Boolean(rawConfig.rawPrompt),
         inlinePhase: ['pre', 'post', 'both'].includes(String(rawConfig.inlinePhase)) ? String(rawConfig.inlinePhase) : '',
         minContextTokens: clampNumber(rawConfig.minContextTokens, defaults.minContextTokens, 0, 200000),
-        // Fairy: no upper bound. These are "how far back to look" dials, and a hard ceiling
+        // SillyBunny: no upper bound. These are "how far back to look" dials, and a hard ceiling
         // silently rewrote whatever the user saved (200 came back as 50) with no way to tell.
         contextMessages: clampNumber(rawConfig.contextMessages, defaults.contextMessages, 1, Infinity),
         includeCharacterCard: rawConfig.includeCharacterCard === undefined ? defaults.includeCharacterCard : Boolean(rawConfig.includeCharacterCard),

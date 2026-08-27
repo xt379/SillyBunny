@@ -166,7 +166,7 @@ export async function hideChatMessageRange(start, end, unhide, nameFitler = null
     refreshSwipeButtons();
 
     await saveChatConditional();
-    // Fairy: keep chat listeners in sync after range-hiding messages so the
+    // SillyBunny: keep chat listeners in sync after range-hiding messages so the
     // shell and footer controls can refresh immediately.
     await eventSource.emit(event_types.MESSAGE_UPDATED, start);
 }
@@ -909,7 +909,7 @@ function expandMessageMedia(messageId, mediaIndex) {
         function getImageElement() {
             const img = document.createElement('img');
             img.src = mediaAttachment.url;
-            // Fairy: defer enlarged image decoding to keep large chats responsive.
+            // SillyBunny: defer enlarged image decoding to keep large chats responsive.
             img.loading = 'lazy';
             img.decoding = 'async';
             img.classList.add('img_enlarged');
@@ -1783,7 +1783,7 @@ function ensureAttachmentsExist() {
  * @returns {FileAttachment[]} List of attachments
  */
 export function getDataBankAttachments(includeDisabled = false) {
-    // Fairy: reading must not create chat_metadata.attachments. Every reader below already
+    // SillyBunny: reading must not create chat_metadata.attachments. Every reader below already
     // falls back to an empty list, and an empty array written here dirties a chat just by looking
     // at it, which costs a full chat-file rewrite on the next save.
     const globalAttachments = extension_settings.attachments ?? [];
@@ -1800,7 +1800,7 @@ export function getDataBankAttachments(includeDisabled = false) {
  * @returns {FileAttachment[]} List of attachments
  */
 export function getDataBankAttachmentsForSource(source, includeDisabled = true) {
-    // Fairy: see getDataBankAttachments. Reading is not a reason to write to chat_metadata.
+    // SillyBunny: see getDataBankAttachments. Reading is not a reason to write to chat_metadata.
     function getBySource() {
         switch (source) {
             case ATTACHMENT_SOURCE.GLOBAL:

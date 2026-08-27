@@ -380,7 +380,7 @@ export class SmoothEventSourceStream extends EventSourceStream {
 }
 
 export function getEventSourceStream() {
-    // Fairy: smooth streaming can be disabled per mobile platform even
+    // SillyBunny: smooth streaming can be disabled per mobile platform even
     // when the normal upstream setting remains enabled.
     if (isSmoothStreamingEffectivelyEnabled({
         smoothStreaming: power_user.smooth_streaming,

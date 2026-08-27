@@ -1,9 +1,9 @@
-/* Built-in Fairy ports of Moonlit Echoes chat layouts.
+/* Built-in SillyBunny ports of Moonlit Echoes chat layouts.
    Extracted from SillyBunny-MoonlitEchoesTheme/style.css and kept scoped to
    the native Echo, Whisper, Hush, Ripple, and Tide body classes. */
 
 :root {
-    /* Fairy: Moonlit defaults required when the extension settings JS is absent. */
+    /* SillyBunny: Moonlit defaults required when the extension settings JS is absent. */
     --custom-ChatAvatar: 40px;
     --custom-chat-avatar-size: var(--custom-ChatAvatar, 40px);
     --custom-chat-avatar-frame-size: calc(var(--custom-chat-avatar-size) + 8px);

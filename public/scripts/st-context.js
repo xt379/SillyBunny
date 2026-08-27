@@ -296,7 +296,7 @@ export function getContext() {
                 has: existsGlobalVariable,
             },
         },
-        // Fairy: Pathfinder write tools need the lorebook entry factory in extension context.
+        // SillyBunny: Pathfinder write tools need the lorebook entry factory in extension context.
         loadWorldInfo,
         createWorldInfoEntry,
         saveWorldInfo,

@@ -78,7 +78,7 @@ const activatingExtensionDedupKeys = new Set();
  */
 const extensionLoadErrors = new Set();
 
-// Fairy: extensions append settings UI into shared columns; keep that surface resilient.
+// SillyBunny: extensions append settings UI into shared columns; keep that surface resilient.
 const extensionSettingsHostIds = ['extensions_settings', 'extensions_settings2'];
 const ignoredExtensionSettingsSelectors = [];
 const ignoredExtensionSettingsSelector = ignoredExtensionSettingsSelectors.join(', ');
@@ -396,7 +396,7 @@ export const extension_settings = {
 };
 
 /**
- * Fairy: core and bundled extensions used to be force-enabled, which made any entry
+ * SillyBunny: core and bundled extensions used to be force-enabled, which made any entry
  * the user still had in `disabledExtensions` for them a no-op. Now that those toggles are
  * honoured, drop those stale entries once so upgrading does not silently switch off
  * extensions that have been running all along. Choices made afterwards are respected.
@@ -447,7 +447,7 @@ function applyBundledOptInDefaults({ migrateLegacy = false, initializeProcessedI
         }
     }
 
-    // Fairy: the legacy global bit covered older opt-ins; newer bundled opt-ins are tracked per-extension.
+    // SillyBunny: the legacy global bit covered older opt-ins; newer bundled opt-ins are tracked per-extension.
     if (migrateLegacy && extension_settings.bundledOptInDefaultsApplied) {
         for (const id of LEGACY_BUNDLED_OPT_IN_EXTENSION_IDS) {
             const key = getExtensionDedupKey(id);
@@ -497,8 +497,8 @@ function maybeShowMoonlitEchoesMovedNotice() {
     }
 
     const message = forkExtension
-        ? t`Moonlit Echoes moved out of Fairy core. Your settings were left unchanged; enable the SillyBunny Moonlit Echoes Theme extension to keep Moonlit styles active.`
-        : t`Moonlit Echoes moved out of Fairy core. Your settings were left unchanged; install the SillyBunny Moonlit Echoes Theme from Launchpad optional installs to keep Moonlit styles active.`;
+        ? t`Moonlit Echoes moved out of SillyBunny core. Your settings were left unchanged; enable the SillyBunny Moonlit Echoes Theme extension to keep Moonlit styles active.`
+        : t`Moonlit Echoes moved out of SillyBunny core. Your settings were left unchanged; install the SillyBunny Moonlit Echoes Theme from Launchpad optional installs to keep Moonlit styles active.`;
 
     const buttonClass = 'moonlit-echoes-launchpad-button';
     const content = `${message}<br><button type="button" class="menu_button ${buttonClass}">${t`Show in Launchpad`}</button>`;
@@ -1366,7 +1366,7 @@ function generateExtensionHtml(name, manifest, isActive, isDisabled, isExternal,
             case 'local':
                 return '<i class="fa-sm fa-fw fa-solid fa-user" data-i18n="[title]ext_type_local" title="This is a local extension, available only for you."></i>';
             case 'core':
-                return '<i class="fa-sm fa-fw fa-solid fa-cube" title="This is a Fairy core extension. It cannot be deleted and can be disabled."></i>';
+                return '<i class="fa-sm fa-fw fa-solid fa-cube" title="This is a SillyBunny core extension. It cannot be deleted and can be disabled."></i>';
             case 'bundled':
                 return '<i class="fa-sm fa-fw fa-solid fa-box-archive" title="This is a bundled third-party extension. It cannot be deleted or updated, and can be disabled."></i>';
             case 'system':
@@ -2311,7 +2311,7 @@ export async function loadExtensionSettings(settings, versionChanged, enableAuto
         await autoUpdateExtensions(false);
     }
 
-    // Fairy: extension settings are injected by many independent modules,
+    // SillyBunny: extension settings are injected by many independent modules,
     // so guard the shared settings columns against duplicate top-level drawers.
     observeExtensionSettingsDrawers();
     await activateExtensions();

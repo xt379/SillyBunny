@@ -12,7 +12,7 @@ function getStoredLanguage() {
     try {
         return localStorage.getItem(storageKey);
     } catch (error) {
-        // Fairy: iOS WebKit can throw on localStorage before the boot UI exists.
+        // SillyBunny: iOS WebKit can throw on localStorage before the boot UI exists.
         console.warn('Unable to read stored language override.', error);
         return null;
     }

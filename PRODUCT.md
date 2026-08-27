@@ -2,7 +2,7 @@
 
 ## Vision
 
-Fairy is a distraction-free environment for roleplay and conversational AI, built on a single principle: **simple by default, powerful when needed.**
+SillyBunny is a distraction-free environment for roleplay and conversational AI, built on a single principle: **simple by default, powerful when needed.**
 
 The main content surrounding a character card is the primary focus. Every UI decision defers to it. Powerful configuration and customisation are readily available to the end user; they simply stay out of the way until the user chooses to access them.
 
@@ -10,9 +10,9 @@ The main content surrounding a character card is the primary focus. Every UI dec
 
 ## Design Philosophies
 
-Fairy embodies two distinct design philosophies:
+SillyBunny embodies two distinct design philosophies:
 
-**Simple and Intuitive**: Fairy prioritizes simplicity and user focus by default, teaching a user through consistent effort. This means anticipating user mistakes, and eliminating unnecessary interruptions. There should be one primary action per view, and progressive disclosure. This provides a welcoming and intuitive environment for the user while remaining distraction-free.
+**Simple and Intuitive**: SillyBunny prioritizes simplicity and user focus by default, teaching a user through consistent effort. This means anticipating user mistakes, and eliminating unnecessary interruptions. There should be one primary action per view, and progressive disclosure. This provides a welcoming and intuitive environment for the user while remaining distraction-free.
 
 **Highly Malleable** — If a user wishes to, they can delve into vast configuration that's just an easy click away. This allows for maximum flexibility and malleability for the power user, without removing established features. Configuration exists only if the user requests it.
 
@@ -36,10 +36,10 @@ All configuration must be discoverable on intent. Every power feature must have 
 All gestures, placements, and patterns throughout the app should remain consistent with both desktop and mobile. Touch-first affordances must not degrade the desktop experience, and vice versa.
 
 ### 6. Distraction-free environment
-The shell is a neutral and distraction-free environment. UI identity is expressed through typography, spacing, Fairy branding, and encouraging wording — not through visual noise or decorative motion. The end user can customise this default shell (colours, CSS, layout) as they see fit.
+The shell is a neutral and distraction-free environment. UI identity is expressed through typography, spacing, SillyBunny branding, and encouraging wording — not through visual noise or decorative motion. The end user can customise this default shell (colours, CSS, layout) as they see fit.
 
 ### 7. Respect the user's setup
-Non-destructive and reversible. Fairy-compatible config, extensions, presets, and character data must survive by default.
+Non-destructive and reversible. SillyTavern-compatible config, extensions, presets, and character data must survive by default.
 
 ---
 
@@ -49,7 +49,7 @@ Non-destructive and reversible. Fairy-compatible config, extensions, presets, an
 **Layer 2:** Top bar, always visible. Navigation buttons, accessible through buttons located in a top bar element. They are in order:
 Left:
 - Workspace - for interfacing with the connected model backend and configuration. Settings here should be tied to a global preset option.
-- Customize - for changing the graphical shell and Fairy configuration. User-created extensions also reside here. Settings here are independent of each other.
+- Customize - for changing the graphical shell and SillyBunny configuration. User-created extensions also reside here. Settings here are independent of each other.
 - Quick access button for whatever the user requests. Default is quick accessing agents.
 
 Middle:
@@ -84,7 +84,7 @@ These are explicit violations of the principles above. Any contribution that int
 
 **Modal interruption for non-critical config** — Blocking dialogs that interrupt an active conversation for a settings change that did not need to stop the user. Config must remain explicitly called for.
 
-**Silent breaking changes** — Defaults or migrations that overwrite or invalidate an existing user's Fairy-compatible config, extensions, or presets without warning and a clear recovery path.
+**Silent breaking changes** — Defaults or migrations that overwrite or invalidate an existing user's SillyTavern-compatible config, extensions, or presets without warning and a clear recovery path.
 
 ## Anti-references
 
@@ -92,7 +92,7 @@ These are aesthetic and behavioural traps to avoid. Any contribution that leans 
 
 **Generic SaaS polish** — Interchangeable, algorithmically-safe styling with no established character. Neutral design is the goal, but not at the expense of removing character.
 
-**Sterile upstream-clone blandness** — Inheriting Fairy's look wholesale with no intentional identity of our own.
+**Sterile upstream-clone blandness** — Inheriting SillyTavern's look wholesale with no intentional identity of our own.
 
 **Mystery meat navigation** — Hiding essential main-content controls behind unlabelled icons or unexplained affordances. Configuration may be hidden; the controls a user needs to interact with the main window may not be.
 
@@ -128,6 +128,6 @@ Accessibility is a baseline expectation, not an afterthought. Any contribution t
 
 ## Non-goals
 
-- Replacing or fully diverging from Fairy's data formats, extension APIs, or character/preset schemas.
+- Replacing or fully diverging from SillyTavern's data formats, extension APIs, or character/preset schemas.
 - Enforcing a single visual theme; the shell ships with defaults but customisation is a first-class feature.
 - Reducing option count in the name of simplicity. Simplicity is achieved through organisation and disclosure, not removal.

@@ -158,7 +158,7 @@ export async function createSeparateSummaryMemoryEntry(args = {}) {
 async function summarizeAction(args) {
     try {
         const result = await createSummaryMemoryEntry(args);
-        // Fairy: reset the auto-summary counter only after a summary is
+        // SillyBunny: reset the auto-summary counter only after a summary is
         // successfully written, not when the prompt is injected. This ensures
         // the interval is not consumed when the model skips or fails the tool
         // call. (#530)

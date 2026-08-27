@@ -1,6 +1,6 @@
 # Conversation Mode Glossary
 
-Conversation Mode is a separate direct-message workspace for talking to Fairy characters outside the normal Roleplay transcript. This reference explains the visible controls, automatic behavior, prompt settings, and stored Conversation data.
+Conversation Mode is a separate direct-message workspace for talking to SillyBunny characters outside the normal Roleplay transcript. This reference explains the visible controls, automatic behavior, prompt settings, and stored Conversation data.
 
 ## Opening and Closing Conversation Mode
 
@@ -80,7 +80,7 @@ Branching from a user message can immediately queue a character response in the 
 
 The Conversation composer contains the message field, reply preview, attachment preview, tools toggle, paperclip, and Send button.
 
-Press Enter to send when the main Fairy send-on-enter preference allows it (Desktop is pressing Enter/Return to send, Mobile is press the send button to send). Shift+Enter creates a new line. Files can be selected through the paperclip, pasted from the clipboard, or dropped onto the Conversation workspace. When replying to a specific message, a **Replying to** preview appears above the composer. Press its close button to cancel the targeted reply message without deleting your drafted text.
+Press Enter to send when the main SillyBunny send-on-enter preference allows it (Desktop is pressing Enter/Return to send, Mobile is press the send button to send). Shift+Enter creates a new line. Files can be selected through the paperclip, pasted from the clipboard, or dropped onto the Conversation workspace. When replying to a specific message, a **Replying to** preview appears above the composer. Press its close button to cancel the targeted reply message without deleting your drafted text.
 
 The tools toggle shows or hides filters, quick actions, and search. Its visible state is remembered in the local settings.
 
@@ -352,7 +352,7 @@ When an override is selected, the system prompt tells the model to prefer that l
 
 ## Image Generation
 
-Conversation Mode image features require the bundled extension, Quick Image Gen, which is modified to be used with Fairy.
+Conversation Mode image features require the bundled extension, Quick Image Gen, which is modified to be used with SillyBunny.
 
 **Enable chatroom image generation** allows Conversation Mode to request images.
 

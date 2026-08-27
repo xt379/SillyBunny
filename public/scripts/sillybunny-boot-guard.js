@@ -1,4 +1,4 @@
-// Fairy: surface iOS/WebKit boot failures that otherwise leave the preloader up forever.
+// SillyBunny: surface iOS/WebKit boot failures that otherwise leave the preloader up forever.
 (function () {
     'use strict';
 
@@ -12,18 +12,18 @@
     var MAX_BOOT_TIMEOUT_MS = 90000;
     var bootStartedAt = Date.now();
 
-    // Fairy: matched without a leading slash so relative extension URLs are recognised too.
+    // SillyBunny: matched without a leading slash so relative extension URLs are recognised too.
     var THIRD_PARTY_EXTENSION_PATH = 'scripts/extensions/third-party/';
     var isBootGuardApplicable = isIOSWebKitBrowser();
 
-    // Fairy: jQuery rethrows whatever an async ready callback rejected with,
+    // SillyBunny: jQuery rethrows whatever an async ready callback rejected with,
     // so startup failures often arrive as message-less objects such as a jqXHR.
     // These are the fields worth reading before falling back to enumeration.
     var ERROR_DETAIL_KEYS = ['name', 'code', 'status', 'statusText', 'readyState', 'type', 'url', 'responseText'];
     var MAX_ERROR_VALUE_LENGTH = 200;
     var MAX_ERROR_DETAIL_LENGTH = 800;
 
-    // Fairy: a rejected jqXHR does not carry its own URL, so failing requests are
+    // SillyBunny: a rejected jqXHR does not carry its own URL, so failing requests are
     // tracked separately to name the endpoint that broke startup.
     var MAX_TRACKED_REQUEST_FAILURES = 5;
     var failedRequests = [];
@@ -70,7 +70,7 @@
         return truncate(value, MAX_ERROR_VALUE_LENGTH);
     }
 
-    // Fairy: `String(plainObject)` renders as "[object Object]", which hides
+    // SillyBunny: `String(plainObject)` renders as "[object Object]", which hides
     // every useful detail. Enumerate the value instead so iOS boot reports name the
     // actual failure (for example an aborted jqXHR with status 0).
     function describeErrorObject(error) {
@@ -168,8 +168,8 @@
         return truncate('Failed requests during startup:\n' + failedRequests.join('\n'), MAX_ERROR_DETAIL_LENGTH);
     }
 
-    // Fairy: a rejected jqXHR carries no stack, message or URL, so jQuery rethrows it
-    // from its own source and the failure looks like a Fairy bug. When the only requests
+    // SillyBunny: a rejected jqXHR carries no stack, message or URL, so jQuery rethrows it
+    // from its own source and the failure looks like a SillyBunny bug. When the only requests
     // that failed belong to a third-party extension, blame the extension instead.
     function isThirdPartyRequestFailure(error) {
         if (!error || typeof error !== 'object' || error.stack || error.message) {
@@ -189,7 +189,7 @@
         return true;
     }
 
-    // Fairy: jQuery AJAX goes through XMLHttpRequest, so watching it here captures
+    // SillyBunny: jQuery AJAX goes through XMLHttpRequest, so watching it here captures
     // the URL and status of the request behind an otherwise anonymous jqXHR rejection.
     function trackFailingRequests() {
         try {
@@ -245,7 +245,7 @@
             return;
         }
 
-        var details = message || 'Fairy startup failed.';
+        var details = message || 'SillyBunny startup failed.';
         var errorDetails = describeError(error);
 
         if (errorDetails && details.indexOf(errorDetails) === -1) {
@@ -370,7 +370,7 @@
             return;
         }
 
-        showFailure(lastFailure || 'Startup timed out before Fairy removed the preloader.');
+        showFailure(lastFailure || 'Startup timed out before SillyBunny removed the preloader.');
     }
 
     function showFailure(details) {
@@ -393,7 +393,7 @@
         panel.style.cssText = 'width:min(100%,520px);max-height:calc(100vh - 48px);overflow:auto;border:1px solid rgba(255,255,255,.22);border-radius:18px;background:#0e1218;box-shadow:0 20px 60px rgba(0,0,0,.55);padding:22px;line-height:1.45;';
 
         var title = document.createElement('h1');
-        title.textContent = 'Fairy could not finish loading';
+        title.textContent = 'SillyBunny could not finish loading';
         title.style.cssText = 'margin:0 0 10px;font-size:22px;line-height:1.2;color:#f4f7fb;';
 
         var message = document.createElement('p');
@@ -431,7 +431,7 @@
         summaryTitle.textContent = 'Startup error details';
 
         var pre = document.createElement('pre');
-        pre.textContent = details || lastFailure || 'Startup timed out before Fairy removed the preloader.';
+        pre.textContent = details || lastFailure || 'Startup timed out before SillyBunny removed the preloader.';
         pre.style.cssText = 'white-space:pre-wrap;word-break:break-word;margin:10px 0 0;padding:12px;border-radius:10px;background:#0f172a;color:#e2e8f0;font-size:12px;';
 
         summary.appendChild(summaryTitle);
@@ -473,7 +473,7 @@
             var url = target.src || target.href || '';
 
             if (isThirdPartyExtensionSource(url)) {
-                console.warn('Fairy boot guard ignored a third-party extension resource failure.', url);
+                console.warn('SillyBunny boot guard ignored a third-party extension resource failure.', url);
                 return;
             }
 
@@ -485,12 +485,12 @@
         }
 
         if (isThirdPartyExtensionSource(event.filename)) {
-            console.warn('Fairy boot guard ignored a third-party extension startup error.', event.filename);
+            console.warn('SillyBunny boot guard ignored a third-party extension startup error.', event.filename);
             return;
         }
 
         if (isThirdPartyRequestFailure(event.error)) {
-            console.warn('Fairy boot guard ignored a third-party extension request failure.', failedRequests);
+            console.warn('SillyBunny boot guard ignored a third-party extension request failure.', failedRequests);
             return;
         }
 
@@ -504,12 +504,12 @@
         }
 
         if (isThirdPartyExtensionSource(describeError(event.reason))) {
-            console.warn('Fairy boot guard ignored a third-party extension startup rejection.', event.reason);
+            console.warn('SillyBunny boot guard ignored a third-party extension startup rejection.', event.reason);
             return;
         }
 
         if (isThirdPartyRequestFailure(event.reason)) {
-            console.warn('Fairy boot guard ignored a third-party extension request failure.', failedRequests);
+            console.warn('SillyBunny boot guard ignored a third-party extension request failure.', failedRequests);
             return;
         }
 

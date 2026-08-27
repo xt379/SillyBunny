@@ -1,6 +1,6 @@
 export const CHAT_RENDER_WINDOW_DEFAULT = 100;
 export const CHAT_RENDER_WINDOW_MAX = 200;
-// Fairy: aggressive DOM unloading for low-memory devices (e.g., iPhones crashing on long streams)
+// SillyBunny: aggressive DOM unloading for low-memory devices (e.g., iPhones crashing on long streams)
 export const CHAT_RENDER_WINDOW_AGGRESSIVE_DEFAULT = 5;
 
 /**

@@ -1,4 +1,4 @@
-// Fairy: keep user-visible OOC notes readable while excluding them from prompt context.
+// SillyBunny: keep user-visible OOC notes readable while excluding them from prompt context.
 const OOC_BLOCK_PLACEHOLDER_PREFIX = '\uE000SBOOCBLOCK';
 const OOC_BLOCK_PLACEHOLDER_SUFFIX = '\uE001';
 

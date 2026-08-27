@@ -27,7 +27,7 @@ import { escapeCharacterBookRegex, normalizeCharacterBookPosition, normalizeWorl
 import { detectEmbeddedLorebookCandidates, findMatchingLorebookName, getLinkedAuxBooks, isEmbeddedBookLinked } from './world-info-batch-helpers.js';
 import { getTimedEffectWindow, getWorldInfoGroupNames, normalizeWorldInfoKey, normalizeWorldInfoProbability, passesWorldInfoProbability } from './world-info-scan-core.js';
 
-// Fairy divergence: World Info is integrated with the fork shell and auxiliary lorebook sources while retaining upstream scan helpers.
+// SillyBunny divergence: World Info is integrated with the fork shell and auxiliary lorebook sources while retaining upstream scan helpers.
 export const world_info_insertion_strategy = {
     evenly: 0,
     character_first: 1,
@@ -5139,7 +5139,7 @@ export async function getSortedEntries() {
             const hash = getStringHash(JSON.stringify(entry));
             return { ...entry, hash };
         }).map((entry) => {
-            // Fairy: worlds saved before import-time position normalization (#162) can still
+            // SillyBunny: worlds saved before import-time position normalization (#162) can still
             // carry string positions like 'before_char' or '0'. The prompt builder matches numeric
             // positions strictly and silently drops anything else, so normalize at scan time.
             // Runs after hashing to keep existing timed-effect entry hashes stable.

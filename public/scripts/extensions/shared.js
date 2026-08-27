@@ -57,7 +57,7 @@ export function getChatCompletionProfileReverseProxy(profile, chatCompletionSour
         return profileProxyFields;
     }
 
-    // Fairy: a profile that explicitly stores a proxy selection ('None' included)
+    // SillyBunny: a profile that explicitly stores a proxy selection ('None' included)
     // must be honored as-is. Falling through here would leak the currently active
     // profile's proxy state into requests made under this profile (e.g. Agents).
     if (profileProxyName) {
@@ -519,11 +519,11 @@ export class ConnectionManagerRequestService {
                         model,
                         chat_completion_source: selectedApiMap.source,
                         secret_id: profile['secret-id'],
-                        // Fairy: direct profile requests do not run the profile's slash commands,
+                        // SillyBunny: direct profile requests do not run the profile's slash commands,
                         // so recover reverse proxy fields from the profile preset or current proxy state.
                         ...reverseProxyFields,
                         custom_prompt_post_processing: profile['prompt-post-processing'],
-                        // Fairy: persist profile-scoped reasoning and image request settings through the shared request path.
+                        // SillyBunny: persist profile-scoped reasoning and image request settings through the shared request path.
                         ...profileRequestOverrides.overrides,
                         ...overridePayload,
                         __connectionProfileRequestFields: profileRequestOverrides.profileFieldNames,

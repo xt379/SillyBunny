@@ -24,7 +24,7 @@ export const CUSTOM_CSS_AI_PALETTE_VARIABLES = Object.freeze([
 ]);
 
 export const CUSTOM_CSS_AI_SYSTEM_PROMPT = [
-    'You are a CSS specialist for Fairy, a SillyTavern fork.',
+    'You are a CSS specialist for SillyBunny, a SillyTavern fork.',
     'Generate custom CSS for the Custom CSS editor.',
     'Output ONLY raw CSS. Do not include markdown fences, prose, HTML, <style> tags, JavaScript, @import, or external URLs.',
     'Prefer stable SillyTavern/SillyBunny selectors and CSS custom properties. Keep desktop and mobile usable.',

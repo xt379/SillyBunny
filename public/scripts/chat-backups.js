@@ -30,7 +30,7 @@ function fetchBackupApi(resource, init = {}) {
  * @returns {HTMLElement} Preview element
  */
 function createBackupPreview(fileText, fileName) {
-    // Fairy: iOS WebKit can terminate when the full backup is opened in a nested modal.
+    // SillyBunny: iOS WebKit can terminate when the full backup is opened in a nested modal.
     const preview = document.createElement('section');
     preview.classList.add('chatBackupPreview');
     preview.setAttribute('aria-label', fileName);

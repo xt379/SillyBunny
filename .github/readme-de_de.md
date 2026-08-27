@@ -34,12 +34,12 @@
 
 ## Projektinfo
 
-Fairy ist ein eleganter Fork von [Fairy](https://github.com/SillyTavern/SillyTavern) mit einer übersichtlichen grafischen Shell-Oberfläche für Desktop- und Mobilgeräte, die vom [GNOME-Projekt](https://www.gnome.org/) und von [KDE Plasma](https://kde.org/plasma-desktop/) inspiriert ist. Fairy bietet eine Bun-basierte Laufzeitumgebung für bessere Leistung, eine schnell zugängliche Home-Seite mit integrierten Tutorials, Anleitungen und empfohlenen Erweiterungen, ein schlankes agentenbasiertes System im Chat für moderne Agentenfunktionen, zusätzliche Chat-Modi für mehr Möglichkeiten mit deinen Charakterkarten sowie zahlreiche Fehlerbehebungen und allgemeine Verbesserungen!
+SillyBunny ist ein eleganter Fork von [SillyTavern](https://github.com/SillyTavern/SillyTavern) mit einer übersichtlichen grafischen Shell-Oberfläche für Desktop- und Mobilgeräte, die vom [GNOME-Projekt](https://www.gnome.org/) und von [KDE Plasma](https://kde.org/plasma-desktop/) inspiriert ist. SillyBunny bietet eine Bun-basierte Laufzeitumgebung für bessere Leistung, eine schnell zugängliche Home-Seite mit integrierten Tutorials, Anleitungen und empfohlenen Erweiterungen, ein schlankes agentenbasiertes System im Chat für moderne Agentenfunktionen, zusätzliche Chat-Modi für mehr Möglichkeiten mit deinen Charakterkarten sowie zahlreiche Fehlerbehebungen und allgemeine Verbesserungen!
 
 > [!WARNING]
-> Wir sind ein kleines Team aus drei Personen und arbeiten mit Leidenschaft an einem einfachen, effektiven Frontend, das all die Funktionen bietet, die wir uns schon immer für Fairy gewünscht haben, und zugleich auf dessen hervorragender Backend-Arbeit aufbaut.
+> Wir sind ein kleines Team aus drei Personen und arbeiten mit Leidenschaft an einem einfachen, effektiven Frontend, das all die Funktionen bietet, die wir uns schon immer für SillyTavern gewünscht haben, und zugleich auf dessen hervorragender Backend-Arbeit aufbaut.
 >
-> Daher ist dieser Fork noch in Entwicklung und wird derzeit als Beta-Software eingestuft. [Bitte melde Probleme, die speziell Fairy betreffen, im Issue-Tracker dieses Projekts.](https://github.com/SillyBunnyTeam/SillyBunny/issues) Wenn sich ein Problem auch im ursprünglichen Fairy reproduzieren lässt, melde es bitte stattdessen dort.
+> Daher ist dieser Fork noch in Entwicklung und wird derzeit als Beta-Software eingestuft. [Bitte melde Probleme, die speziell SillyBunny betreffen, im Issue-Tracker dieses Projekts.](https://github.com/SillyBunnyTeam/SillyBunny/issues) Wenn sich ein Problem auch im ursprünglichen SillyTavern reproduzieren lässt, melde es bitte stattdessen dort.
 >
 > Offener Hinweis: Wir setzen LLMs intensiv ein, um die Entwicklung dieses Forks zu ermöglichen, ohne die dieses Projekt nicht realisierbar wäre. Das übergreifende Programm- und Softwaredesign, das Prompting, die Tests und die Dokumentation werden jedoch vollständig von Menschen übernommen. Für die Upstream-Kompatibilität und den Projektumfang gelten bei uns strenge Maßstäbe.
 
@@ -106,15 +106,15 @@ Starte anschließend das passende Startskript für dein Betriebssystem. Es insta
 | Android (Termux) | `bash start.sh` | `bash start-termux-node.sh` | `bash start-termux-bun.sh` |
 | Docker | `docker compose --project-directory . -f docker/docker-compose.yml up --build` | Nicht verfügbar | Nicht verfügbar |
 
-Wenn du deine Bun-Installation selbst verwaltest, starte Fairy mit `bun run start`. Weitere Startvarianten:
+Wenn du deine Bun-Installation selbst verwaltest, starte SillyBunny mit `bun run start`. Weitere Startvarianten:
 
 ```bash
 bun run start:mobile   # geringerer Speicherbedarf (--smol)
-bun run start:global   # von Fairy verwaltete Datenpfade
+bun run start:global   # von SillyBunny verwaltete Datenpfade
 bun run start:no-csrf  # CSRF deaktivieren (lokale Entwicklung)
 ```
 
-Wenn du Fairy über ein Skript statt mit `bun run` startest, beispielsweise über pm2, systemd, Docker oder Termux, setze `SILLYBUNNY_BUN_SMOL=1`, um denselben speichersparenden Modus wie bei `start:mobile` zu verwenden:
+Wenn du SillyBunny über ein Skript statt mit `bun run` startest, beispielsweise über pm2, systemd, Docker oder Termux, setze `SILLYBUNNY_BUN_SMOL=1`, um denselben speichersparenden Modus wie bei `start:mobile` zu verwenden:
 
 ```bash
 SILLYBUNNY_BUN_SMOL=1 ./start.sh
@@ -161,13 +161,13 @@ bash start-termux-node.sh
 - Node.js ausdrücklich erzwingen: `bash start-termux-node.sh`
 - Bun ausdrücklich erzwingen: `bash start-termux-bun.sh` (installiert beim ersten Start automatisch glibc und richtet `bun-termux` ein)
 - Bewahre das Repository im Home-Verzeichnis von Termux auf, beispielsweise unter `~/SillyBunny`, und nicht unter `~/storage/shared` oder `/storage/emulated/0`. Der gemeinsam genutzte Android-Speicher blockiert die von Bun und npm benötigten Verknüpfungen in `node_modules`
-- Führe `termux-setup-storage` nur einmal aus, um Fairy Zugriff auf freigegebene Dateien zu gewähren. Klone das Repository nicht in den gemeinsam genutzten Speicher
+- Führe `termux-setup-storage` nur einmal aus, um SillyBunny Zugriff auf freigegebene Dateien zu gewähren. Klone das Repository nicht in den gemeinsam genutzten Speicher
 
 Bun wird unter Termux über glibc ausgeführt, die das Startskript über `glibc-repo` und `glibc-runner` installiert. Wenn `start-termux-bun.sh` meldet, dass diese Pakete nicht verfügbar sind, führe `pkg update && pkg install -y glibc-repo && pkg install -y glibc-runner` aus, um den zugrunde liegenden Fehler anzuzeigen. Setze `GLIBC_ROOT`, wenn sich deine glibc-Installation nicht unter `$PREFIX/glibc` befindet. Node.js benötigt nichts davon, sodass `bash start-termux-node.sh` immer als Ausweichlösung funktioniert.
 
 ### Aktualisierung
 
-Git-Checkouts können über ein Startskript oder direkt über Fairy aktualisiert werden. ZIP- und Release-Ordner verwenden keine automatischen Aktualisierungen durch das Startskript, können aber über den integrierten Release-ZIP-Updater unter Customize > Server aktualisiert werden.
+Git-Checkouts können über ein Startskript oder direkt über SillyBunny aktualisiert werden. ZIP- und Release-Ordner verwenden keine automatischen Aktualisierungen durch das Startskript, können aber über den integrierten Release-ZIP-Updater unter Customize > Server aktualisiert werden.
 
 | Gewünschte Aktion | Befehl |
 |---------------|---------|
@@ -182,13 +182,13 @@ Git-Checkouts können über ein Startskript oder direkt über Fairy aktualisiert
 
 ## Projektziele (oder: Warum wir diesen Fork erstellt haben)
 
-Bei der Entwicklung von Fairy verfolgen wir einige grundlegende Ziele:
+Bei der Entwicklung von SillyBunny verfolgen wir einige grundlegende Ziele:
 
-1. **Standardmäßig einfach, bei Bedarf leistungsfähig.** Fairy soll standardmäßig leicht verständlich und intuitiv bedienbar sein. Die meisten komplexen Einstellungen sind im normalen Workspace ausgeblendet. Wir setzen sinnvolle Voreinstellungen auf Grundlage ausgewählter Human Interface Guidelines (HIG) ein, damit du dich auf das Haupt-Chatfenster konzentrieren kannst. Zusätzliche Komplexität und Konfigurationsmöglichkeiten bleiben in der Standardansicht verborgen. Unsere grafische Shell verkörpert diese Philosophie, indem sie sich im Hintergrund hält, bis du etwas benötigst.
-2. **Fokus auf Roleplay und Storytelling.** Fairy verfolgt einen klarer definierten Zweck als das ursprüngliche Fairy. Unsere Ziele orientieren sich eng an der kreativen Arbeit mit Modellen, und die allgemeine Ausrichtung des Forks ist auf diesen Anwendungsfall zugeschnitten. Dafür bieten wir vorinstallierte Tutorials, Presets, Erweiterungen und Charakterkarten, die dir einen unterhaltsamen Einstieg in das kreative Schreiben mit LLMs ermöglichen.
+1. **Standardmäßig einfach, bei Bedarf leistungsfähig.** SillyBunny soll standardmäßig leicht verständlich und intuitiv bedienbar sein. Die meisten komplexen Einstellungen sind im normalen Workspace ausgeblendet. Wir setzen sinnvolle Voreinstellungen auf Grundlage ausgewählter Human Interface Guidelines (HIG) ein, damit du dich auf das Haupt-Chatfenster konzentrieren kannst. Zusätzliche Komplexität und Konfigurationsmöglichkeiten bleiben in der Standardansicht verborgen. Unsere grafische Shell verkörpert diese Philosophie, indem sie sich im Hintergrund hält, bis du etwas benötigst.
+2. **Fokus auf Roleplay und Storytelling.** SillyBunny verfolgt einen klarer definierten Zweck als das ursprüngliche SillyTavern. Unsere Ziele orientieren sich eng an der kreativen Arbeit mit Modellen, und die allgemeine Ausrichtung des Forks ist auf diesen Anwendungsfall zugeschnitten. Dafür bieten wir vorinstallierte Tutorials, Presets, Erweiterungen und Charakterkarten, die dir einen unterhaltsamen Einstieg in das kreative Schreiben mit LLMs ermöglichen.
 3. **Modernisierte Funktionen.** Wir möchten kontinuierlich neue und interessante Funktionen umsetzen, die moderne Modelle und ihre ausgeprägten Agentenfähigkeiten nutzen. Dazu gehört die vollständige Unterstützung für Pre-, Sidecar- und Post-Agenten im Chat, die die Hauptgenerierung mit kleineren Aufgaben ergänzen. Außerdem bieten wir zusätzliche Chat-Modi für die Interaktion mit deiner Charakterkarte. Hinzu kommen Fehlerbehebungen für Prompts und die Unterstützung neuer Modelle.
-4. **Bessere Leistung.** Fairy nutzt Bun als Laufzeitumgebung. Bun bietet im Allgemeinen eine bessere Leistung und kürzere Startzeiten und ist für moderne Geräte stärker optimiert und energieeffizienter als Node.js. Node.js wird aus Gründen der Ausfallsicherheit und Kompatibilität weiterhin unterstützt.
-5. **Upstream-Kompatibilität.** Wir bemühen uns um größtmögliche Abwärtskompatibilität mit dem ursprünglichen Fairy und bauen auf dessen solider Backend-Arbeit auf. Dadurch werden Wechsel und Migrationen vom Upstream erleichtert. Darüber hinaus sollen alle unsere neuen Funktionen mit Modellen jeder Größe kompatibel sein, nicht nur mit führenden Modellen auf dem neuesten Stand der Technik.
+4. **Bessere Leistung.** SillyBunny nutzt Bun als Laufzeitumgebung. Bun bietet im Allgemeinen eine bessere Leistung und kürzere Startzeiten und ist für moderne Geräte stärker optimiert und energieeffizienter als Node.js. Node.js wird aus Gründen der Ausfallsicherheit und Kompatibilität weiterhin unterstützt.
+5. **Upstream-Kompatibilität.** Wir bemühen uns um größtmögliche Abwärtskompatibilität mit dem ursprünglichen SillyTavern und bauen auf dessen solider Backend-Arbeit auf. Dadurch werden Wechsel und Migrationen vom Upstream erleichtert. Darüber hinaus sollen alle unsere neuen Funktionen mit Modellen jeder Größe kompatibel sein, nicht nur mit führenden Modellen auf dem neuesten Stand der Technik.
 
 ## Funktionen und Neuerungen
 
@@ -198,10 +198,10 @@ Die Benutzeroberfläche verfügt über eine eigene, leicht zu navigierende grafi
 
 - **Obere Leiste**: Eine dauerhafte obere Leiste, über die die Programmfunktionen jederzeit schnell erreichbar sind. Sie ist in die Menüoptionen Workspace, Customize, Home und Characters sowie Schnellzugriffe unterteilt.
     - **Workspace**: Ermöglicht schnellen Zugriff auf alle Einstellungen, die du zur Konfiguration deines Modells benötigst, an einem zentralen Ort.
-    - **Customize**: Dient zur Anpassung der Benutzeroberfläche und des Fairy-Backends.
+    - **Customize**: Dient zur Anpassung der Benutzeroberfläche und des SillyBunny-Backends.
     - **Agents**: Ein anpassbarer Schnellzugriff auf Agenten.
     - **Globale Suche**: Eine anpassbare, schnell zugängliche globale Suchleiste, die gleichzeitig Presets, Lore, Erweiterungen, Personas und Einstellungen durchsucht.
-    - **Home**: Eine Startseite, über die verschiedene Bereiche, die Fairy-Dokumentation und empfohlene Erweiterungen schnell erreichbar sind.
+    - **Home**: Eine Startseite, über die verschiedene Bereiche, die SillyBunny-Dokumentation und empfohlene Erweiterungen schnell erreichbar sind.
     - **Characters**: Dient zur Interaktion mit Charakterkarten sowie zum Importieren, Erstellen und Bearbeiten dieser Karten.
 
 - **Untere Leiste**: Eine dauerhafte untere Leiste, die als allgemeines Eingabefeld dient und schnellen Zugriff auf Chat-Steuerelemente bietet, darunter Persona- und Chat-Wechsel, Suche, Guided Generations und vieles mehr!
@@ -212,9 +212,9 @@ Die Benutzeroberfläche verfügt über eine eigene, leicht zu navigierende grafi
 
 ### Mitgelieferte Extras und Tutorials
 
-Fairy enthält standardmäßig einige Extras, damit du sofort mit dem kreativen Schreiben beginnen kannst:
+SillyBunny enthält standardmäßig einige Extras, damit du sofort mit dem kreativen Schreiben beginnen kannst:
 
-- Ein ausführliches Tutorial zu Fairy und eine allgemeine Einführung in das Roleplay mit LLMs.
+- Ein ausführliches Tutorial zu SillyBunny und eine allgemeine Einführung in das Roleplay mit LLMs.
 - Eine Anleitung zur Benutzeroberfläche.
 - Integrierte Unterstützung für die Erweiterungen Guided Generations, Input History, Quick Image Gen, Prompt Inspector und Pathfinder.
 - Ein zusätzliches, kuratiertes Repository mit häufig verwendeten Erweiterungen, die sich bequem in der Anwendung installieren lassen. Beispiele sind Dialogue Colors, Summary Sharder und erweiterte Makros.
@@ -224,11 +224,11 @@ Fairy enthält standardmäßig einige Extras, damit du sofort mit dem kreativen 
 
 ### Leistungsverbesserungen
 
-Fairy startet auf den meisten unterstützten Clients mit Bun statt Node.js. Dies kann Startzeiten, allgemeine Leistung und Akkulaufzeit deutlich verbessern. Für Clients, die Bun nicht ordnungsgemäß unterstützen, bieten wir weiterhin Node.js an; die allgemeinen Verbesserungen gelten auch dort.
+SillyBunny startet auf den meisten unterstützten Clients mit Bun statt Node.js. Dies kann Startzeiten, allgemeine Leistung und Akkulaufzeit deutlich verbessern. Für Clients, die Bun nicht ordnungsgemäß unterstützen, bieten wir weiterhin Node.js an; die allgemeinen Verbesserungen gelten auch dort.
 
 ### Agenten im Chat
 
-Fairy unterstützt vollständig einen agentenbasierten Workflow, der auf die ausgeprägten Agentenfähigkeiten moderner Modelle ausgelegt ist. Dieses System ist direkt in deine Charakterkarte eingebunden und lässt sich vollständig an deine Anforderungen und Vorlieben anpassen. Agenten kannst du dir als zusätzliche Aufgaben vorstellen, die an andere Modelle ausgelagert werden und parallel zur Hauptgenerierung laufen. Dadurch können sie die endgültige Ausgabe auf verschiedene Weise ergänzen oder verändern.
+SillyBunny unterstützt vollständig einen agentenbasierten Workflow, der auf die ausgeprägten Agentenfähigkeiten moderner Modelle ausgelegt ist. Dieses System ist direkt in deine Charakterkarte eingebunden und lässt sich vollständig an deine Anforderungen und Vorlieben anpassen. Agenten kannst du dir als zusätzliche Aufgaben vorstellen, die an andere Modelle ausgelagert werden und parallel zur Hauptgenerierung laufen. Dadurch können sie die endgültige Ausgabe auf verschiedene Weise ergänzen oder verändern.
 
 Standardmäßig liefern wir zahlreiche Agentenvorlagen für verschiedene Zwecke mit. Dazu gehören Tracker, Auswahlmarkierungen, Zufallsgeneratoren, Inhaltsbearbeiter und Stiloptimierer. Das System ist außerdem für selbst erstellte Agenten ausgelegt, wozu wir ausdrücklich ermutigen!
 
@@ -255,7 +255,7 @@ Der Conversation-Modus verändert die Benutzeroberfläche und bildet beim Gespr�
 
 ## Upstream-Informationen
 
-Fairy ist ein Fork von Fairy. Der überwiegende Teil des Verhaltens, der Datenformate und des Ökosystemwissens von Fairy gilt weiterhin. Die Upstream-Kompatibilität wird so weit wie möglich aufrechterhalten. Bitte melde Probleme, die speziell Fairy betreffen, hier und Probleme mit Bezug zu Fairy im Upstream-Projekt.
+SillyBunny ist ein Fork von SillyTavern. Der überwiegende Teil des Verhaltens, der Datenformate und des Ökosystemwissens von SillyTavern gilt weiterhin. Die Upstream-Kompatibilität wird so weit wie möglich aufrechterhalten. Bitte melde Probleme, die speziell SillyBunny betreffen, hier und Probleme mit Bezug zu SillyTavern im Upstream-Projekt.
 
 | Ressource | Link |
 |----------|------|

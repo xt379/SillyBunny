@@ -3759,7 +3759,7 @@ async function onGenerationAfterCommands(generationType, options, dryRun) {
                 false,
                 extension_prompt_roles.SYSTEM,
             );
-            // Fairy: do NOT reset the counter here. The counter is reset
+            // SillyBunny: do NOT reset the counter here. The counter is reset
             // only after the Pathfinder_Summarize tool actually writes a summary.
             // Resetting at injection time caused the interval to be consumed even
             // when the model skipped or failed the tool call, preventing future
@@ -5442,7 +5442,7 @@ export async function runTrackerFixOnMessage(messageIndex, { cancelRevision = ag
         messageDisplayChanged = true;
     }
 
-    // Fairy divergence: Fix Trackers repairs the raw tracker block and then
+    // SillyBunny divergence: Fix Trackers repairs the raw tracker block and then
     // derives metadata from that validated text instead of discarding model output.
     for (const agent of trackerExtractAgents) {
         if (isFixCancelled()) break;
