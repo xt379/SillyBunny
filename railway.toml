@@ -1,4 +1,2 @@
 [deploy]
 healthcheckType = "tcp"
-restartPolicyType = "on-failure"
-restartPolicyMaxRetries = 10
