@@ -3608,7 +3608,7 @@ function configureShellResizeHandle(handle, shellKey) {
         width: bounds.defaultWidth,
         height: bounds.defaultHeight,
     };
-    const label = shellKey === 'characters' ? 'Characters' : getShellConfig(shellKey)?.title || 'panel';
+    const label = tr(shellKey === 'characters' ? 'Characters' : getShellConfig(shellKey)?.title || 'panel');
 
     handle.setAttribute('role', 'separator');
     handle.setAttribute('aria-orientation', 'horizontal');
@@ -9524,7 +9524,7 @@ function buildTopBar() {
             id: 'sb-shortcut-left',
             icon: leftShortcutConfig.icon,
             label: leftShortcutConfig.label,
-            title: `Quick access: ${leftShortcutConfig.label}`,
+            title: `Quick access: ${tr(leftShortcutConfig.label)}`,
             className: 'sb-proxy-button-icon-only',
         },
         () => activateShortcutTarget(getShortcutTarget('left')),
@@ -9537,7 +9537,7 @@ function buildTopBar() {
             id: 'sb-shortcut-right',
             icon: rightShortcutConfig.icon,
             label: rightShortcutConfig.label,
-            title: `Quick access: ${rightShortcutConfig.label}`,
+            title: `Quick access: ${tr(rightShortcutConfig.label)}`,
             className: 'sb-proxy-button-icon-only',
         },
         () => activateShortcutTarget(getShortcutTarget('right')),
@@ -9552,7 +9552,7 @@ function buildTopBar() {
                 id: getShortcutButtonId(side),
                 icon: shortcutConfig.icon,
                 label: shortcutConfig.label,
-                title: `Quick access: ${shortcutConfig.label}`,
+                title: `Quick access: ${tr(shortcutConfig.label)}`,
                 className: 'sb-proxy-button-icon-only sb-desktop-setting',
             },
             () => activateShortcutTarget(getShortcutTarget(side)),
@@ -12956,14 +12956,14 @@ function getMobileQuickActionContextLabel(action) {
         return '';
     }
 
-    const shellLabel = normalizedAction.shellKey === 'characters'
+    const shellLabel = tr(normalizedAction.shellKey === 'characters'
         ? 'Characters'
-        : getShellConfig(normalizedAction.shellKey)?.title || normalizedAction.shellKey;
-    const tabLabel = normalizedAction.shellKey === 'characters'
+        : getShellConfig(normalizedAction.shellKey)?.title || normalizedAction.shellKey);
+    const tabLabel = tr(normalizedAction.shellKey === 'characters'
         ? getCharacterPanelTabConfig(normalizedAction.tabId)?.label || normalizedAction.tabId
         : getShellState(normalizedAction.shellKey)?.tabs?.get(normalizedAction.tabId)?.label
         || getMobileQuickActionTabConfig(normalizedAction.shellKey, normalizedAction.tabId)?.label
-        || normalizedAction.tabId;
+        || normalizedAction.tabId);
     const labels = [shellLabel, tabLabel];
 
     if (normalizedAction.type === 'custom'
@@ -13083,7 +13083,7 @@ function renderMobileQuickActionResults(query, resultsElement, mode = 'mobile') 
         const buttonText = isAdded ? 'Added' : isFull ? 'Full' : 'Add';
         const row = createElement('div', { className: 'sb-mobile-quick-action-result' });
         const copy = createElement('span', { className: 'sb-mobile-quick-action-copy' });
-        const title = createElement('strong', { text: action.label });
+        const title = createElement('strong', { text: tr(action.label) });
         const detail = createElement('small', {
             text: `${match.shellLabel} · ${match.tabLabel}${action.sectionLabel ? ` · ${action.sectionLabel}` : ''}`,
         });
@@ -13093,8 +13093,8 @@ function renderMobileQuickActionResults(query, resultsElement, mode = 'mobile') 
             attrs: {
                 type: 'button',
                 'aria-label': isAdded
-                    ? `${action.label} is already in ${modeLabel} Quick Actions`
-                    : `Add ${action.label} to ${modeLabel} Quick Actions`,
+                    ? `${tr(action.label)} is already in ${modeLabel} Quick Actions`
+                    : `Add ${tr(action.label)} to ${modeLabel} Quick Actions`,
             },
         });
 
@@ -13132,7 +13132,7 @@ function renderMobileQuickActionSettingsList(mode = 'mobile') {
         const actionKey = getMobileQuickActionKey(action);
         const row = createElement('div', { className: 'sb-mobile-quick-action-current' });
         const copy = createElement('span', { className: 'sb-mobile-quick-action-copy' });
-        const title = createElement('strong', { text: action.label });
+        const title = createElement('strong', { text: tr(action.label) });
         const detail = createElement('small', { text: getMobileQuickActionContextLabel(action) });
         const controls = createElement('span', { className: 'sb-mobile-quick-action-controls' });
         const iconControl = createMobileQuickActionIconControl(action, actionKey, mode);
@@ -13141,7 +13141,7 @@ function renderMobileQuickActionSettingsList(mode = 'mobile') {
             text: 'Remove',
             attrs: {
                 type: 'button',
-                'aria-label': `Remove ${action.label} from ${modeLabel} Quick Actions`,
+                'aria-label': `Remove ${tr(action.label)} from ${modeLabel} Quick Actions`,
             },
         });
 
@@ -13611,10 +13611,10 @@ function updateShortcutButton(side) {
         icon.className = `fa-solid ${config.icon}`;
     }
     if (span) {
-        span.textContent = config.label;
+        span.textContent = tr(config.label);
     }
-    button.title = `Quick access: ${config.label}`;
-    button.setAttribute('aria-label', `Quick access: ${config.label}`);
+    button.title = `Quick access: ${tr(config.label)}`;
+    button.setAttribute('aria-label', `Quick access: ${tr(config.label)}`);
     button.dataset.sbUniversalSearchTrigger = String(isSearchShortcutTarget(target));
     syncTopbarIconsOnlyDedupe();
     syncShortcutButtonActiveStates();
@@ -14209,7 +14209,7 @@ function createSearchIndex(tabState, { includeThemeCard = false } = {}) {
             displayText,
             sectionLabel,
             tabId: tabState.id,
-            tabLabel: tabState.label,
+            tabLabel: tr(tabState.label),
             dedupeKey,
         });
     }
@@ -14249,7 +14249,7 @@ function getPersonaSearchEntries(tabState) {
             displayText: name,
             sectionLabel: 'Persona',
             tabId: tabState.id,
-            tabLabel: tabState.label,
+            tabLabel: tr(tabState.label),
             dedupeKey: getSearchEntryDedupeKey(tabState, 'Persona', name, { avatarId }),
             action: () => {
                 // Activate the persona tab and trigger ST's own persona search
@@ -14312,7 +14312,7 @@ function collectGlobalSearchMatches(query) {
     const matches = new Map();
 
     for (const [shellKey, shellState] of Object.entries(sbState.shells)) {
-        const shellLabel = getShellConfig(shellKey)?.title || shellKey;
+        const shellLabel = tr(getShellConfig(shellKey)?.title || shellKey);
 
         for (const tabState of shellState.tabs.values()) {
             if (!tabState.searchIndex) {
@@ -14393,7 +14393,7 @@ function getMobileQuickActionSearchMatches(query) {
     const matches = new Map();
 
     for (const [shellKey, shellState] of Object.entries(sbState.shells)) {
-        const shellLabel = getShellConfig(shellKey)?.title || shellKey;
+        const shellLabel = tr(getShellConfig(shellKey)?.title || shellKey);
 
         for (const tabState of shellState.tabs.values()) {
             for (const entry of getTabSearchEntries(tabState, { includeThemeCard: true })) {
@@ -14451,9 +14451,9 @@ function findMobileQuickActionMatch(action) {
     return {
         ...fallbackMatch,
         shellKey: normalizedAction.shellKey,
-        shellLabel: normalizedAction.shellKey === 'characters'
+        shellLabel: tr(normalizedAction.shellKey === 'characters'
             ? 'Characters'
-            : getShellConfig(normalizedAction.shellKey)?.title || normalizedAction.shellKey,
+            : getShellConfig(normalizedAction.shellKey)?.title || normalizedAction.shellKey),
     };
 }
 
@@ -14786,8 +14786,8 @@ function setActiveTab(shellKey, tabId, { focusButton = false } = {}) {
     queueTopbarPageStateSync();
 
     const activeTab = shellState.tabs.get(tabId);
-    shellState.headerTitle.textContent = activeTab.label;
-    renderShellSubtitle(shellState.headerSubtitle, activeTab.description ?? '', { isHtml: activeTab.descriptionIsHtml === true });
+    shellState.headerTitle.textContent = tr(activeTab.label);
+    renderShellSubtitle(shellState.headerSubtitle, tr(activeTab.description ?? ''), { isHtml: activeTab.descriptionIsHtml === true });
     scrollShellTabButtonIntoView(shellState.nav, activeTab.button, { smooth: focusButton });
     shellState.updateNavScrollIndicators?.();
 
@@ -15333,8 +15333,8 @@ function createMobileShellRailButton(item, actionHandler, className = '') {
 
     const buttonAttrs = {
         type: 'button',
-        title: action.label,
-        'aria-label': action.label,
+        title: tr(action.label),
+        'aria-label': tr(action.label),
         'data-sb-rail-action': getMobileQuickActionKey(action),
         'data-sb-rail-type': action.type,
         'data-sb-rail-shell-key': action.shellKey,
@@ -15355,7 +15355,7 @@ function createMobileShellRailButton(item, actionHandler, className = '') {
         },
     });
     const copy = createElement('span', { className: 'sb-shell-tab-copy' });
-    const label = createElement('strong', { text: action.label });
+    const label = createElement('strong', { text: tr(action.label) });
 
     copy.appendChild(label);
     button.append(icon, copy);
@@ -15785,7 +15785,7 @@ function updateMobileNavButtonLabel() {
     if (isOpen) {
         title = 'Close navigation';
     } else if (sbState.mobileNav.replaceQuickActions) {
-        title = `Open ${replacement.label}`;
+        title = `Open ${tr(replacement.label)}`;
     }
 
     button.title = title;
@@ -15802,8 +15802,8 @@ function createMobileQuickActionButton(item) {
         className: 'sb-nav-item',
         attrs: {
             type: 'button',
-            title: `Open ${action.label}`,
-            'aria-label': `Open ${action.label}`,
+            title: `Open ${tr(action.label)}`,
+            'aria-label': `Open ${tr(action.label)}`,
         },
     });
     const icon = createElement('i', {
@@ -15812,7 +15812,7 @@ function createMobileQuickActionButton(item) {
             'aria-hidden': 'true',
         },
     });
-    const label = createElement('span', { text: action.label });
+    const label = createElement('span', { text: tr(action.label) });
 
     button.append(icon, label);
     button.addEventListener('click', () => {
