@@ -316,7 +316,7 @@
         "type": "character"
     },
     {
-        "filename": "default_SillyBunnyGuide.png",
+        "filename": "default_FairyGuide.png",
         "type": "character"
     },
     {
@@ -488,11 +488,11 @@
         "type": "openai_preset"
     },
     {
-        "filename": "presets/openai/Pura's Director Preset (SillyBunny).json",
+        "filename": "presets/openai/Pura's Director Preset (Fairy).json",
         "type": "openai_preset"
     },
     {
-        "filename": "presets/openai/Pura's Director Preset 15.0 (SillyBunny).json",
+        "filename": "presets/openai/Pura's Director Preset 15.0 (Fairy).json",
         "type": "openai_preset"
     },
     {
@@ -932,15 +932,31 @@
         "type": "error_page"
     },
     {
-        "filename": "default_XiaoXian.json",
+        "filename": "default_XiaoXian.png",
         "type": "character"
     },
     {
-        "filename": "default_YueHua.json",
+        "filename": "default_YueHua.png",
         "type": "character"
     },
     {
-        "filename": "default_WenBiJiang.json",
+        "filename": "default_WenBiJiang.png",
+        "type": "character"
+    },
+    {
+        "filename": "default_Elysia.png",
+        "type": "character"
+    },
+    {
+        "filename": "default_LingDian.png",
+        "type": "character"
+    },
+    {
+        "filename": "default_ShenQingwu.png",
+        "type": "character"
+    },
+    {
+        "filename": "default_AssistantNahida.png",
         "type": "character"
     },
     {
