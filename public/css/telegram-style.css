@@ -1,0 +1,712 @@
+/* =============================================================================
+   Telegram-style UI theme for SillyBunny
+   -----------------------------------------------------------------------------
+   - Main color:  #0088cc (Telegram blue)
+   - Light bg:    #ffffff   Dark bg: #1c1c1c
+   - Bot bubble:  #effdde   User bubble: #0088cc
+   - Fonts:       Nunito / Pretendard
+   - Bottom nav (4 tabs): 对话 / 角色 / 资源 / 设置
+   - Top bar: search + settings button
+   - Sidebar: conversation list
+   - Page slide transition, message slide-in, drawer left-slide animations
+   Overrides existing SillyBunny styles with !important. Does not edit base files.
+   ============================================================================= */
+
+/* ---- Font imports (Nunito from Google, Pretendard from jsDelivr) ---- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+/* =============================================================================
+   1. Telegram theme tokens + SillyBunny variable overrides
+   ============================================================================= */
+:root {
+    /* Telegram palette */
+    --tg-primary: #0088cc !important;
+    --tg-primary-hover: #0099e6 !important;
+    --tg-primary-active: #0077b3 !important;
+    --tg-light-bg: #ffffff !important;
+    --tg-dark-bg: #1c1c1c !important;
+    --tg-bot-bubble: #effdde !important;
+    --tg-user-bubble: #0088cc !important;
+    --tg-header-light: #ffffff !important;
+    --tg-header-dark: #212121 !important;
+    --tg-sidebar-light: #ffffff !important;
+    --tg-sidebar-dark: #212121 !important;
+    --tg-divider-light: #e7e7e7 !important;
+    --tg-divider-dark: #2c2c2c !important;
+    --tg-text-primary-light: #000000 !important;
+    --tg-text-secondary-light: #707579 !important;
+    --tg-text-primary-dark: #ffffff !important;
+    --tg-text-secondary-dark: #aaaaaa !important;
+    --tg-user-bubble-text: #ffffff !important;
+    --tg-radius-sm: 8px !important;
+    --tg-radius-md: 12px !important;
+    --tg-radius-lg: 16px !important;
+    --tg-radius-xl: 22px !important;
+    --tg-bubble-radius: 12px !important;
+    --tg-nav-height: 56px !important;
+    --tg-topbar-height: 56px !important;
+    --tg-ease: cubic-bezier(0.22, 1, 0.36, 1) !important;
+    --tg-transition: 240ms var(--tg-ease) !important;
+
+    /* Override SillyBunny theme variables so every shell surface tracks Telegram */
+    --SmartThemeQuoteColor: #0088cc !important;
+    --SmartThemeUnderlineColor: #0088cc !important;
+    --color-primary: #0088cc !important;
+    --color-accent: #0099e6 !important;
+    --sb-accent: #0088cc !important;
+    --sb-accent-soft: #0099e6 !important;
+    --mainFontFamily: 'Nunito', 'Pretendard', 'Figtree', 'Noto Sans', sans-serif !important;
+    --sb-message-radius: 12px !important;
+    --sb-radius-md: 12px !important;
+    --sb-radius-lg: 16px !important;
+    --sb-radius-xl: 22px !important;
+}
+
+/* Light theme (default): page + surfaces render as Telegram light */
+:root {
+    --SmartThemeBodyColor: #000000 !important;
+    --SmartThemeBorderColor: #e7e7e7 !important;
+    --SmartThemeBlurTintColor: #ffffff !important;
+    --SmartThemeChatTintColor: #f4f4f5 !important;
+    --SmartThemeUserMesBlurTintColor: #0088cc !important;
+    --SmartThemeBotMesBlurTintColor: #effdde !important;
+    --SmartThemeShadowColor: #000000 !important;
+    --color-background: #ffffff !important;
+    --color-surface: #ffffff !important;
+    --color-surface-strong: #ffffff !important;
+    --color-surface-hover: #f0f8ff !important;
+    --sb-shell-main-bg: #ffffff !important;
+    --sb-shell-surface: #ffffff !important;
+    --sb-shell-nav-bg: #ffffff !important;
+    --sb-shell-header-bg: #ffffff !important;
+    --sb-shell-tab-active-bg: rgba(0, 136, 204, 0.12) !important;
+    --sb-shell-border: #e7e7e7 !important;
+    --sb-chat-surface-base: #ffffff !important;
+    --sb-input-bg: #f4f4f5 !important;
+    --sb-button-bg: #f4f4f5 !important;
+    --tg-page-bg: #ffffff !important;
+    --tg-page-fg: #000000 !important;
+    --tg-page-fg-muted: #707579 !important;
+    --tg-page-divider: #e7e7e7 !important;
+    --tg-header-bg: #ffffff !important;
+    --tg-sidebar-bg: #ffffff !important;
+}
+
+/* Dark theme: triggered by OS preference OR the manual body.tg-dark hook */
+@media (prefers-color-scheme: dark) {
+    :root:not(.tg-light) {
+        --SmartThemeBodyColor: #ffffff !important;
+        --SmartThemeBorderColor: #2c2c2c !important;
+        --SmartThemeBlurTintColor: #1c1c1c !important;
+        --SmartThemeChatTintColor: #232323 !important;
+        --SmartThemeUserMesBlurTintColor: #0088cc !important;
+        --SmartThemeBotMesBlurTintColor: #212121 !important;
+        --color-background: #1c1c1c !important;
+        --color-surface: #212121 !important;
+        --color-surface-strong: #232323 !important;
+        --color-surface-hover: #2a2a2a !important;
+        --sb-shell-main-bg: #1c1c1c !important;
+        --sb-shell-surface: #212121 !important;
+        --sb-shell-nav-bg: #1c1c1c !important;
+        --sb-shell-header-bg: #212121 !important;
+        --sb-shell-tab-active-bg: rgba(0, 136, 204, 0.22) !important;
+        --sb-shell-border: #2c2c2c !important;
+        --sb-chat-surface-base: #1c1c1c !important;
+        --sb-input-bg: #2a2a2a !important;
+        --sb-button-bg: #2a2a2a !important;
+        --tg-page-bg: #1c1c1c !important;
+        --tg-page-fg: #ffffff !important;
+        --tg-page-fg-muted: #aaaaaa !important;
+        --tg-page-divider: #2c2c2c !important;
+        --tg-header-bg: #212121 !important;
+        --tg-sidebar-bg: #212121 !important;
+    }
+}
+
+/* Manual dark override (use body.tg-dark to force dark, body.tg-light to force light) */
+body.tg-dark {
+    --SmartThemeBodyColor: #ffffff !important;
+    --SmartThemeBorderColor: #2c2c2c !important;
+    --SmartThemeBlurTintColor: #1c1c1c !important;
+    --SmartThemeChatTintColor: #232323 !important;
+    --SmartThemeUserMesBlurTintColor: #0088cc !important;
+    --SmartThemeBotMesBlurTintColor: #212121 !important;
+    --color-background: #1c1c1c !important;
+    --color-surface: #212121 !important;
+    --color-surface-strong: #232323 !important;
+    --color-surface-hover: #2a2a2a !important;
+    --sb-shell-main-bg: #1c1c1c !important;
+    --sb-shell-surface: #212121 !important;
+    --sb-shell-nav-bg: #1c1c1c !important;
+    --sb-shell-header-bg: #212121 !important;
+    --sb-shell-tab-active-bg: rgba(0, 136, 204, 0.22) !important;
+    --sb-shell-border: #2c2c2c !important;
+    --sb-chat-surface-base: #1c1c1c !important;
+    --sb-input-bg: #2a2a2a !important;
+    --sb-button-bg: #2a2a2a !important;
+    --tg-page-bg: #1c1c1c !important;
+    --tg-page-fg: #ffffff !important;
+    --tg-page-fg-muted: #aaaaaa !important;
+    --tg-page-divider: #2c2c2c !important;
+    --tg-header-bg: #212121 !important;
+    --tg-sidebar-bg: #212121 !important;
+}
+
+/* =============================================================================
+   2. Base typography + page surface
+   ============================================================================= */
+html,
+body {
+    font-family: 'Nunito', 'Pretendard', 'Figtree', 'Noto Sans', sans-serif !important;
+    background-color: var(--tg-page-bg) !important;
+    color: var(--tg-page-fg) !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+#bg1 {
+    background: var(--tg-page-bg) !important;
+    opacity: 1 !important;
+}
+
+/* =============================================================================
+   3. Top bar (search + settings button)
+   ============================================================================= */
+#top-bar {
+    background: var(--tg-header-bg) !important;
+    border-bottom: 1px solid var(--tg-page-divider) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Search field inside the top bar / shell headers */
+#top-bar .text_pole[type="text"],
+#top-bar input[type="search"],
+.sb-shell-search input,
+.sb-shell-search .text_pole,
+#chatSearchForm .text_pole,
+.findChatMessage {
+    background-color: color-mix(in srgb, var(--tg-page-bg) 88%, var(--tg-primary) 12%) !important;
+    border: none !important;
+    border-radius: var(--tg-radius-xl) !important;
+    padding: 8px 14px !important;
+    color: var(--tg-page-fg) !important;
+    font-family: 'Nunito', 'Pretendard', sans-serif !important;
+    font-size: 14px !important;
+    min-height: 40px !important;
+}
+
+#top-bar .text_pole::placeholder,
+.sb-shell-search input::placeholder,
+#chatSearchForm .text_pole::placeholder {
+    color: var(--tg-page-fg-muted) !important;
+}
+
+/* Settings / gear buttons in the top bar cluster */
+#top-bar .menu_button,
+#top-bar .menu_button_icon,
+#sb-right-shell-toggle,
+#sb-left-shell-toggle {
+    border-radius: var(--tg-radius-md) !important;
+    color: var(--tg-page-fg) !important;
+    background: transparent !important;
+    transition: background var(--tg-transition), color var(--tg-transition) !important;
+}
+
+#top-bar .menu_button:hover,
+#top-bar .menu_button_icon:hover,
+#sb-right-shell-toggle:hover,
+#sb-left-shell-toggle:hover {
+    background: color-mix(in srgb, var(--tg-primary) 14%, transparent) !important;
+    color: var(--tg-primary) !important;
+}
+
+/* =============================================================================
+   4. Sidebar (conversation list) — left shell + character list rail
+   ============================================================================= */
+#left-nav-panel,
+#right-nav-panel,
+.user-settings-block,
+.sb-shell-root,
+.sb-shell-panel,
+.sb-shell-panel-scroller {
+    background: var(--tg-sidebar-bg) !important;
+    color: var(--tg-page-fg) !important;
+    font-family: 'Nunito', 'Pretendard', sans-serif !important;
+}
+
+.sb-shell-header,
+.sb-character-shell-header {
+    background: var(--tg-sidebar-bg) !important;
+    border-bottom: 1px solid var(--tg-page-divider) !important;
+}
+
+.sb-shell-title {
+    color: var(--tg-page-fg) !important;
+    font-weight: 700 !important;
+}
+
+.sb-shell-subtitle,
+.sb-shell-description {
+    color: var(--tg-page-fg-muted) !important;
+}
+
+/* Conversation / character list rows */
+.sb-shell-panel-scroller .character_select,
+.sb-shell-panel-scroller .persona_select,
+#rm_print_characters_block .character_select,
+#character_list .character_select,
+#persona_list .persona_select,
+.chatList .chatListItem {
+    border-radius: var(--tg-radius-md) !important;
+    margin-bottom: 2px !important;
+    border: none !important;
+    background: transparent !important;
+    transition: background var(--tg-transition) !important;
+}
+
+.sb-shell-panel-scroller .character_select:hover,
+#rm_print_characters_block .character_select:hover,
+#character_list .character_select:hover,
+.chatList .chatListItem:hover {
+    background: color-mix(in srgb, var(--tg-primary) 10%, transparent) !important;
+}
+
+.sb-shell-panel-scroller .character_select.is-active,
+#rm_print_characters_block .character_select.is-active,
+#character_list .character_select.selected,
+.chatList .chatListItem.active {
+    background: color-mix(in srgb, var(--tg-primary) 16%, transparent) !important;
+}
+
+/* =============================================================================
+   5. Bottom navigation bar (4 tabs: 对话 / 角色 / 资源 / 设置)
+   ============================================================================= */
+.sb-shell-nav,
+.sb-character-shell-nav {
+    background: var(--tg-sidebar-bg) !important;
+    border-top: 1px solid var(--tg-page-divider) !important;
+    min-height: var(--tg-nav-height) !important;
+    padding: 4px 8px !important;
+    gap: 2px !important;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+.sb-shell-tab,
+.sb-shell-rail-action {
+    flex: 1 1 0 !important;
+    min-height: var(--tg-nav-height) !important;
+    border-radius: var(--tg-radius-md) !important;
+    background: transparent !important;
+    color: var(--tg-page-fg-muted) !important;
+    border: none !important;
+    padding: 6px 4px !important;
+    gap: 2px !important;
+    transition: background var(--tg-transition), color var(--tg-transition) !important;
+    font-family: 'Nunito', 'Pretendard', sans-serif !important;
+}
+
+.sb-shell-tab i,
+.sb-shell-rail-action i {
+    color: var(--tg-page-fg-muted) !important;
+    font-size: 20px !important;
+    transition: color var(--tg-transition) !important;
+}
+
+.sb-shell-tab-copy strong,
+.sb-shell-tab-copy {
+    color: var(--tg-page-fg-muted) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.2px !important;
+}
+
+/* Active tab: Telegram blue accent */
+.sb-shell-tab.is-active,
+.sb-shell-tab:is(.active, .selected, .is-selected, .is-current),
+.sb-shell-tab[aria-selected='true'],
+.sb-shell-tab[aria-current],
+.sb-shell-rail-action.is-active {
+    background: color-mix(in srgb, var(--tg-primary) 14%, transparent) !important;
+    color: var(--tg-primary) !important;
+}
+
+.sb-shell-tab.is-active i,
+.sb-shell-tab[aria-selected='true'] i,
+.sb-shell-rail-action.is-active i,
+.sb-shell-tab.is-active .sb-shell-tab-copy strong,
+.sb-shell-tab.is-active .sb-shell-tab-copy {
+    color: var(--tg-primary) !important;
+}
+
+/* =============================================================================
+   6. Chat shell + message bubbles
+   ============================================================================= */
+#sheld {
+    background: var(--tg-page-bg) !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+#chat {
+    background: var(--tg-page-bg) !important;
+    padding: 8px 0 16px !important;
+}
+
+/* Each message row */
+#chat .mes {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 2px 12px !important;
+    margin: 0 !important;
+}
+
+/* Force Telegram bubble layout: clear previous bubble styles */
+#chat .mes .mes_block {
+    background-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    transform: none !important;
+}
+
+/* Message text bubble */
+#chat .mes .mes_text {
+    display: inline-block !important;
+    max-width: min(80%, 560px) !important;
+    padding: 8px 12px !important;
+    border-radius: var(--tg-bubble-radius) !important;
+    font-family: 'Nunito', 'Pretendard', sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    word-wrap: break-word !important;
+}
+
+/* Other side (bot/character) message: green Telegram bubble, aligned left */
+#chat .mes[is_user="false"] .mes_text {
+    background-color: #effdde !important;
+    color: #000000 !important;
+    border-radius: var(--tg-bubble-radius) var(--tg-bubble-radius) var(--tg-bubble-radius) 4px !important;
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
+
+/* Own (user) message: Telegram blue bubble, aligned right */
+#chat .mes[is_user="true"] .mes_text {
+    background-color: #0088cc !important;
+    color: #ffffff !important;
+    border-radius: var(--tg-bubble-radius) var(--tg-bubble-radius) 4px var(--tg-bubble-radius) !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+/* Keep bubble readable in dark mode: keep bubble fills, adjust secondary text only */
+body.tg-dark #chat .mes[is_user="false"] .mes_text {
+    background-color: #182522 !important;
+    color: #ffffff !important;
+}
+
+/* Align whole message rows: bot left, user right */
+#chat .mes[is_user="false"] .mes_block {
+    text-align: left !important;
+}
+
+#chat .mes[is_user="true"] .mes_block {
+    text-align: right !important;
+}
+
+/* Sender name + meta lines stay muted and tight */
+#chat .mes .ch_name,
+#chat .mes .mesIDDisplay,
+#chat .mes .mes_timer {
+    color: var(--tg-page-fg-muted) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+/* System / small messages keep flat */
+#chat .mes.smallSysMes,
+#chat .mes.smallSysMes .mes_text {
+    background: transparent !important;
+    color: var(--tg-page-fg-muted) !important;
+    text-align: center !important;
+    max-width: 100% !important;
+}
+
+/* =============================================================================
+   7. Message composer (input bar)
+   ============================================================================= */
+#form_sheld,
+#send_form {
+    background: var(--tg-header-bg) !important;
+    border: none !important;
+    border-top: 1px solid var(--tg-page-divider) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+#send_textarea {
+    background-color: color-mix(in srgb, var(--tg-page-bg) 92%, var(--tg-primary) 8%) !important;
+    border: none !important;
+    border-radius: var(--tg-radius-xl) !important;
+    padding: 10px 16px !important;
+    color: var(--tg-page-fg) !important;
+    font-family: 'Nunito', 'Pretendard', sans-serif !important;
+    font-size: 15px !important;
+    min-height: 42px !important;
+}
+
+#send_textarea::placeholder {
+    color: var(--tg-page-fg-muted) !important;
+}
+
+/* Send button = Telegram blue circle */
+#send_but,
+#mes_continue,
+#mes_impersonate,
+#sb_prose_polisher_but,
+#mes_stop {
+    color: var(--tg-primary) !important;
+    transition: color var(--tg-transition), transform var(--tg-transition) !important;
+}
+
+#send_but:hover,
+#mes_continue:hover {
+    color: var(--tg-primary-hover) !important;
+    transform: scale(1.06) !important;
+}
+
+#send_but:active {
+    color: var(--tg-primary-active) !important;
+    transform: scale(0.96) !important;
+}
+
+/* =============================================================================
+   8. Buttons, inputs, drawers (general Telegram treatment)
+   ============================================================================= */
+.menu_button,
+.menu_button_icon {
+    border-radius: var(--tg-radius-md) !important;
+    font-family: 'Nunito', 'Pretendard', sans-serif !important;
+    transition: background var(--tg-transition), color var(--tg-transition) !important;
+}
+
+.menu_button:hover,
+.menu_button_icon:hover {
+    background: color-mix(in srgb, var(--tg-primary) 12%, transparent) !important;
+    color: var(--tg-primary) !important;
+}
+
+.text_pole,
+select.text_pole,
+textarea.text_pole {
+    border-radius: var(--tg-radius-md) !important;
+    font-family: 'Nunito', 'Pretendard', sans-serif !important;
+}
+
+/* Primary action buttons adopt Telegram blue */
+#dialogue_del_mes_ok,
+.draw QPushButton,
+.menu_button.primary {
+    background-color: var(--tg-primary) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: var(--tg-radius-md) !important;
+}
+
+#dialogue_del_mes_ok:hover {
+    background-color: var(--tg-primary-hover) !important;
+}
+
+/* =============================================================================
+   9. Page transition (slide) animation
+   -----------------------------------------------------------------------------
+   Applies when a shell tab/page switches. SillyBunny toggles .is-active on
+   .sb-shell-tab and swaps the active .sb-shell-panel-scroller content, so we
+   animate the panel scroller and tab content on activation.
+   ============================================================================= */
+@keyframes tg-page-slide-in {
+    0% {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes tg-page-slide-out {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-24px);
+    }
+}
+
+.sb-shell-panel-scroller,
+.sb-shell-main,
+.sb-managed.sb-shell-embedded-content {
+    animation: tg-page-slide-in var(--tg-transition) both !important;
+}
+
+/* Re-trigger the slide whenever a tab becomes active */
+.sb-shell-tab.is-active ~ .sb-shell-panel-scroller,
+.sb-shell-tab[aria-selected='true'] ~ .sb-shell-panel-scroller {
+    animation: tg-page-slide-in var(--tg-transition) both !important;
+}
+
+/* =============================================================================
+   10. Message send slide-in animation
+   ============================================================================= */
+@keyframes tg-message-slide-in {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* New/last message slides in. .last_mes is the SillyBunny marker for the newest row. */
+#chat .mes.last_mes,
+#chat .mes.is-last,
+#chat .mes:last-child {
+    animation: tg-message-slide-in 320ms var(--tg-ease) both !important;
+}
+
+/* User messages slide in from the right, bot messages from the left, for character. */
+#chat .mes.last_mes[is_user="true"],
+#chat .mes:last-child[is_user="true"] {
+    animation-name: tg-message-slide-in-right !important;
+}
+
+#chat .mes.last_mes[is_user="false"],
+#chat .mes:last-child[is_user="false"] {
+    animation-name: tg-message-slide-in-left !important;
+}
+
+@keyframes tg-message-slide-in-right {
+    0% {
+        opacity: 0;
+        transform: translateX(18px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes tg-message-slide-in-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-18px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* =============================================================================
+   11. Drawer menu left-slide animation
+   -----------------------------------------------------------------------------
+   SillyBunny drawers carry .drawer-content with .closedDrawer / .openDrawer.
+   We slide them in from the left edge when they open.
+   ============================================================================= */
+@keyframes tg-drawer-slide-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes tg-drawer-slide-out {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+.drawer-content.openDrawer {
+    animation: tg-drawer-slide-in var(--tg-transition) both !important;
+}
+
+/* Left-fill drawers (workspace) slide from the left; right-fill drawers slide from the right. */
+.drawer-content.fillLeft.openDrawer {
+    animation: tg-drawer-slide-in var(--tg-transition) both !important;
+}
+
+@keyframes tg-drawer-slide-in-right {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.drawer-content.fillRight.openDrawer,
+#right-nav-panel.openDrawer,
+#user-settings-block.openDrawer {
+    animation: tg-drawer-slide-in-right var(--tg-transition) both !important;
+}
+
+/* When a drawer is closing, let it slide back out instead of vanishing instantly. */
+.drawer-content.closedDrawer:not(.openDrawer) {
+    animation: tg-drawer-slide-out 200ms var(--tg-ease) both !important;
+}
+
+/* =============================================================================
+   12. Scrollbars — slim Telegram-style
+   ============================================================================= */
+*::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--tg-page-fg-muted) 50%, transparent) !important;
+    border-radius: 3px !important;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+/* =============================================================================
+   13. Reduced motion guard
+   ============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

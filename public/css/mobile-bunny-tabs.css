@@ -1,0 +1,106 @@
+/* CUSTOM mobile-bunny-tabs.css — 手机底部 Tab 导航（聊天/角色/世界/设置）*/
+
+@media (max-width: 768px) {
+
+    #bunny-mobile-tabs {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10000;
+        display: flex;
+        justify-content: space-around;
+        align-items: stretch;
+        height: calc(54px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        background: var(--sb-shell-surface, var(--SmartThemeBlurTintColor));
+        -webkit-backdrop-filter: blur(20px) saturate(1.6);
+        backdrop-filter: blur(20px) saturate(1.6);
+        border-top: 1px solid var(--sb-shell-border, rgba(120, 120, 120, 0.25));
+        box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.14);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: pan-y;
+    }
+
+    #bunny-mobile-tabs .btab {
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        min-width: 0;
+        padding: 8px 2px 4px;
+        border: none;
+        background: none;
+        color: var(--SmartThemeBodyColor);
+        font-family: inherit;
+        font-size: 0.68rem;
+        font-weight: 500;
+        line-height: 1.1;
+        opacity: 0.52;
+        -webkit-tap-highlight-color: transparent;
+        transition: opacity 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+
+    #bunny-mobile-tabs .btab svg {
+        width: 22px;
+        height: 22px;
+        display: block;
+    }
+
+    #bunny-mobile-tabs .btab span {
+        white-space: nowrap;
+    }
+
+    #bunny-mobile-tabs .btab:active {
+        transform: scale(0.92);
+    }
+
+    #bunny-mobile-tabs .btab.active {
+        opacity: 1;
+        color: var(--color-primary, var(--sb-accent, var(--SmartThemeQuoteColor)));
+        font-weight: 600;
+    }
+
+    /* 顶部小指示条（iOS 风格动效） */
+    #bunny-mobile-tabs .btab::before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        width: 30px;
+        height: 3px;
+        border-radius: 3px;
+        background: var(--color-primary, var(--sb-accent, var(--SmartThemeQuoteColor)));
+        transform: translateX(-50%) scaleX(0);
+        opacity: 0;
+        transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+    }
+
+    #bunny-mobile-tabs .btab.active::before {
+        transform: translateX(-50%) scaleX(1);
+        opacity: 1;
+    }
+
+    /* 聊天主舞台让位给 Tab 栏 */
+    body:not(.movingUI) #sheld {
+        height: calc(var(--sb-shell-viewport-height, 100dvh) - var(--sb-topbar-layout-offset, var(--topBarBlockSize)) - 58px) !important;
+        max-height: calc(var(--sb-shell-viewport-height, 100dvh) - var(--sb-topbar-layout-offset, var(--topBarBlockSize)) - 58px) !important;
+    }
+
+    /* 抽屉面板避开 Tab 栏（全屏高度减去一行 Tab） */
+    #right-nav-panel,
+    #left-nav-panel,
+    #WorldInfo,
+    #user-settings-block,
+    #floatingPrompt,
+    #cfgConfig,
+    #logprobsViewer,
+    #movingDivs > div {
+        height: calc(100dvh - var(--sb-topbar-layout-offset, var(--topBarBlockSize)) - 58px) !important;
+        max-height: calc(100dvh - var(--sb-topbar-layout-offset, var(--topBarBlockSize)) - 58px) !important;
+    }
+}

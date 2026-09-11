@@ -157,7 +157,7 @@ export function getWorldInfoContextBudget(scriptModule) {
         : scriptModule?.max_context;
     const maxContext = Number(value);
     if (!Number.isFinite(maxContext) || maxContext <= 0) {
-        throw new Error("SillyTavern World Info context budget is unavailable");
+        throw new Error("Fairy World Info context budget is unavailable");
     }
     return maxContext;
 }

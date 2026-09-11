@@ -13,7 +13,7 @@ import {
 async function executeSTScriptCommand(command) {
     const context = getContext();
     if (typeof context?.executeSlashCommandsWithOptions !== 'function') {
-        throw new Error('SillyTavern slash command execution is not available.');
+        throw new Error('Slash command execution is not available.');
     }
 
     await context.executeSlashCommandsWithOptions(command);

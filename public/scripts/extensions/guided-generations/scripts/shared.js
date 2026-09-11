@@ -97,7 +97,7 @@ async function flushActiveGuides() {
 
     const context = getContext();
     if (typeof context?.executeSlashCommandsWithOptions !== 'function') {
-        throw new Error('SillyTavern slash command execution is not available.');
+        throw new Error('Slash command execution is not available.');
     }
 
     for (const id of activeGuides) {

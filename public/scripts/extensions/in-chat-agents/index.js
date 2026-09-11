@@ -6,6 +6,7 @@ import { download, escapeHtml, escapeRegex, getSortableDelay, uuidv4 } from '../
 import { activateSendButtons, CLIENT_VERSION, chat, deactivateSendButtons, getCurrentChatId, getRequestHeaders, generateQuietPrompt, is_send_press, normalizeContentText, saveChatDebounced, saveSettingsDebounced, substituteParams } from '../../../script.js';
 import { eventSource, event_types } from '../../events.js';
 import { is_group_generating } from '../../group-chats.js';
+import { installZhCnLocalization } from './zh-cn.js';
 import {
     areAgentsGloballyEnabled,
     getAgents,
@@ -5605,6 +5606,7 @@ async function refinePromptWithAI(currentPrompt, category, phase, connectionProf
 
     $('#in_chat_agents_container').append(settingsHtml);
     attachTextareaFullscreen($('#ica--settings'));
+    installZhCnLocalization();
 
     const savedState = extension_settings.inChatAgents;
     const legacyGroups = Array.isArray(savedState?.groups)

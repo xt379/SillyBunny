@@ -1,16 +1,21 @@
 {
-  "name": "sillytavern-electron",
+  "name": "sillybunny-desktop",
+  "productName": "SillyBunny 婵娟",
   "version": "1.0.0",
-  "description": "Electron server for SillyTavern",
+  "description": "Electron desktop shell for the SillyBunny chat server",
   "license": "AGPL-3.0",
-  "author": "",
-  "type": "module",
+  "author": "SillyBunny",
   "main": "index.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "pack": "electron-packager . sillybunny-desktop --platform=win32 --arch=x64 --out=dist --overwrite --prune=false --icon=icon.ico --app-version=1.0.0 --win32metadata.ProductName=\"SillyBunny 婵娟\""
   },
   "dependencies": {
     "electron": "^41.1.1"
+  },
+  "devDependencies": {
+    "electron-packager": "^17.1.2",
+    "png-to-ico": "^2.1.8"
   }
 }

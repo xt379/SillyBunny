@@ -1820,13 +1820,13 @@ function applySillyBunnyPalettePreset(presetId) {
     applyBlurStrength();
     applyShadowWidth();
     saveSettingsDebounced();
-    toastr.success(`${preset.label} applied.`, 'SillyBunny palette');
+    toastr.success(`${preset.label} applied.`, 'Fairy palette');
 
     if (power_user.fast_ui_mode && preset.values.blur_strength !== undefined) {
-        toastr.warning('Blur effects are disabled while Fast UI Mode is on.', 'SillyBunny palette', { timeOut: 4000 });
+        toastr.warning('Blur effects are disabled while Fast UI Mode is on.', 'Fairy palette', { timeOut: 4000 });
     }
     if (power_user.noShadows && preset.values.shadow_width !== undefined) {
-        toastr.warning('Text shadows are disabled while No Shadows mode is on.', 'SillyBunny palette', { timeOut: 4000 });
+        toastr.warning('Text shadows are disabled while No Shadows mode is on.', 'Fairy palette', { timeOut: 4000 });
     }
 }
 
@@ -5120,7 +5120,7 @@ jQuery(async () => {
     $(document).on('click', '.sb-theme-preset-reset', function () {
         applyTheme('Dark V 1.0');
         saveSettingsDebounced();
-        toastr.info('Theme colors reset to Dark V 1.0.', 'SillyBunny palette');
+        toastr.info('Theme colors reset to Dark V 1.0.', 'Fairy palette');
     });
 
     // Accent color presets
@@ -5169,7 +5169,7 @@ jQuery(async () => {
 
         if (quoteColor && underlineColor) {
             applyAccentColors(quoteColor, underlineColor);
-            toastr.info('Accent colors applied.', 'SillyBunny palette');
+            toastr.info('Accent colors applied.', 'Fairy palette');
         }
     });
 

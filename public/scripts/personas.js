@@ -921,7 +921,7 @@ export async function convertPersonaToCharacter(avatarId = user_avatar) {
     formData.append('scenario', '');
     formData.append('first_mes', '');
     formData.append('creator_notes', t`Created from persona: ${personaName}`);
-    formData.append('creator', 'SillyBunny Persona Converter');
+    formData.append('creator', 'Fairy Persona Converter');
     formData.append('tags', 'persona-converted');
     formData.append('fav', 'false');
     formData.append('extensions', JSON.stringify({}));

@@ -3091,7 +3091,7 @@ function normalizeBackgroundMode(value) {
 }
 
 const QIG_RELAY_BASE = "/api/plugins/quick-image-gen-relay";
-const CORS_PROXY_BASIC_AUTH_MESSAGE = "SillyTavern basicAuthMode is blocking the CORS proxy for requests that need their own Authorization header. Install the optional Quick Image Gen server plugin (see README), or disable basicAuthMode to use CivitAI/Replicate.";
+const CORS_PROXY_BASIC_AUTH_MESSAGE = "Fairy basicAuthMode is blocking the CORS proxy for requests that need their own Authorization header. Install the optional Quick Image Gen server plugin (see README), or disable basicAuthMode to use CivitAI/Replicate.";
 
 class CorsProxyBasicAuthError extends Error {
     constructor(url) {
@@ -10263,7 +10263,7 @@ async function deleteContextMediaServerPath(path) {
 }
 
 async function uploadContextMediaFiles(files, target) {
-    if (typeof saveBase64AsFile !== "function") throw new Error("SillyTavern media saving is unavailable");
+    if (typeof saveBase64AsFile !== "function") throw new Error("Fairy media saving is unavailable");
     const selection = validateContextMediaFileSelection(files);
     if (!selection.valid) throw new Error(selection.errors[0] || "Invalid Context Media file selection");
     const accepted = [];
@@ -10996,7 +10996,7 @@ async function finalizeGeneratedEntry(providerResult, prompt, negative, settings
             ? (finalized.saved ? "saved" : "failed")
             : "not-requested";
         const serverPath = finalized.saved ? normalizeSavedImagePath(finalUrl) : "";
-        if (finalized.saved && !serverPath) throw new Error("SillyTavern returned an invalid saved image path");
+        if (finalized.saved && !serverPath) throw new Error("Fairy returned an invalid saved image path");
         const stableUrl = serverPath || await persistImageUrl(finalUrl, { signal: options.signal });
         options.commitGuard?.();
         const sourceUrl = blobUrls.has(finalUrl) && stableUrl !== finalUrl ? stableUrl : finalUrl;
@@ -14827,7 +14827,7 @@ function updateCharacterSettingsUI() {
     }
     if (inheritedStatus) {
         inheritedStatus.textContent = inherited
-            ? "SillyTavern character prefixes are inherited for this character."
+            ? "Character prefixes are inherited for this character."
             : "No SillyTavern character-specific prefixes are active.";
     }
     if (saveButton) {

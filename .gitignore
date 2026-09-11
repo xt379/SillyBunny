@@ -32,5 +32,4 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Local PWA cache (regenerated)
-public/sw.js
+# PWA Service Worker - required for install/update on mobile; must ship to deployment

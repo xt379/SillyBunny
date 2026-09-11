@@ -154,7 +154,7 @@ export async function getVersion() {
         // suppress exception
     }
 
-    const agent = `SillyBunny:${pkgVersion}:fork`;
+    const agent = `Fairy:${pkgVersion}:fork`;
     return { agent, pkgVersion, gitRevision, gitBranch, commitDate: commitDate?.trim() ?? null, isLatest };
 }
 

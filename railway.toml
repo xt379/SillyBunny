@@ -1,2 +1,12 @@
 [deploy]
 healthcheckType = "tcp"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+[variables]
+# 公网部署必需：监听所有网卡
+LISTEN = "true"
+# 关闭 IP 白名单（Railway 动态 IP 不适用白名单），改用用户账户体系保护
+WHITELIST_MODE = "false"
+# 启用用户账户（首次访问需注册 admin 账号，之后登录使用）
+ENABLE_USER_ACCOUNTS = "true"

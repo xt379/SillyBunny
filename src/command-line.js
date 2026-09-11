@@ -4,7 +4,7 @@ import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import ipRegex from 'ip-regex';
 import envPaths from 'env-paths';
-import { APP_NAME } from './runtime.js';
+import { DATA_DIR_NAME } from './runtime.js';
 import { color, getConfigValue, stringToBool } from './util.js';
 import { initConfig } from './config-init.js';
 
@@ -52,7 +52,7 @@ export class CommandLineParser {
      * @returns {CommandLineArguments} Default configuration values
      */
     getDefaultConfig(isGlobal) {
-        const appPaths = envPaths(APP_NAME, { suffix: '' });
+        const appPaths = envPaths(DATA_DIR_NAME, { suffix: '' });
         const configPath = isGlobal ? path.join(appPaths.data, 'config.yaml') : './config.yaml';
         const dataPath = isGlobal ? path.join(appPaths.data, 'data') : './data';
         return Object.freeze({

@@ -24,7 +24,7 @@ function isProcessAlive(pid) {
 
 function buildVisibleWindowsCommand(command, cwd) {
     const quoted = command.map(value => `"${String(value).replace(/"/g, '\\"')}"`).join(' ');
-    const title = 'SillyBunny Server';
+    const title = 'Fairy Server';
     return [
         'cmd.exe',
         [

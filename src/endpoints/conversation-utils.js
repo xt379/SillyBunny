@@ -927,7 +927,7 @@ async function fetchRemoteImage(imageUrl, { signal, maxBytes, redirectsRemaining
             agent,
             headers: {
                 'Connection': 'close',
-                'User-Agent': 'SillyBunny-Conversation-API/1.0',
+                'User-Agent': 'Fairy-Conversation-API/1.0',
             },
             lookup: createConversationPinnedLookup(resolved.address, resolved.family),
         }, response => {

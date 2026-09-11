@@ -372,7 +372,7 @@ function safeRemoveItem(key) {
 
 bindSbStorageFlushEvents();
 
-const SB_IDLE_BRAND_LABEL = 'SillyBunny';
+const SB_IDLE_BRAND_LABEL = 'Fairy';
 const SB_MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 const SB_SURFACE_TRANSPARENCY = Object.freeze({
     min: 0,
@@ -12709,7 +12709,7 @@ function injectSillyTavernImportCard() {
         attrs: {
             type: 'text',
             placeholder: '/path/to/SillyTavern',
-            'aria-label': 'SillyTavern folder path',
+            'aria-label': 'Fairy folder path',
             autocomplete: 'off',
             spellcheck: 'false',
             title: 'You can paste a full SillyTavern install path, its data folder, or a specific user folder.',
@@ -13669,7 +13669,7 @@ function createTopbarLabelSettingsGroup() {
         attrs: {
             type: 'text',
             maxlength: String(SB_TOPBAR_LABEL_CUSTOM_TEXT_MAX_LENGTH),
-            placeholder: 'SillyBunny',
+            placeholder: 'Fairy',
             'aria-label': 'Top bar custom text',
         },
     });

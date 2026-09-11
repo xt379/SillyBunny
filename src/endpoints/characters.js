@@ -1375,7 +1375,7 @@ router.post('/edit', validateAvatarUrlMiddleware, async function (request, respo
             if (suspiciousEmptyFields.length > 0) {
                 const fieldList = suspiciousEmptyFields.map(field => field.label).join(', ');
                 const message = [
-                    'SillyBunny blocked this character save because previously populated definition fields were submitted empty:',
+                    'Fairy blocked this character save because previously populated definition fields were submitted empty:',
                     `${fieldList}.`,
                     'Reload the page before editing this character again, or confirm the save if you intentionally cleared those fields.',
                 ].join(' ');

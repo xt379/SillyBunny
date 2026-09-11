@@ -245,7 +245,7 @@
             return;
         }
 
-        var details = message || 'SillyBunny startup failed.';
+        var details = message || 'Fairy startup failed.';
         var errorDetails = describeError(error);
 
         if (errorDetails && details.indexOf(errorDetails) === -1) {
@@ -370,7 +370,7 @@
             return;
         }
 
-        showFailure(lastFailure || 'Startup timed out before SillyBunny removed the preloader.');
+        showFailure(lastFailure || 'Startup timed out before Fairy removed the preloader.');
     }
 
     function showFailure(details) {
@@ -393,7 +393,7 @@
         panel.style.cssText = 'width:min(100%,520px);max-height:calc(100vh - 48px);overflow:auto;border:1px solid rgba(255,255,255,.22);border-radius:18px;background:#0e1218;box-shadow:0 20px 60px rgba(0,0,0,.55);padding:22px;line-height:1.45;';
 
         var title = document.createElement('h1');
-        title.textContent = 'SillyBunny could not finish loading';
+        title.textContent = 'Fairy could not finish loading';
         title.style.cssText = 'margin:0 0 10px;font-size:22px;line-height:1.2;color:#f4f7fb;';
 
         var message = document.createElement('p');
@@ -431,7 +431,7 @@
         summaryTitle.textContent = 'Startup error details';
 
         var pre = document.createElement('pre');
-        pre.textContent = details || lastFailure || 'Startup timed out before SillyBunny removed the preloader.';
+        pre.textContent = details || lastFailure || 'Startup timed out before Fairy removed the preloader.';
         pre.style.cssText = 'white-space:pre-wrap;word-break:break-word;margin:10px 0 0;padding:12px;border-radius:10px;background:#0f172a;color:#e2e8f0;font-size:12px;';
 
         summary.appendChild(summaryTitle);

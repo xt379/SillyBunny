@@ -15,7 +15,7 @@ const GITHUB_RELEASE_DOWNLOAD_PREFIX = `/${GITHUB_OWNER}/${GITHUB_REPO}/releases
 const RELEASE_ZIP_PREFIX = 'SillyBunny-v';
 const RELEASE_ZIP_SUFFIX = '-github.zip';
 const REQUEST_TIMEOUT_MS = 15000;
-const USER_AGENT = 'SillyBunny ZIP updater';
+const USER_AGENT = 'Fairy ZIP updater';
 
 function normalizeVersion(value) {
     return String(value ?? '').trim().replace(/^v/i, '');

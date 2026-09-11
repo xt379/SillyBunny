@@ -1,6 +1,7 @@
 import process from 'node:process';
 
-export const APP_NAME = 'SillyBunny';
+export const APP_NAME = 'Fairy';
+export const DATA_DIR_NAME = 'SillyBunny';
 
 export function isBunRuntime() {
     return typeof Bun !== 'undefined' || Boolean(process.versions?.bun);

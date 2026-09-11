@@ -1,0 +1,16 @@
+node_modules/
+.git/
+.gitignore
+data/
+backups/
+uploads/
+secrets/
+secrets.json
+*.secret
+/config.yaml
+/config/
+*.log
+logs/
+# PWA Service Worker 必须部署（手机 app 安装/更新依赖），不能排除
+certs/
+*.zip
